@@ -9,27 +9,43 @@ class Patch;
 
 class Property {
 public:
-    Property(Library &library, const String &name) :
+    enum SelectedState {
+        Unselected,
+        Selected,
+        PartiallySelected,
+    };
+
+    Property(Library *library, const String &name) :
         _library(library),
         _name(name),
-        _hidden(false)
+        _visible(true),
+        _selected(false)
     {
     }
-    virtual ~Property() {
+
+    virtual ~Property()
+    {
     }
 
     const String &name() const { return _name; }
 
-    bool hidden() const { return _hidden; }
-    void setHidden(bool hidden) { _hidden = hidden; }
+    bool visible() const { return _visible; }
+    void setVisible(bool visible) { _visible = visible; }
+
+    virtual bool selected() const { return _selected; }
+    virtual void setSelected(bool selected) { _selected = selected; }
+    virtual SelectedState selectedState() const { return _selected ? Selected : Unselected; }
+
+    virtual void assign(const Property &other, bool selectedOnly) = 0;
 
     virtual bool loadFromXml(XmlElement *xml) = 0;
     virtual bool saveToXml(XmlElement *xml) = 0;
 
 protected:
-    Library &_library;
+    Library *_library;
     String _name;
-    bool _hidden;
+    bool _visible;
+    bool _selected;
 };
 
 class ValueProperty : public Property {
@@ -40,7 +56,7 @@ public:
         virtual void valueChanged(ValueProperty *property) = 0;
     };
 
-    ValueProperty(Library &library, const String &name, const String &id) :
+    ValueProperty(Library *library, const String &name, const String &id) :
         Property(library, name),
         _id(id)
     {
@@ -50,6 +66,13 @@ public:
 
     const String &value() const { return _value; }
     void setValue(const String &value) { _value = value; notifyValueChanged(); }
+
+    virtual void assign(const Property &other, bool selectedOnly) override
+    {
+        if (!selectedOnly || other.selected()) {
+            setValue(static_cast<const ValueProperty *>(&other)->value());
+        }
+    }
 
     virtual bool loadFromXml(XmlElement *xml) override
     {
@@ -86,7 +109,7 @@ protected:
 
 class BoolProperty : public ValueProperty {
 public:
-    BoolProperty(Library &library, const String &name, const String &desc) :
+    BoolProperty(Library *library, const String &name, const String &desc) :
         ValueProperty(library, name, desc)
     {
     }
@@ -94,7 +117,15 @@ public:
     const bool value() const { return _value; }
     void setValue(bool value) { _value = value; notifyValueChanged(); }
 
-    virtual bool loadFromXml(XmlElement *xml) override {
+    virtual void assign(const Property &other, bool selectedOnly) override
+    {
+        if (!selectedOnly || other.selected()) {
+            setValue(static_cast<const BoolProperty *>(&other)->value());
+        }
+    }
+
+    virtual bool loadFromXml(XmlElement *xml) override
+    {
         if (!xml->getFirstChildElement() || !xml->getFirstChildElement()->isTextElement()) {
             return false;
         }
@@ -139,7 +170,7 @@ public:
     static Type BalanceType;
     static Type SamplesType;
 
-    IntProperty(Library &library, const String &name, const String &desc, const Type &type = DefaultType) :
+    IntProperty(Library *library, const String &name, const String &desc, const Type &type = DefaultType) :
         ValueProperty(library, name, desc),
         _type(type)
     {
@@ -150,7 +181,15 @@ public:
     const int value() const { return _value; }
     void setValue(int value) { _value = value; notifyValueChanged(); }
     
-    virtual bool loadFromXml(XmlElement *xml) override {
+    virtual void assign(const Property &other, bool selectedOnly) override
+    {
+        if (!selectedOnly || other.selected()) {
+            setValue(static_cast<const IntProperty *>(&other)->value());
+        }
+    }
+
+    virtual bool loadFromXml(XmlElement *xml) override
+    {
         if (!xml->getFirstChildElement() || !xml->getFirstChildElement()->isTextElement()) {
             return false;
         }
@@ -171,7 +210,7 @@ private:
 
 class EnumProperty : public ValueProperty {
 public:
-    EnumProperty(Library &library, const String &name, const String &desc, const StringArray &options) :
+    EnumProperty(Library *library, const String &name, const String &desc, const StringArray &options) :
         ValueProperty(library, name, desc), _options(options)
     {
     }
@@ -181,7 +220,15 @@ public:
 
     const StringArray &options() const { return _options; }
 
-    virtual bool loadFromXml(XmlElement *xml) override {
+    virtual void assign(const Property &other, bool selectedOnly) override
+    {
+        if (!selectedOnly || other.selected()) {
+            setValue(static_cast<const EnumProperty *>(&other)->value());
+        }
+    }
+
+    virtual bool loadFromXml(XmlElement *xml) override
+    {
         if (!xml->getFirstChildElement() || !xml->getFirstChildElement()->isTextElement()) {
             return false;
         }
@@ -202,7 +249,7 @@ private:
 
 class NameProperty : public ValueProperty {
 public:
-    NameProperty(Library &library, const String &name, const String &desc) :
+    NameProperty(Library *library, const String &name, const String &desc) :
         ValueProperty(library, name, desc)
     {
     }
@@ -210,7 +257,15 @@ public:
     const String &value() const { return _value; }
     void setValue(const String &value) { _value = value; notifyValueChanged(); }
 
-    virtual bool loadFromXml(XmlElement *xml) override {
+    virtual void assign(const Property &other, bool selectedOnly) override
+    {
+        if (!selectedOnly || other.selected()) {
+            setValue(static_cast<const NameProperty *>(&other)->value());
+        }
+    }
+
+    virtual bool loadFromXml(XmlElement *xml) override
+    {
         _value.clear();
         for (int i = 0; i < 12; ++i) {
             XmlElement *xmlChar = xml->getChildByName(String::formatted("C%02d", i + 1));
@@ -223,7 +278,8 @@ public:
         return true;
     }
 
-    virtual bool saveToXml(XmlElement *xml) override {
+    virtual bool saveToXml(XmlElement *xml) override
+    {
         for (int i = 0; i < 12; ++i) {
             XmlElement *xmlChar = xml->createNewChildElement(String::formatted("C%02d", i + 1));
             xmlChar->addTextElement(String(i < _value.length() ? int(_value[i]) : 32));
@@ -237,14 +293,55 @@ private:
 
 class Group : public Property {
 public:
-    Group(Library &library, const String &name) :
+    Group(Library *library, const String &name) :
         Property(library, name)
     {
     }
 
+    Group &operator=(const Group &other)
+    {
+        jassert(_children.size() == other._children.size());
+        for (int i = 0; i < _children.size(); ++i) {
+            _children[i]->assign(*other._children[i], false);
+        }
+        return *this;
+    }
+
     const OwnedArray<Property> &children() const { return _children; }
 
-    virtual bool loadFromXml(XmlElement *xml) override {
+    virtual void setSelected(bool selected) override
+    {
+        for (auto child : _children) {
+            child->setSelected(selected);
+        }
+    }
+
+    virtual SelectedState selectedState() const override
+    {
+        int unselected = 0, selected = 0;
+        for (auto child : _children) {
+            switch (child->selectedState()) {
+            case Unselected: ++unselected; break;
+            case Selected: ++selected; break;
+            case PartiallySelected: return PartiallySelected; break;
+            }
+        }
+        if (unselected == 0) return Selected;
+        if (selected == 0) return Unselected;
+        return PartiallySelected;
+    }
+
+    virtual void assign(const Property &other, bool selectedOnly) override
+    {
+        const Group *group = static_cast<const Group *>(&other);
+        jassert(_children.size() == group->_children.size());
+        for (int i = 0; i < _children.size(); ++i) {
+            _children[i]->assign(*group->_children[i], selectedOnly);
+        }
+    }
+
+    virtual bool loadFromXml(XmlElement *xml) override
+    {
         for (auto child : _children) {
             if (ValueProperty *property = dynamic_cast<ValueProperty *>(child)) {
                 if (!property->loadFromXml(xml->getChildByName(property->id()))) {
@@ -255,7 +352,8 @@ public:
         return true;
     }
     
-    virtual bool saveToXml(XmlElement *xml) override {
+    virtual bool saveToXml(XmlElement *xml) override
+    {
         for (auto child : _children) {
             if (ValueProperty *property = dynamic_cast<ValueProperty *>(child)) {
                 if (!property->saveToXml(xml->createNewChildElement(property->id()))) {
@@ -272,7 +370,8 @@ protected:
     }
     
     template<typename T, typename ...Args>
-    T *createChild(Args&&... args) {
+    T *createChild(Args&&... args)
+    {
         T *child = new T(_library, std::forward<Args>(args)...);
         _children.add(child);
         return child;
@@ -300,7 +399,16 @@ public:
     BoolProperty *wavStat = createChild<BoolProperty>("WavStat", "WavStat"); // TODO ?
     IntProperty *wavLen = createChild<IntProperty>("WavLen", "WavLen", IntProperty::SamplesType); // TODO ?
 
-    TrackSettings(Library &library, const String &name) : Group(library, name) {}
+    TrackSettings(Library *library, const String &name) :
+        Group(library, name)
+    {
+        measMod->setVisible(false);
+        measLen->setVisible(false);
+        measBtLp->setVisible(false);
+        recTmp->setVisible(false);
+        wavStat->setVisible(false);
+        wavLen->setVisible(false);
+    }
 };
 
 class RhythmSettings : public Group {
@@ -315,7 +423,7 @@ public:
     BoolProperty *playCount = createChild<BoolProperty>("Play Count", "PlyCnt");
     EnumProperty *stop = createChild<EnumProperty>("Stop", "Stp", StringArray({"OFF","LOOPER STOP","REC END"}));
 
-    RhythmSettings(Library &library, const String &name) : Group(library, name) {}
+    RhythmSettings(Library *library, const String &name) : Group(library, name) {}
 };
     
 class MasterSettings : public Group {
@@ -324,14 +432,14 @@ public:
     IntProperty *tempo = createChild<IntProperty>("Tempo", "Tmp", IntProperty::TempoType);
     IntProperty *comp = createChild<IntProperty>("Comp", "Cs", IntProperty::ThresholdType);
     IntProperty *reverb = createChild<IntProperty>("Reverb", "Rv");
-    MasterSettings(Library &library, const String &name) : Group(library, name) {}
+    MasterSettings(Library *library, const String &name) : Group(library, name) {}
 };
 
 class RecordSettings : public Group {
 public:
     EnumProperty *overdubMode = createChild<EnumProperty>("Overdub Mode", "DubMod", StringArray({"OVERDUB","REPLACE"}));
     EnumProperty *recordAction = createChild<EnumProperty>("Record Action", "RecAct", StringArray({"REC->OVERDUB","REC->PLAY"}));
-    RecordSettings(Library &library, const String &name) : Group(library, name) {}
+    RecordSettings(Library *library, const String &name) : Group(library, name) {}
 };
 
 class PlaySettings : public Group {
@@ -346,7 +454,7 @@ public:
     Property *allStart = createChild<ValueProperty>("All Start", "AllStrt"); // TODO BITSET
     IntProperty *fadeTime = createChild<IntProperty>("Fade Time", "FadeTim", FadeTimeType);
     EnumProperty *targetTrack = createChild<EnumProperty>("Target Track", "TgtTr", StringArray({"TRACK1","TRACK2","TRACK3","TRACK4","TRACK5"}));
-    PlaySettings(Library &library, const String &name) : Group(library, name) {}
+    PlaySettings(Library *library, const String &name) : Group(library, name) {}
 };
 
 class AssignmentSettings : public Group {
@@ -359,7 +467,7 @@ public:
     EnumProperty *target = createChild<EnumProperty>("Target", "Tgt", TargetNames);
     IntProperty *targetMin = createChild<IntProperty>("Target Min", "TgtMin", IntProperty::MidiType);
     IntProperty *targetMax = createChild<IntProperty>("Target Max", "TgtMax", IntProperty::MidiType);
-    AssignmentSettings(Library &library, const String &name) : Group(library, name) {}
+    AssignmentSettings(Library *library, const String &name) : Group(library, name) {}
 };
 
 class FilterFxSettings : public Group {
@@ -369,7 +477,7 @@ public:
     IntProperty *depth = createChild<IntProperty>("Depth", "FilDep");
     IntProperty *resonance = createChild<IntProperty>("Resonance", "FilReso");
     IntProperty *cutoff = createChild<IntProperty>("Cutoff", "FilCut");
-    FilterFxSettings(Library &library) : Group(library, "Filter") {}
+    FilterFxSettings(Library *library) : Group(library, "Filter") {}
 };
 
 class PhaserFxSettings : public Group {
@@ -378,7 +486,7 @@ public:
     IntProperty *depth = createChild<IntProperty>("Depth", "PhDep");
     IntProperty *resonance = createChild<IntProperty>("Resonance", "PhReso");
     IntProperty *level = createChild<IntProperty>("Level", "PhLvl");
-    PhaserFxSettings(Library &library) : Group(library, "Phaser") {}
+    PhaserFxSettings(Library *library) : Group(library, "Phaser") {}
 };
 
 class FlangerFxSettings : public Group {
@@ -387,7 +495,7 @@ public:
     IntProperty *depth = createChild<IntProperty>("Depth", "FlDep");
     IntProperty *resonance = createChild<IntProperty>("Resonance", "FlReso");
     IntProperty *level = createChild<IntProperty>("Level", "FlLvl");
-    FlangerFxSettings(Library &library) : Group(library, "Flanger") {}
+    FlangerFxSettings(Library *library) : Group(library, "Flanger") {}
 };
 
 class SynthFxSettings : public Group {
@@ -396,7 +504,7 @@ public:
     IntProperty *resonance = createChild<IntProperty>("Resonance", "SynReso");
     IntProperty *decay = createChild<IntProperty>("Decay", "SynDecay");
     IntProperty *balance = createChild<IntProperty>("Balance", "SynBal", IntProperty::BalanceType);
-    SynthFxSettings(Library &library) : Group(library, "Synth") {}
+    SynthFxSettings(Library *library) : Group(library, "Synth") {}
 };
 
 class LoFiFxSettings : public Group {
@@ -406,20 +514,20 @@ public:
     IntProperty *bitDepth = createChild<IntProperty>("BitDepth", "LoFiDep", BitDepthType);
     IntProperty *sampleRate = createChild<IntProperty>("SampleRate", "LoFiSmpl", SampleRateType);
     IntProperty *balance = createChild<IntProperty>("Balance", "LoFiBal", IntProperty::BalanceType);
-    LoFiFxSettings(Library &library) : Group(library, "Lo-Fi") {}
+    LoFiFxSettings(Library *library) : Group(library, "Lo-Fi") {}
 };
 
 class GuitarToBassFxSettings : public Group {
 public:
     IntProperty *balance = createChild<IntProperty>("Balance", "GToB", IntProperty::BalanceType);
-    GuitarToBassFxSettings(Library &library) : Group(library, "Guitar To Bass") {}
+    GuitarToBassFxSettings(Library *library) : Group(library, "Guitar To Bass") {}
 };
 
 class TransposeFxSettings : public Group {
     static IntProperty::Type TransType;
 public:
     IntProperty *trans = createChild<IntProperty>("Trans", "Trans", TransType);
-    TransposeFxSettings(Library &library) : Group(library, "Transpose") {}
+    TransposeFxSettings(Library *library) : Group(library, "Transpose") {}
 };
 
 class RobotFxSettings : public Group {
@@ -427,7 +535,7 @@ class RobotFxSettings : public Group {
 public:
     EnumProperty *note = createChild<EnumProperty>("Note", "RoboNote", StringArray({"C","Db","D","Eb","E","F","F#","G","Ab","A","Bb","B"}));
     IntProperty *gender = createChild<IntProperty>("Gender", "RoboGen", GenderType);
-    RobotFxSettings(Library &library) : Group(library, "Robot") {}
+    RobotFxSettings(Library *library) : Group(library, "Robot") {}
 };
 
 class VocalDistFxSettings : public Group {
@@ -436,7 +544,7 @@ public:
     IntProperty *dist = createChild<IntProperty>("Dist", "DistDist");
     IntProperty *tone = createChild<IntProperty>("Tone", "DistTon", ToneType);
     IntProperty *level = createChild<IntProperty>("Level", "DistLvl");
-    VocalDistFxSettings(Library &library) : Group(library, "Vocal Dist") {}
+    VocalDistFxSettings(Library *library) : Group(library, "Vocal Dist") {}
 };
 
 class VocoderFxSettings : public Group {
@@ -445,14 +553,14 @@ public:
     IntProperty *modSens = createChild<IntProperty>("ModSens", "VocoSens");
     IntProperty *attack = createChild<IntProperty>("Attack", "VocoAtck");
     IntProperty *balance = createChild<IntProperty>("Balance", "VocoBal", IntProperty::BalanceType);
-    VocoderFxSettings(Library &library) : Group(library, "Vocoder") {}
+    VocoderFxSettings(Library *library) : Group(library, "Vocoder") {}
 };
 
 class DynamicsFxSettings : public Group {
 public:
     EnumProperty *type = createChild<EnumProperty>("Type", "DynmTyp", StringArray({"NATURAL COMP","MIXER COMP","LIVE COMP","NATURAL LIM","HARD LIM","JINGL COMP","HARD COMP","SOFT COMP","CLEAN COMP","DANCE COMP","ORCH COMP","VOCAL COMP","ACOUSTIC","ROCK BAND","ORCHESTRA","LOW BOOST","BRIGHTEN","DJs VOICE","PHONE VOX"}));
     IntProperty *dynamics = createChild<IntProperty>("Dynamics", "DynmDynm", IntProperty::ThresholdType);
-    DynamicsFxSettings(Library &library) : Group(library, "Dynamics") {}
+    DynamicsFxSettings(Library *library) : Group(library, "Dynamics") {}
 };
 
 class EqFxSettings : public Group {
@@ -462,7 +570,7 @@ public:
     IntProperty *highMid = createChild<IntProperty>("High-Mid", "EqHiMd", IntProperty::ThresholdType);
     IntProperty *high = createChild<IntProperty>("High", "EqHi", IntProperty::ThresholdType);
     IntProperty *level = createChild<IntProperty>("Level", "EqLvl", IntProperty::ThresholdType);
-    EqFxSettings(Library &library) : Group(library, "Eq") {}
+    EqFxSettings(Library *library) : Group(library, "Eq") {}
 };
 
 class IsolatorFxSettings : public Group {
@@ -471,14 +579,14 @@ public:
     IntProperty *rate = createChild<IntProperty>("Rate", "IsoRat", IntProperty::RateType);
     IntProperty *depth = createChild<IntProperty>("Depth", "IsoDep");
     IntProperty *bandLevel = createChild<IntProperty>("BandLevel", "IsoLvl");
-    IsolatorFxSettings(Library &library) : Group(library, "Isolator") {}
+    IsolatorFxSettings(Library *library) : Group(library, "Isolator") {}
 };
 
 class OctaveFxSettings : public Group {
 public:
     EnumProperty *mode = createChild<EnumProperty>("Mode", "OctMod", StringArray({"-1OCT","-2OCT","-1OCT&-2OCT"}));
     IntProperty *octLevel = createChild<IntProperty>("Oct.Level", "OctLvl");
-    OctaveFxSettings(Library &library) : Group(library, "Octave") {}
+    OctaveFxSettings(Library *library) : Group(library, "Octave") {}
 };
 
 class PanFxSettings : public Group {
@@ -487,7 +595,7 @@ public:
     IntProperty *rate = createChild<IntProperty>("Rate", "PanRat", IntProperty::RateType);
     IntProperty *depth = createChild<IntProperty>("Depth", "PanDep");
     IntProperty *position = createChild<IntProperty>("Position", "PanPos", IntProperty::PanType);
-    PanFxSettings(Library &library) : Group(library, "Pan") {}
+    PanFxSettings(Library *library) : Group(library, "Pan") {}
 };
 
 class SlicerFxSettings : public Group {
@@ -495,7 +603,7 @@ public:
     EnumProperty *pattern = createChild<EnumProperty>("Pattern", "SlPat", StringArray({"P01","P02","P03","P04","P05","P06","P07","P08","P09","P10","P11","P12","P13","P14","P15","P16","P17","P18","P19","P20"}));
     IntProperty *rate = createChild<IntProperty>("Rate", "SlRat", IntProperty::RateType);
     IntProperty *depth = createChild<IntProperty>("Depth", "SlDep");
-    SlicerFxSettings(Library &library) : Group(library, "Slicer") {}
+    SlicerFxSettings(Library *library) : Group(library, "Slicer") {}
 };
 
 class DelayFxSettings : public Group {
@@ -504,7 +612,7 @@ public:
     IntProperty *time = createChild<IntProperty>("Time", "DlyTim", TimeType);
     IntProperty *feedback = createChild<IntProperty>("Feedback", "DlyFb");
     IntProperty *level = createChild<IntProperty>("Level", "DlyLvl");
-    DelayFxSettings(Library &library) : Group(library, "Delay") {}
+    DelayFxSettings(Library *library) : Group(library, "Delay") {}
 };
 
 class TapeEchoFxSettings : public Group {
@@ -512,7 +620,7 @@ public:
     IntProperty *repeatRate = createChild<IntProperty>("RepeatRate", "EchRat");
     IntProperty *intensity = createChild<IntProperty>("Intensity", "EchInt");
     IntProperty *echoLevel = createChild<IntProperty>("EchoLevel", "EchLvl");
-    TapeEchoFxSettings(Library &library) : Group(library, "Tape Echo") {}
+    TapeEchoFxSettings(Library *library) : Group(library, "Tape Echo") {}
 };
 
 class GranularDelayFxSettings : public Group {
@@ -520,7 +628,7 @@ public:
     IntProperty *time = createChild<IntProperty>("Time", "GraTim");
     IntProperty *feedback = createChild<IntProperty>("Feedback", "GraFb");
     IntProperty *level = createChild<IntProperty>("Level", "GraLvl");
-    GranularDelayFxSettings(Library &library) : Group(library, "Granular Delay") {}
+    GranularDelayFxSettings(Library *library) : Group(library, "Granular Delay") {}
 };
 
 class ChorusFxSettings : public Group {
@@ -528,7 +636,7 @@ public:
     IntProperty *rate = createChild<IntProperty>("Rate", "ChoRat");
     IntProperty *depth = createChild<IntProperty>("Depth", "ChoDep");
     IntProperty *level = createChild<IntProperty>("Level", "ChoLvl");
-    ChorusFxSettings(Library &library) : Group(library, "Chorus") {}
+    ChorusFxSettings(Library *library) : Group(library, "Chorus") {}
 };
 
 class ReverbFxSettings : public Group {
@@ -536,34 +644,34 @@ class ReverbFxSettings : public Group {
 public:
     IntProperty *time = createChild<IntProperty>("Time", "RevTim", TimeType);
     IntProperty *level = createChild<IntProperty>("Level", "RevLvl");
-    ReverbFxSettings(Library &library) : Group(library, "Reverb") {}
+    ReverbFxSettings(Library *library) : Group(library, "Reverb") {}
 };
 
 class BeatRepeatFxSettings : public Group {
 public:
     EnumProperty *type = createChild<EnumProperty>("Type", "RepTyp", StringArray({"FORWARD","REWIND","MIX"}));
     EnumProperty *length = createChild<EnumProperty>("Length", "RepLen", StringArray({"THRU","Whole Note","Half Note","Quarter Note","Eighth Note","Sixteenth Note","32th Note"}));
-    BeatRepeatFxSettings(Library &library) : Group(library, "Beat Repeat") {}
+    BeatRepeatFxSettings(Library *library) : Group(library, "Beat Repeat") {}
 };
 
 class BeatShiftFxSettings : public Group {
 public:
     EnumProperty *type = createChild<EnumProperty>("Type", "ShftTyp", StringArray({"FUTURE","PAST"}));
     EnumProperty *shift = createChild<EnumProperty>("Shift", "ShftShft", StringArray({"THRU","Sixteenth Note","Eighth Note","Quarter Note","Half Note","Whole Note"}));
-    BeatShiftFxSettings(Library &library) : Group(library, "Beat Shift") {}
+    BeatShiftFxSettings(Library *library) : Group(library, "Beat Shift") {}
 };
 
 class BeatScatterFxSettings : public Group {
 public:
     EnumProperty *type = createChild<EnumProperty>("Type", "ScatTyp", StringArray({"P1","P2","P3","P4"}));
     EnumProperty *length = createChild<EnumProperty>("Length", "ScatLen", StringArray({"THRU","Half Note","Quarter Note","Eighth Note","Sixteenth Note"}));
-    BeatScatterFxSettings(Library &library) : Group(library, "Beat Scatter") {}
+    BeatScatterFxSettings(Library *library) : Group(library, "Beat Scatter") {}
 };
 
 class VinylFlickFxSettings : public Group {
 public:
     IntProperty *flick = createChild<IntProperty>("Flick", "Flick");
-    VinylFlickFxSettings(Library &library) : Group(library, "Vinyl Flick") {}
+    VinylFlickFxSettings(Library *library) : Group(library, "Vinyl Flick") {}
 };
 
 
@@ -592,9 +700,10 @@ public:
     ChorusFxSettings *chorus = createChild<ChorusFxSettings>();
     ReverbFxSettings *reverb = createChild<ReverbFxSettings>();
 
-    InputFxSlotSettings(Library &library, const String &name) : Group(library, name) {}
+    InputFxSlotSettings(Library *library, const String &name) : Group(library, name) {}
 
-    bool loadFromXml(XmlElement *xml) override {
+    bool loadFromXml(XmlElement *xml) override
+    {
         for (auto child : _children) {
             if (!child->loadFromXml(xml)) {
                 return false;
@@ -603,7 +712,8 @@ public:
         return true;
     }
 
-    bool saveToXml(XmlElement *xml) override {
+    bool saveToXml(XmlElement *xml) override
+    {
         for (auto child : _children) {
             if (!child->saveToXml(xml)) {
                 return false;
@@ -621,7 +731,7 @@ public:
     EnumProperty *fxType[3];
     InputFxSlotSettings *fxSlot[3];
 
-    InputFxSettings(Library &library, const String &name) :
+    InputFxSettings(Library *library, const String &name) :
         Group(library, name)
     {
         for (int i = 0; i < 3; ++i) {
@@ -662,9 +772,10 @@ public:
     BeatScatterFxSettings *beatScatter = createChild<BeatScatterFxSettings>();
     VinylFlickFxSettings *vinylFlick = createChild<VinylFlickFxSettings>();
 
-    TrackFxSlotSettings(Library &library, const String &name) : Group(library, name) {}
+    TrackFxSlotSettings(Library *library, const String &name) : Group(library, name) {}
 
-    bool loadTrackFxFromXml(XmlElement *xml) {
+    bool loadTrackFxFromXml(XmlElement *xml)
+    {
         Group *trackFx[] = { filter, phaser, flanger, synth, lofi, guitarToBass, transpose, robot, vocalDist, vocoder, dynamics, eq, isolator, octave, pan, slicer, delay, tapeEcho, granularDelay, chorus, reverb };
         for (auto child : trackFx) {
             if (!child->loadFromXml(xml)) {
@@ -674,7 +785,8 @@ public:
         return true;
     }
 
-    bool saveTrackFxToXml(XmlElement *xml) {
+    bool saveTrackFxToXml(XmlElement *xml)
+    {
         Group *trackFx[] = { filter, phaser, flanger, synth, lofi, guitarToBass, transpose, robot, vocalDist, vocoder, dynamics, eq, isolator, octave, pan, slicer, delay, tapeEcho, granularDelay, chorus, reverb };
         for (auto child : trackFx) {
             if (!child->saveToXml(xml)) {
@@ -684,7 +796,8 @@ public:
         return true;
     }
 
-    bool loadBeatFxFromXml(XmlElement *xml) {
+    bool loadBeatFxFromXml(XmlElement *xml)
+    {
         Group *beatFx[] = { beatRepeat, beatShift, beatScatter, vinylFlick };
         for (auto child : beatFx) {
             if (!child->loadFromXml(xml)) {
@@ -694,7 +807,8 @@ public:
         return true;
     }
 
-    bool saveBeatFxToXml(XmlElement *xml) {
+    bool saveBeatFxToXml(XmlElement *xml)
+    {
         Group *beatFx[] = { beatRepeat, beatShift, beatScatter, vinylFlick };
         for (auto child : beatFx) {
             if (!child->saveToXml(xml)) {
@@ -713,7 +827,7 @@ public:
     EnumProperty *fxType[3];
     TrackFxSlotSettings *fxSlot[3];
     
-    TrackFxSettings(Library &library, const String &name) :
+    TrackFxSettings(Library *library, const String &name) :
         Group(library, name)
     {
         for (int i = 0; i < 3; ++i) {
@@ -735,7 +849,7 @@ public:
     TrackFxSettings *trackFx = createChild<TrackFxSettings>("Track Fx");
     AssignmentSettings *assignment[8];
 
-    PatchSettings(Library &library) :
+    PatchSettings(Library *library) :
         Group(library, "Patch")
     {
         for (int i = 0; i < 8; ++i) {
@@ -800,7 +914,7 @@ public:
     EnumProperty *dispMode = createChild<EnumProperty>("Display", "DispMod", StringArray({"MEMORY NUMBER","LEVEL","REVERSE","1SHOT","MULTI","REMAIN"}));
     EnumProperty *indMod = createChild<EnumProperty>("Indicator", "IndMod", StringArray({"STATUS","LOOP POSITION","LEVEL"}));
     BoolProperty *autoOff = createChild<BoolProperty>("Auto Off", "AutoOff");
-    SetupSettings(Library &library, const String &name) : Group(library, name) {}
+    SetupSettings(Library *library, const String &name) : Group(library, name) {}
 };
 
 class InputOutputSettings : public Group {
@@ -808,7 +922,7 @@ public:
     IntProperty *lineOutLevel = createChild<IntProperty>("Line Out Level", "LineOutLvl", IntProperty::LevelType);
     BoolProperty *inputLineOut = createChild<BoolProperty>("Input Line Out", "InLineOut");
     EnumProperty *outLevelSelect = createChild<EnumProperty>("Out Level Select", "OutLvlSel", StringArray({"LINE+PHONES","PHONES"}));
-    InputOutputSettings(Library &library, const String &name) : Group(library, name) {}
+    InputOutputSettings(Library *library, const String &name) : Group(library, name) {}
 };
 
 class UsbSettings : public Group {
@@ -817,7 +931,7 @@ public:
     EnumProperty *usbAAudio = createChild<EnumProperty>("USB Audio", "AuRouting", StringArray({"LOOP IN","SUB MIX","LINE OUT"}));
     IntProperty *usbInLevel = createChild<IntProperty>("USB IN Level", "InLvl", IntProperty::LevelType);
     IntProperty *usbOutLevel = createChild<IntProperty>("USB OUT Level", "OutLvl", IntProperty::LevelType);
-    UsbSettings(Library &library, const String &name) : Group(library, name) {}
+    UsbSettings(Library *library, const String &name) : Group(library, name) {}
 };
 
 class MidiSettings : public Group {
@@ -828,7 +942,7 @@ public:
     EnumProperty *sync = createChild<EnumProperty>("MIDI Sync", "Sync", StringArray({"AUTO","INTERNAL"}));
     EnumProperty *syncSource = createChild<EnumProperty>("MIDI Sync Source", "InSel", StringArray({"USB (AUTO)","MIDI"}));
     BoolProperty *pcOut = createChild<BoolProperty>("MIDI PC Out", "PcOut");
-    MidiSettings(Library &library, const String &name) : Group(library, name) {}
+    MidiSettings(Library *library, const String &name) : Group(library, name) {}
 };
 
 class SystemSettings : public Group {
@@ -862,10 +976,10 @@ public:
     InputFxSettings *inputFx = createChild<InputFxSettings>("Input Fx");
     TrackFxSettings *trackFx = createChild<TrackFxSettings>("Track Fx");
 
-    SystemSettings(Library &library) :
+    SystemSettings(Library *library) :
         Group(library, "System")
     {
-        name->setHidden(true);
+        name->setVisible(false);
     }
 
     bool loadFromXml(XmlElement *xml) override
@@ -943,7 +1057,7 @@ public:
         WaveChanged,    // changed wave file assigned (stored in _audioBuffer)
     };
 
-    Track(Library &library, Patch &patch, int index);
+    Track(Library *library, Patch &patch, int index);
 
     int index() const;
     void setIndex(int index);
@@ -961,7 +1075,7 @@ public:
     bool saveToXml(XmlElement *xml);
 
 private:
-    Library &_library;
+    Library *_library;
     Patch &_patch;
     int _index;
     TrackSettings _trackSettings;
@@ -979,7 +1093,7 @@ class Patch {
 public:
     static const int NumTracks = 5;
 
-    Patch(Library &library);
+    Patch(Library *library);
     Patch(const RC505::Patch &patch);
 
     int index() const;
@@ -998,7 +1112,7 @@ public:
     bool saveToXml(XmlElement *xml);
 
 private:
-    Library &_library;
+    Library *_library;
     int _index;
     OwnedArray<Track> _tracks;
     PatchSettings _patchSettings;

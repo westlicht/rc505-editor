@@ -6,6 +6,8 @@ TrackView::TrackView(int index) :
     _track(nullptr),
     _trackLabel(index)
 {
+    _propertyTreeView.setOpenCloseButtonsVisible(false);
+
     addAndMakeVisible(_trackLabel);
     addAndMakeVisible(_waveformView);
     addAndMakeVisible(_propertyTreeView);

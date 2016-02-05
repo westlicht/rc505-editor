@@ -18,3 +18,18 @@ private:
 
     friend class PropertyTreeViewItem;
 };
+
+class PropertySetTreeViewItem;
+
+class PropertySetTreeView : public TreeView {
+public:
+    PropertySetTreeView();
+    ~PropertySetTreeView();
+
+    void setGroup(RC505::Group *group);
+
+private:
+    ScopedPointer<PropertySetTreeViewItem> _root;
+
+    friend class PropertySetTreeViewItem;
+};

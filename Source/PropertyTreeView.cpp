@@ -41,12 +41,24 @@ public:
     int getItemWidth() const override { return -1; }
     int getItemHeight() const override { return 20; }
 
+    virtual String getUniqueName() const override
+    {
+        if (!_property) {
+            return "unknown";
+        }
+        String name = _property->name();
+        if (getParentItem()) {
+            name = getParentItem()->getUniqueName() + name;
+        }
+        return name;
+    }
+
     virtual void itemOpennessChanged(bool isNowOpen) override
     {
         if (isNowOpen) {
             if (const RC505::Group *group = dynamic_cast<const RC505::Group *>(_property)) {
                 for (auto child : group->children()) {
-                    if (!child->hidden()) {
+                    if (child->visible()) {
                         addSubItem(new PropertyTreeViewItem(child));
                     }
                 }
@@ -109,7 +121,100 @@ PropertyTreeView::~PropertyTreeView()
 
 void PropertyTreeView::setGroup(RC505::Group *group)
 {
+    ScopedPointer<XmlElement> state = getOpennessState(true);
     _root = new PropertyTreeViewItem(group);
+    setRootItem(_root);
+    _root->setOpen(true);
+    if (state) {
+        restoreOpennessState(*state, true);
+    }
+}
+
+// ----------------------------------------------------------------------------
+// PropertySetTreeViewItem
+// ----------------------------------------------------------------------------
+
+class PropertySetTreeViewItem : public TreeViewItem {
+public:
+    PropertySetTreeViewItem(RC505::Property *property) :
+        _property(property)
+    {
+    }
+
+    int getItemWidth() const override { return -1; }
+    int getItemHeight() const override { return 20; }
+
+    virtual void itemOpennessChanged(bool isNowOpen) override
+    {
+        if (isNowOpen) {
+            if (const RC505::Group *group = dynamic_cast<const RC505::Group *>(_property)) {
+                for (auto child : group->children()) {
+                    if (child->visible()) {
+                        addSubItem(new PropertySetTreeViewItem(child));
+                    }
+                }
+            }
+        } else {
+            clearSubItems();
+        }
+    }
+
+    virtual void paintItem(Graphics &g, int width, int height) override
+    {
+        const int fontHeight = 14;
+        g.setFont(fontHeight);
+        g.setColour(Colours::black);
+        Rectangle<int> area(height, 0, width - height, height);
+        String text = _property->name();
+        g.drawFittedText(text, area.reduced(4, 2), Justification::left, area.getHeight() / fontHeight);
+
+        auto &lf = LookAndFeel::getDefaultLookAndFeel();
+        auto state = _property->selectedState();
+        lf.drawTickBox(g, *getOwnerView(), 2, 2, height - 4, height - 4, state != RC505::Property::Unselected, state !=  RC505::Property::PartiallySelected, false, false);
+    }
+
+    virtual void itemClicked(const MouseEvent &e) override
+    {
+        switch (_property->selectedState()) {
+        case RC505::Property::Unselected: _property->setSelected(true); break;
+        case RC505::Property::Selected: _property->setSelected(false); break;
+        case RC505::Property::PartiallySelected: _property->setSelected(false); break;
+        }
+        treeHasChanged();
+    }
+
+    virtual void itemDoubleClicked(const MouseEvent &e) override
+    {
+    }
+
+    virtual bool mightContainSubItems() override
+    {
+        return dynamic_cast<RC505::Group *>(_property) != nullptr;
+    }
+
+    RC505::Property *_property;
+};
+
+// ----------------------------------------------------------------------------
+// PropertySetTreeView
+// ----------------------------------------------------------------------------
+
+PropertySetTreeView::PropertySetTreeView()
+{
+    setRootItemVisible(false);
+    setDefaultOpenness(false);
+    setMultiSelectEnabled(false);
+    setOpenCloseButtonsVisible(true);
+}
+
+PropertySetTreeView::~PropertySetTreeView()
+{
+    setRootItem(nullptr);
+}
+
+void PropertySetTreeView::setGroup(RC505::Group *group)
+{
+    _root = new PropertySetTreeViewItem(group);
     setRootItem(_root);
     _root->setOpen(true);
 }

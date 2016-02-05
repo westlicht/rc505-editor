@@ -142,6 +142,10 @@
       <FILE id="Ybbk7i" name="PatchTreeView.h" compile="0" resource="0" file="Source/PatchTreeView.h"/>
       <FILE id="kF1x0C" name="PatchView.cpp" compile="1" resource="0" file="Source/PatchView.cpp"/>
       <FILE id="QVLIO1" name="PatchView.h" compile="0" resource="0" file="Source/PatchView.h"/>
+      <FILE id="lPG4jX" name="PropertySetDialog.cpp" compile="1" resource="0"
+            file="Source/PropertySetDialog.cpp"/>
+      <FILE id="oStBWh" name="PropertySetDialog.h" compile="0" resource="0"
+            file="Source/PropertySetDialog.h"/>
       <FILE id="SuFEZR" name="PropertyTreeView.cpp" compile="1" resource="0"
             file="Source/PropertyTreeView.cpp"/>
       <FILE id="Aw5luO" name="PropertyTreeView.h" compile="0" resource="0"

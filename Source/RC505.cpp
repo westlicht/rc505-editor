@@ -6,7 +6,9 @@ namespace RC505 {
 void ValueProperty::notifyValueChanged()
 {
     _listeners.call(&Listener::valueChanged, this);
-    _library.notifyPropertyValueChanged(this);
+    if (_library) {
+        _library->notifyPropertyValueChanged(this);
+    }
 }
 
 IntProperty::Type IntProperty::DefaultType(
@@ -225,7 +227,7 @@ StringArray TrackFxSettings::EffectNames({"FILTER","PHASER","FLANGER","SYNTH","L
 // Track
 // ----------------------------------------------------------------------------
 
-Track::Track(Library &library, Patch &patch, int index) :
+Track::Track(Library *library, Patch &patch, int index) :
     _library(library),
     _patch(patch),
     _index(index),
@@ -272,7 +274,7 @@ bool Track::loadFromXml(XmlElement *xml)
     bool result = _trackSettings.loadFromXml(xml);
 
     // find wave file
-    File wavePath = File::addTrailingSeparator(_library.wavePath().getFullPathName()) + String::formatted("%03d_%d", _patch.index() + 1, _index + 1);
+    File wavePath = File::addTrailingSeparator(_library->wavePath().getFullPathName()) + String::formatted("%03d_%d", _patch.index() + 1, _index + 1);
     Array<File> files;
     wavePath.findChildFiles(files, File::findFiles, false, "*.WAV");
     if (files.size() > 0) {
@@ -295,7 +297,7 @@ bool Track::saveToXml(XmlElement *xml)
 // Patch
 // ----------------------------------------------------------------------------
 
-Patch::Patch(Library &library) :
+Patch::Patch(Library *library) :
     _library(library),
     _patchSettings(library),
     _patchName(library, "Name", "NAME")
@@ -367,7 +369,7 @@ bool Patch::saveToXml(XmlElement *xml)
 // ----------------------------------------------------------------------------
 
 Library::Library() :
-    _systemSettings(*this)
+    _systemSettings(this)
 {
 }
 
@@ -465,7 +467,7 @@ bool Library::loadMemory(const File &path)
         if (!xmlChild->hasTagName("mem") || !xmlChild->hasAttribute("id")) {
             return false;
         }
-        Patch *patch = new Patch(*this);
+        Patch *patch = new Patch(this);
         if (!patch->loadFromXml(xmlChild)) {
             return false;
         }

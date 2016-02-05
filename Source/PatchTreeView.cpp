@@ -147,6 +147,20 @@ void PatchTreeView::selectPatch(RC505::Patch *patch)
     }
 }
 
+RC505::Patch *PatchTreeView::selectedPatch() const
+{
+    return getNumSelectedItems() > 0 ? static_cast<PatchTreeViewItem *>(getSelectedItem(0))->_patch : nullptr;
+}
+
+Array<RC505::Patch *> PatchTreeView::selectedPatches() const
+{
+    Array<RC505::Patch *> patches;
+    for (int i = 0; i < getNumSelectedItems(); ++i) {
+        patches.add(static_cast<PatchTreeViewItem *>(getSelectedItem(i))->_patch);
+    }
+    return patches;
+}
+
 void PatchTreeView::beforeLibraryLoaded()
 {
     setRootItem(nullptr);

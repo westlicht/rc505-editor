@@ -18,6 +18,8 @@ public:
     ~PatchTreeView();
 
     void selectPatch(RC505::Patch *patch);
+    RC505::Patch *selectedPatch() const;
+    Array<RC505::Patch *> selectedPatches() const;
 
     void addListener(Listener *listener) { _listeners.add(listener); }
     void removeListener(Listener *listener) { _listeners.remove(listener); }
