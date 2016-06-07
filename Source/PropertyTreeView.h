@@ -17,6 +17,8 @@ private:
     ScopedPointer<PropertyTreeViewItem> _root;
 
     friend class PropertyTreeViewItem;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PropertyTreeView)
 };
 
 class PropertySetTreeViewItem;
@@ -32,4 +34,6 @@ private:
     ScopedPointer<PropertySetTreeViewItem> _root;
 
     friend class PropertySetTreeViewItem;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PropertySetTreeView)
 };

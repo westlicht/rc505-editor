@@ -174,10 +174,10 @@
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" extraDefs="" extraCompilerFlags="-I../../Source/rubberband">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" osxSDK="10.9 SDK" osxCompatibility="default" osxArchitecture="default"
+        <CONFIGURATION name="Debug" osxSDK="10.10 SDK" osxCompatibility="10.8 SDK" osxArchitecture="default"
                        isDebug="1" optimisation="1" targetName="RC505"/>
-        <CONFIGURATION name="Release" osxSDK="10.9 SDK" osxCompatibility="default" osxArchitecture="default"
-                       isDebug="0" optimisation="3" targetName="RC505"/>
+        <CONFIGURATION name="Release" osxSDK="10.10 SDK" osxCompatibility="10.8 SDK"
+                       osxArchitecture="default" isDebug="0" optimisation="3" targetName="RC505"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../juce/modules"/>

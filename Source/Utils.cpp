@@ -2,9 +2,7 @@
 #include "Utils.h"
 #include "Resampler.h"
 
-namespace Utils {
-
-bool isValidAudioFile(const File &file)
+bool Utils::isValidAudioFile(const File &file)
 {
     AudioFormatManager audioFormatManager;
     audioFormatManager.registerBasicFormats();
@@ -12,7 +10,7 @@ bool isValidAudioFile(const File &file)
     return reader != nullptr;
 }
 
-bool readAudioFile(const File &file, AudioSampleBuffer &buffer, int channels, int sampleRate)
+bool Utils::readAudioFile(const File &file, AudioSampleBuffer &buffer, int channels, int sampleRate)
 {
     AudioFormatManager audioFormatManager;
     audioFormatManager.registerBasicFormats();
@@ -33,7 +31,7 @@ bool readAudioFile(const File &file, AudioSampleBuffer &buffer, int channels, in
     return true;
 }
 
-bool writeAudioFile(const File &file, const AudioSampleBuffer &buffer, int channels, int sampleRate, int bits)
+bool Utils::writeAudioFile(const File &file, const AudioSampleBuffer &buffer, int channels, int sampleRate, int bits)
 {
     AudioFormatManager audioFormatManager;
     audioFormatManager.registerBasicFormats();
@@ -49,7 +47,7 @@ bool writeAudioFile(const File &file, const AudioSampleBuffer &buffer, int chann
     return writer->writeFromAudioSampleBuffer(buffer, 0, buffer.getNumSamples());
 }
 
-std::pair<double, int> findTempoAndMeasures(const AudioSampleBuffer &buffer, int sampleRate)
+std::pair<double, int> Utils::findTempoAndMeasures(const AudioSampleBuffer &buffer, int sampleRate)
 {
     const double guideTempo = 120.0;
     std::pair<double, int> result = { 0, 0 };
@@ -65,5 +63,3 @@ std::pair<double, int> findTempoAndMeasures(const AudioSampleBuffer &buffer, int
     }
     return result;
 }
-
-} // namespace Utils

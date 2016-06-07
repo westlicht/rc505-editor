@@ -23,8 +23,9 @@ public:
     const WaveformView &waveformView() const { return _waveformView; }
           WaveformView &waveformView()       { return _waveformView; }
 
-    void paint(Graphics &g);
-    void resized();
+    // Component
+    virtual void paint(Graphics &g) override;
+    virtual void resized() override;
 
 private:
     int _index;
@@ -33,5 +34,5 @@ private:
     WaveformView _waveformView;
     PropertyTreeView _propertyTreeView;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TrackView)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TrackView)
 };

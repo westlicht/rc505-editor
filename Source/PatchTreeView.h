@@ -6,7 +6,8 @@
 
 class RootPatchTreeViewItem;
 
-class PatchTreeView : public TreeView, RC505::Library::Listener {
+class PatchTreeView : public TreeView, 
+                      public RC505::Library::Listener {
 public:
     class Listener {
     public:
@@ -37,4 +38,6 @@ private:
     ListenerList<Listener> _listeners;
 
     friend class PatchTreeViewItem;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PatchTreeView)
 };

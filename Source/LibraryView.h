@@ -6,25 +6,36 @@
 #include "PatchView.h"
 #include "RC505.h"
 
-class LibraryView : public Component, public RC505::Library::Listener, public DragAndDropContainer, public PatchTreeView::Listener, public Button::Listener {
+class LibraryView : public Component,
+                    public RC505::Library::Listener,
+                    public KeyListener,
+                    public DragAndDropContainer,
+                    public PatchTreeView::Listener,
+                    public Button::Listener {
 public:
     LibraryView(RC505::Library &library);
     virtual ~LibraryView();
 
-    void paint(Graphics &g) override;
-    void resized() override;
+    // Component
+    virtual void paint(Graphics &g) override;
+    virtual void resized() override;
 
-    void patchSelected(RC505::Patch *patch) override;
+    // PatchTreeView::Listener
+    virtual void patchSelected(RC505::Patch *patch) override;
 
     // RC505::Library::Listener
     virtual void beforeLibraryLoaded() override;
     virtual void afterLibraryLoaded() override;
 
+    // KeyListener
+    virtual bool keyPressed(const KeyPress &key, Component *originatingComponent) override;
+
     // Button::Listener
     virtual void buttonClicked(Button *button) override;
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LibraryView)
+    void copyPatchSettings();
+    void pastePatchSettings();
     
     RC505::Library &_library;
     PatchTreeView _patchTreeView;
@@ -33,4 +44,6 @@ private:
     TextButton _copySettingsButton;
     TextButton _pasteSettingsButton;
     RC505::PatchSettings _patchSettingsBuffer;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LibraryView)
 };

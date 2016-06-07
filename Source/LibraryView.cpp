@@ -7,6 +7,8 @@ LibraryView::LibraryView(RC505::Library &library) :
     _patchTreeView(library),
     _patchSettingsBuffer(nullptr)
 {
+    addKeyListener(this);
+
     addAndMakeVisible(_patchTreeView);
     addAndMakeVisible(_patchView);
     addAndMakeVisible(_copySettingsButton);
@@ -59,31 +61,49 @@ void LibraryView::afterLibraryLoaded()
     patchSelected(_library.patches()[0]);
 }
 
+bool LibraryView::keyPressed(const KeyPress &key, Component *originatingComponent)
+{
+    if (key.isKeyCode(KeyPress::spaceKey)) {
+        _patchView.togglePlay();
+        return true;
+    }
+    return false;
+}
+
 void LibraryView::buttonClicked(Button *button)
 {
     if (button == &_copySettingsButton) {
-        // Copy settings
-        if (_patchTreeView.selectedPatch()) {
-            _patchSettingsBuffer = *_patchTreeView.selectedPatch()->patchSettings();
-            _patchSettingsBuffer.setSelected(false);
-            PropertySetDialog dialog(&_patchSettingsBuffer);
-            dialog.setSize(300, 500);
-            if (DialogWindow::showModalDialog("Copy Settings", &dialog, this, Colours::white, true)) {
-                _pasteSettingsButton.setEnabled(true);
-            }
-        }
+        copyPatchSettings();
     }
     if (button == &_pasteSettingsButton) {
-        // Paste settings
-        if (AlertWindow::showOkCancelBox(AlertWindow::QuestionIcon,
-                                         "Paste Settings",
-                                         String::formatted("Are you sure to paste the copied settings to the %d selected patch(es)?", _patchTreeView.selectedPatches().size()),
-                                         String::empty, String::empty,
-                                         nullptr, nullptr)) {
-            for (auto patch : _patchTreeView.selectedPatches()) {
-                patch->patchSettings()->assign(_patchSettingsBuffer, true);
-            }
-        }
+        pastePatchSettings();
+    }
+}
 
+void LibraryView::copyPatchSettings()
+{
+    // Copy settings
+    if (_patchTreeView.selectedPatch()) {
+        _patchSettingsBuffer = *_patchTreeView.selectedPatch()->patchSettings();
+        _patchSettingsBuffer.setSelected(false);
+        PropertySetDialog dialog(&_patchSettingsBuffer);
+        dialog.setSize(300, 500);
+        if (DialogWindow::showModalDialog("Copy Settings", &dialog, this, Colours::white, true)) {
+            _pasteSettingsButton.setEnabled(true);
+        }
+    }
+}
+
+void LibraryView::pastePatchSettings()
+{
+    // Paste settings
+    if (AlertWindow::showOkCancelBox(AlertWindow::QuestionIcon,
+                                     "Paste Settings",
+                                     String::formatted("Are you sure to paste the copied settings to the %d selected patch(es)?", _patchTreeView.selectedPatches().size()),
+                                     String::empty, String::empty,
+                                     nullptr, nullptr)) {
+        for (auto patch : _patchTreeView.selectedPatches()) {
+            patch->patchSettings()->assign(_patchSettingsBuffer, true);
+        }
     }
 }

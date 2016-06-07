@@ -1,10 +1,12 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "LooperEngine.h"
 
-LooperEngine::Track::Track() :
+LooperEngine::Track::Track(LooperEngine &looperEngine) :
+    _looperEngine(looperEngine),
     _track(nullptr),
     _play(false),
-    _stretcher(44100, 2, RubberBand::RubberBandStretcher::OptionProcessRealTime)
+    _stretcher(44100, 2, RubberBand::RubberBandStretcher::OptionProcessRealTime),
+    _tmpBuffer(2, BufferLength)
 {
     _stretcher.setTimeRatio(1.0);
 }
@@ -13,11 +15,36 @@ void LooperEngine::Track::setTrack(RC505::Track *track)
 {
     _track = track;
     _inputSampleIndex = 0;
+    
+    setPlaying(_play);
 }
 
-void LooperEngine::Track::setGlobalTempo(double globalTempo)
+void LooperEngine::Track::setPlaying(bool playing)
 {
-    _globalTempo = globalTempo;
+    if (_looperEngine.tracksPlaying() == 0) {
+        _looperEngine._sampleIndex = 0;
+    }
+    _stretcher.reset();
+    _play = playing;
+    if (_track && _track->audioBuffer().getNumSamples() > 0) {
+        // ratio > 1 slower / ratio < 1 faster
+        double recordTempo = _track->trackSettings()->recTmp->value() / 10.0;
+        double ratio = recordTempo / _looperEngine.globalTempo();
+        _inputSampleIndex = int(std::floor(_looperEngine._sampleIndex / ratio)) % _track->audioBuffer().getNumSamples();
+    } else {
+        _inputSampleIndex = 0;
+        _play = false;
+    }
+}
+
+double LooperEngine::Track::playPosition() const
+{
+    if (!_play) {
+        return 0.0;
+    }
+    const AudioSampleBuffer &inputBuffer = _track->audioBuffer();
+    double position = double(_inputSampleIndex) / inputBuffer.getNumSamples();
+    return _track->trackSettings()->reverse->value() ? 1.0 - position : position;
 }
 
 void LooperEngine::Track::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
@@ -38,7 +65,7 @@ void LooperEngine::Track::getNextAudioBlock(const AudioSourceChannelInfo &buffer
     }
 
     double recordTempo = _track->trackSettings()->recTmp->value() / 10.0;
-    double ratio = recordTempo / _globalTempo;
+    double ratio = recordTempo / _looperEngine.globalTempo();
     _stretcher.setTimeRatio(ratio);
 
     int outputSampleIndex = bufferToFill.startSample;
@@ -56,10 +83,18 @@ void LooperEngine::Track::getNextAudioBlock(const AudioSourceChannelInfo &buffer
             outputSampleIndex += samples;
             outputSamplesLeft -= samples;
         } else {
-            int samples = jmin(128, inputBuffer.getNumSamples() - _inputSampleIndex);
+            int samples = jmin(BufferLength, inputBuffer.getNumSamples() - _inputSampleIndex);
+            if (_track->trackSettings()->reverse->value()) {
+                _tmpBuffer.copyFrom(0, 0, inputBuffer, 0, inputBuffer.getNumSamples() - _inputSampleIndex - samples, samples);
+                _tmpBuffer.copyFrom(1, 0, inputBuffer, 1, inputBuffer.getNumSamples() - _inputSampleIndex - samples, samples);
+                _tmpBuffer.reverse(0, samples);
+            } else {
+                _tmpBuffer.copyFrom(0, 0, inputBuffer, 0, _inputSampleIndex, samples);
+                _tmpBuffer.copyFrom(1, 0, inputBuffer, 1, _inputSampleIndex, samples);
+            }
             float const *input[2] = {
-                inputBuffer.getReadPointer(0, _inputSampleIndex),
-                inputBuffer.getReadPointer(1, _inputSampleIndex)
+                _tmpBuffer.getReadPointer(0, 0),
+                _tmpBuffer.getReadPointer(1, 0)
             };
             _stretcher.process(input, samples, false);
             _inputSampleIndex += samples;
@@ -78,18 +113,20 @@ void LooperEngine::Track::getNextAudioBlock(const AudioSourceChannelInfo &buffer
 
 
 LooperEngine::LooperEngine() :
-    _patch(nullptr)
+    _patch(nullptr),
+    _sampleIndex(0)
 {
-    for (auto &track : _tracks) {
-        _mixer.addInputSource(&track, false);
+    for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
+        _tracks.add(new Track(*this));
+        _mixer.addInputSource(_tracks[i], false);
     }
 }
 
 LooperEngine::~LooperEngine()
 {
-    for (auto &track : _tracks) {
-        track.setTrack(nullptr);
-        _mixer.removeInputSource(&track);
+    for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
+        _tracks[i]->setTrack(nullptr);
+        _mixer.removeInputSource(_tracks[i]);
     }
 }
 
@@ -98,9 +135,26 @@ void LooperEngine::setPatch(RC505::Patch *patch)
     _patch = patch;
     if (_patch) {
         for (int i = 0; i < RC505::Patch::NumTracks; ++i)  {
-            _tracks[i].setTrack(_patch->tracks()[i]);
+            _tracks[i]->setTrack(_patch->tracks()[i]);
         }
     }
+}
+
+void LooperEngine::setPlayingAll(bool playing)
+{
+    for (const auto &track : _tracks) {
+        track->setPlaying(playing);
+    }
+}
+
+bool LooperEngine::isPlayingAny() const
+{
+    for (const auto &track : _tracks) {
+        if (track->isPlaying()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void LooperEngine::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
@@ -121,10 +175,23 @@ void LooperEngine::getNextAudioBlock(const AudioSourceChannelInfo &bufferToFill)
         return;
     }
 
-    double globalTempo = _patch->patchSettings()->master->tempo->value() / 10.0;
-    for (auto &track : _tracks) {
-        track.setGlobalTempo(globalTempo);
-    }
-
     _mixer.getNextAudioBlock(bufferToFill);
+
+    _sampleIndex += bufferToFill.numSamples;
+}
+
+double LooperEngine::globalTempo() const
+{
+    return _patch->patchSettings()->master->tempo->value() / 10.0;
+}
+
+int LooperEngine::tracksPlaying() const
+{
+    int count = 0;
+    for (auto track : _tracks) {
+        if (track->isPlaying()) {
+            ++count;
+        }
+    }
+    return count;
 }

@@ -2,6 +2,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
+#include <functional>
+
 namespace RC505 {
 
 class Library;
@@ -1137,6 +1139,7 @@ public:
 
     Library();
 
+    const File &rootPath() const { return _rootPath; }
     const File &dataPath() const { return _dataPath; }
     const File &wavePath() const { return _wavePath; }
 
@@ -1150,6 +1153,8 @@ public:
 
     bool load(const File &path);
     bool save(const File &path);
+
+    static String checkVolumesForRC505();
     
 private:
     bool loadMemory(const File &path);

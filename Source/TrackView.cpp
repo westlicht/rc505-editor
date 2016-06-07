@@ -15,6 +15,7 @@ TrackView::TrackView(int index) :
 
 TrackView::~TrackView()
 {
+    removeAllChildren();
 }
 
 void TrackView::setTrack(RC505::Track *track)

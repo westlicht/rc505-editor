@@ -36,20 +36,20 @@ IntProperty::Type IntProperty::LevelType(
 );
 
 IntProperty::Type IntProperty::PanType(
-    [] (int i) { return float(i); },
-    [] (float f) { return int(std::floor(f)); },
+    [] (int i) { return float(i - 50); },
+    [] (float f) { return int(std::floor(f + 50.f)); },
     [] (float f) {
         int i = int(std::floor(f));
-        if (i < 50) {
-            return "L" + String(50 - i);
-        } else if (i > 50) {
-            return "R" + String(i - 50);
+        if (i < 0) {
+            return "L" + String(-i);
+        } else if (i > 0) {
+            return "R" + String(i);
         } else {
             return String("CENTER");
         }
     },
-    0.f,
-    100.f
+    -50.f,
+    50.f
 );
 
 IntProperty::Type IntProperty::TempoType(
@@ -450,6 +450,24 @@ bool Library::save(const File &path)
     }
 
     return true;
+}
+
+String Library::checkVolumesForRC505()
+{
+    #if JUCE_MAC
+    File volumesPath("/Volumes");
+    Array<File> results;
+    volumesPath.findChildFiles(results, File::findDirectories, false);
+    for (const auto path : results) {
+        if (path.getFileName() == "BOSS_RC-505") {
+            String fullPath = File::addTrailingSeparator(path.getFullPathName()) + "ROLAND";
+            if (File(fullPath).exists()) {
+                return fullPath;
+            }
+        }
+    }
+    #endif
+    return String::empty;
 }
 
 bool Library::loadMemory(const File &path)

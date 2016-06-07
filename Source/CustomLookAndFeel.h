@@ -15,11 +15,13 @@ public:
     static void fillWithBackgroundTexture(Component&, Graphics&);
 #endif
 
-    void drawTabButton(TabBarButton &button, Graphics &, bool isMouseOver, bool isMouseDown) override;
-    void drawTabAreaBehindFrontButton(TabbedButtonBar &, Graphics &, int, int) override {}
-    int getTabButtonBestWidth(TabBarButton&, int tabDepth) override;
+    virtual void drawTabButton(TabBarButton &button, Graphics &, bool isMouseOver, bool isMouseDown) override;
+    virtual void drawTabAreaBehindFrontButton(TabbedButtonBar &, Graphics &, int, int) override {}
+    virtual int getTabButtonBestWidth(TabBarButton&, int tabDepth) override;
 
 private:
     Image backgroundTexture;
     Colour backgroundTextureBaseColour;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CustomLookAndFeel)
 };

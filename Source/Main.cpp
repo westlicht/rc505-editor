@@ -1,4 +1,5 @@
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "MainComponent.h"
 #include "RC505.h"
 #include "Theme.h"
 #include "CommandIDs.h"
@@ -276,7 +277,8 @@ public:
             //_library.save(File("/Users/freak/Desktop/ROLAND"));
 
             setUsingNativeTitleBar(true);
-            setContentOwned (createMainContentComponent(_library), true);
+            _mainComponent = new MainComponent(_library);
+            setContentOwned(_mainComponent, true);
             setResizable (true, true);
 
             centreWithSize (getWidth(), getHeight());
@@ -289,6 +291,11 @@ public:
             //mountedVolumeListChanged();
             //FileChooser fc("Select ROLAND directory");
             //fc.browseForDirectory();
+        }
+        
+        ~MainWindow()
+        {
+            clearContentComponent();
         }
 
         void closeButtonPressed() override
@@ -306,15 +313,24 @@ public:
            subclass also calls the superclass's method.
         */
         
-        virtual void mountedVolumeListChanged() override {
-            Logger::outputDebugString("mounts changed");
-            Array<File> roots;
-            File::findFileSystemRoots(roots);
-            for (const auto &root : roots) {
-                Logger::outputDebugString(root.getFullPathName());
+        virtual void mountedVolumeListChanged() override
+        {
+            String path = RC505::Library::checkVolumesForRC505();
+            if (path.isEmpty()) {
+                return;
+            }
+            if (AlertWindow::showOkCancelBox(AlertWindow::QuestionIcon,
+                                             "BOSS RC505 detected",
+                                             "A BOSS RC505 was detected. Do you want to load it's library?\n\n"
+                                             "WARNING: For your own safety, please create a BACKUP before editing the content!\n\n"
+                                             "NOTE: Data transfer over USB is rather slow. You might be better off copying all\n"
+                                             "content to a local directory, do the changes locally, and write everything back.",
+                                             String::empty, String::empty,
+                                             nullptr, nullptr)) {
+                _library.load(File(path));
             }
         }
-
+        
         void openLibrary()
         {
             FileChooser fileChooser("Select 'ROLAND' folder...");
@@ -330,13 +346,15 @@ public:
 
         void saveLibrary()
         {
-            _library.save(File("/Users/freak/Desktop/ROLAND"));
+            _library.save(_library.rootPath());
+            //_library.save(File("/Users/freak/Desktop/ROLAND"));
         }
 
 
     private:
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainWindow)
 
+        MainComponent *_mainComponent;
         RC505::Library _library;
     };
 
