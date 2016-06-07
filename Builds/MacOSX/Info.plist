@@ -8,9 +8,9 @@
     <key>CFBundleIconFile</key>
     <string>Icon.icns</string>
     <key>CFBundleIdentifier</key>
-    <string>ch.westlicht.rc505-editor</string>
+    <string>ch.westlicht.rc505</string>
     <key>CFBundleName</key>
-    <string>rc505-editor</string>
+    <string>RC-505</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleSignature</key>
