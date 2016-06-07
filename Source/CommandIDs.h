@@ -6,6 +6,7 @@ namespace CommandIDs
     {
         openLibrary            = 0x202000,
         saveLibrary            = 0x202001,
+        closeLibrary           = 0x202002,
 
         newProject             = 0x200010,
         open                   = 0x200020,
