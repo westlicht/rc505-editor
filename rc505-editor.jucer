@@ -5,6 +5,10 @@
               jucerVersion="4.1.0" companyEmail="simon.kallweit@gmail.com"
               companyName="westlicht" companyWebsite="westlicht.ch" defines="">
   <MAINGROUP id="FP8VHC" name="rc505-editor">
+    <GROUP id="{D21FB55B-E8F8-6DAB-3311-5EB3C5E0EE8A}" name="Resources">
+      <FILE id="hPyQXt" name="icon-large.png" compile="0" resource="1" file="Resources/icon-large.png"/>
+      <FILE id="HZjAva" name="icon-small.png" compile="0" resource="1" file="Resources/icon-small.png"/>
+    </GROUP>
     <GROUP id="{BF7CAD53-3295-BF47-4572-AC24F0381F56}" name="Source">
       <GROUP id="{94225AD2-DE10-AF5D-91BE-E48816A77E2F}" name="libsamplerate">
         <FILE id="Zp9cfN" name="common.h" compile="0" resource="0" file="Source/libsamplerate/common.h"/>
@@ -137,6 +141,7 @@
       <FILE id="IXzsrW" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="HrRf5Y" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
+      <FILE id="fXgqCp" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="gBSjCD" name="PatchTreeView.cpp" compile="1" resource="0"
             file="Source/PatchTreeView.cpp"/>
       <FILE id="Ybbk7i" name="PatchTreeView.h" compile="0" resource="0" file="Source/PatchTreeView.h"/>
@@ -172,7 +177,8 @@
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX" extraDefs="" extraCompilerFlags="-I../../Source/rubberband">
+    <XCODE_MAC targetFolder="Builds/MacOSX" extraDefs="" extraCompilerFlags="-I../../Source/rubberband -stdlib=libc++"
+               smallIcon="HZjAva" bigIcon="hPyQXt" extraLinkerFlags="-stdlib=libc++">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="10.10 SDK" osxCompatibility="10.8 SDK" osxArchitecture="default"
                        isDebug="1" optimisation="1" targetName="RC505"/>
