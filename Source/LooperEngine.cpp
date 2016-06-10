@@ -25,12 +25,12 @@ void LooperEngine::Track::setPlaying(bool playing)
         _looperEngine._sampleIndex = 0;
     }
     _stretcher.reset();
-    _play = playing;
     if (_track && _track->audioBuffer().getNumSamples() > 0) {
         // ratio > 1 slower / ratio < 1 faster
         double recordTempo = _track->trackSettings()->recTmp->value() / 10.0;
         double ratio = recordTempo / _looperEngine.globalTempo();
         _inputSampleIndex = int(std::floor(_looperEngine._sampleIndex / ratio)) % _track->audioBuffer().getNumSamples();
+        _play = playing;
     } else {
         _inputSampleIndex = 0;
         _play = false;
@@ -113,8 +113,8 @@ void LooperEngine::Track::getNextAudioBlock(const AudioSourceChannelInfo &buffer
 
 
 LooperEngine::LooperEngine() :
-    _patch(nullptr),
-    _sampleIndex(0)
+    _sampleIndex(0),
+    _patch(nullptr)
 {
     for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
         _tracks.add(new Track(*this));
