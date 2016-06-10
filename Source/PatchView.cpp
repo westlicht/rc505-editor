@@ -54,9 +54,9 @@ void PatchView::setPatch(RC505::Patch *patch)
 {
     _patch = patch;
     
+    _looperEngine.setPatch(_patch);
     _looperEngine.setPlayingAll(false);
     updatePlayState();
-    _looperEngine.setPatch(_patch);
     _namePropertyView.setProperty(_patch ? _patch->patchName() : nullptr);
     _tempoPropertyView.setProperty(_patch ? _patch->patchSettings()->master->tempo : nullptr);
     for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
