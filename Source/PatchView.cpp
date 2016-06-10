@@ -7,8 +7,6 @@ PatchView::PatchView() :
     _patch(nullptr),
     _tabs(TabbedButtonBar::TabsAtTop)
 {
-    addKeyListener(this);
-
     addAndMakeVisible(_namePropertyView);
     addAndMakeVisible(_tempoPropertyView);
     addAndMakeVisible(_playButton);
@@ -102,11 +100,6 @@ void PatchView::timerCallback()
         _trackViews[i]->waveformView().setPlaying(_looperEngine.tracks()[i]->isPlaying());
         _trackViews[i]->waveformView().setPlayPosition(_looperEngine.tracks()[i]->playPosition());
     }
-}
-
-bool PatchView::keyPressed(const KeyPress &key, Component *originatingComponent)
-{
-    return false;
 }
 
 void PatchView::buttonClicked(Button *button)

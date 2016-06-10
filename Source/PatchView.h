@@ -10,7 +10,6 @@
 
 class PatchView : public Component, 
                   public Timer,
-                  public KeyListener,
                   public Button::Listener,
                   public TrackLabel::Listener,
                   public WaveformView::Listener {
@@ -29,9 +28,6 @@ public:
 
     // Timer
     virtual void timerCallback() override;
-
-    // KeyListener
-    virtual bool keyPressed(const KeyPress &key, Component *originatingComponent) override;
 
     // Button::Listener
     virtual void buttonClicked(Button *button) override;
