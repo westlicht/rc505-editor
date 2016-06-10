@@ -269,6 +269,19 @@ void Track::clearAudioBuffer()
     _trackSettings.wavLen->setValue(0);
 }
 
+void Track::saveWaveTo(const File &file) const {
+    switch (_waveState) {
+    case WaveOriginal:
+        _waveFile.copyFileTo(file);
+        break;
+    case WaveChanged:
+        Utils::writeAudioFile(file, _audioBuffer);
+        break;
+    default:
+        break;
+    }
+}
+
 bool Track::loadFromXml(XmlElement *xml)
 {
     bool result = _trackSettings.loadFromXml(xml);

@@ -52,6 +52,8 @@ private:
 
     int trackIndex(Component *component) const;
 
+    void importLoopsToTracks(const Array<File> &files, int trackIndex = 0);
+
     RC505::Patch *_patch;
 
     NamePropertyView _namePropertyView;

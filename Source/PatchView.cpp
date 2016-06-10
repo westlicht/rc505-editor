@@ -133,21 +133,13 @@ void PatchView::trackMoved(int from, int to)
     }
 }
 
-void PatchView::waveformViewFilesDropped(WaveformView *waveformView, const StringArray &files)
+void PatchView::waveformViewFilesDropped(WaveformView *waveformView, const StringArray &filenames)
 {
-    int index = trackIndex(waveformView);
-    AudioSampleBuffer buffer;
-    for (const auto &file : files) {
-        if (index < RC505::Patch::NumTracks && Utils::readAudioFile(file, buffer)) {
-            auto track = _patch->tracks()[index];
-            track->setAudioBuffer(buffer);
-            auto tempoMeasures = Utils::findTempoAndMeasures(buffer);
-            track->trackSettings()->recTmp->setValue(int(std::floor(tempoMeasures.first * 10)));
-            track->trackSettings()->measLen->setValue(tempoMeasures.second);
-            _trackViews[index]->setTrack(track);
-            ++index;
-        }
+    Array<File> files;
+    for (const auto &filename : filenames) {
+        files.add(File(filename));
     }
+    importLoopsToTracks(files, trackIndex(waveformView));
 }
 
 void PatchView::waveformViewClicked(WaveformView *waveformView)
@@ -164,12 +156,21 @@ void PatchView::clearPatch()
 
 void PatchView::importLoops()
 {
-    // TODO
+    FileChooser fileChooser("Import Loops", File::nonexistent, "*.wav");
+    if (fileChooser.browseForMultipleFilesToOpen()) {
+        importLoopsToTracks(fileChooser.getResults());
+    }
 }
 
 void PatchView::exportLoops()
 {
-    // TODO
+    FileChooser fileChooser("Export Loops");
+    if (fileChooser.browseForDirectory()) {
+        for (const auto &track : _patch->tracks()) {
+            File file(File::addTrailingSeparator(fileChooser.getResult().getFullPathName()) + String::formatted("loop-%d-%d.wav", _patch->index(), track->index()));
+            track->saveWaveTo(file);
+        }
+    }
 }
 
 void PatchView::updatePlayState()
@@ -190,4 +191,31 @@ int PatchView::trackIndex(Component *component) const
     }
     jassertfalse;
     return -1;
+}
+
+void PatchView::importLoopsToTracks(const Array<File> &files, int trackIndex)
+{
+    bool empty = true;
+    for (const auto &track : _patch->tracks()) {
+        if (track->waveState() != RC505::Track::WaveEmpty) {
+            empty = false;
+        }
+    }
+
+    AudioSampleBuffer buffer;
+    for (const auto &file : files) {
+        if (trackIndex < RC505::Patch::NumTracks && Utils::readAudioFile(file, buffer)) {
+            auto track = _patch->tracks()[trackIndex];
+            track->setAudioBuffer(buffer);
+            auto tempoMeasures = Utils::findTempoAndMeasures(buffer);
+            track->trackSettings()->recTmp->setValue(int(std::floor(tempoMeasures.first * 10)));
+            track->trackSettings()->measLen->setValue(tempoMeasures.second);
+            if (empty) {
+                _patch->patchSettings()->master->tempo->setValue(int(std::floor(tempoMeasures.first * 10)));
+                empty = false;
+            }
+            _trackViews[trackIndex]->setTrack(track);
+            ++trackIndex;
+        }
+    }
 }

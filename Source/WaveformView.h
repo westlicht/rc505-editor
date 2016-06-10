@@ -8,7 +8,7 @@ public:
     class Listener {
     public:
         virtual ~Listener() {}
-        virtual void waveformViewFilesDropped(WaveformView *waveformView, const StringArray &files) = 0;
+        virtual void waveformViewFilesDropped(WaveformView *waveformView, const StringArray &filenames) = 0;
         virtual void waveformViewClicked(WaveformView *waveformView) = 0;
     };
 

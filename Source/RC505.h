@@ -1072,6 +1072,7 @@ public:
     const AudioSampleBuffer &audioBuffer() const;
     void setAudioBuffer(const AudioSampleBuffer &audioBuffer);
     void clearAudioBuffer();
+    void saveWaveTo(const File &file) const;
 
     bool loadFromXml(XmlElement *xml);
     bool saveToXml(XmlElement *xml);
