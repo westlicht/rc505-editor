@@ -393,7 +393,7 @@ void Library::setName(const String &name)
 {
     if (_name != name) {
         _name = name;
-        _listeners.call(&Listener::libraryChanged);
+        notifyLocked([&] () { _listeners.call(&Listener::libraryChanged); });
     }
 }
 
@@ -406,7 +406,7 @@ void Library::clearChanged()
 {
     if (_hasChanged) {
         _hasChanged = false;
-        _listeners.call(&Listener::libraryChanged);
+        notifyLocked([&] () { _listeners.call(&Listener::libraryChanged); });
     }
 }
 
@@ -414,7 +414,7 @@ void Library::setChanged()
 {
     if (!_hasChanged) {
         _hasChanged = true;
-        _listeners.call(&Listener::libraryChanged);
+        notifyLocked([&] () { _listeners.call(&Listener::libraryChanged); });
     }
 }
 
@@ -437,19 +437,19 @@ void Library::movePatches(const Array<Patch *> &patches, int insertIndex)
 }
 
 void Library::init() {
-    _listeners.call(&Listener::beforeLibraryLoaded);
+    notifyLocked([&] () { _listeners.call(&Listener::beforeLibraryLoaded); });
 
     setName("New Library");
     clearChanged();
     loadMemory(String(BinaryData::MEMORY_RC0, BinaryData::MEMORY_RC0Size));
     loadSystem(String(BinaryData::SYSTEM_RC0, BinaryData::SYSTEM_RC0Size));
 
-    _listeners.call(&Listener::afterLibraryLoaded);
+    notifyLocked([&] () { _listeners.call(&Listener::afterLibraryLoaded); });
 }
 
 bool Library::load(const File &path)
 {
-    _listeners.call(&Listener::beforeLibraryLoaded);
+    notifyLocked([&] () { _listeners.call(&Listener::beforeLibraryLoaded); });
 
     setPath(path);
     if (!_dataPath.exists() || !_dataPath.isDirectory()) {
@@ -473,14 +473,16 @@ bool Library::load(const File &path)
     setName(path.getFullPathName());
     clearChanged();
 
-    _listeners.call(&Listener::afterLibraryLoaded);
+    notifyLocked([&] () { _listeners.call(&Listener::afterLibraryLoaded); });
     
     return true;
 }
 
-bool Library::save(const File &path)
+bool Library::save(const File &path, ProgressCallback progress)
 {
-    _listeners.call(&Listener::beforeLibrarySaved);
+    progress(0.0);
+
+    notifyLocked([&] () { _listeners.call(&Listener::beforeLibrarySaved); });
 
     bool inplace = (path == _path);
     setPath(path);
@@ -505,21 +507,22 @@ bool Library::save(const File &path)
         return false;
     }
 
-    if (!saveWaveFiles(inplace)) {
+    if (!saveWaveFiles(inplace, progress)) {
         return false;
     }
 
     setName(path.getFullPathName());
     clearChanged();
+    progress(1.0);
 
-    _listeners.call(&Listener::afterLibrarySaved);
+    notifyLocked([&] () { _listeners.call(&Listener::afterLibrarySaved); });
 
     return true;
 }
 
 void Library::close()
 {
-    _listeners.call(&Listener::libraryClosed);
+    notifyLocked([&] () { _listeners.call(&Listener::libraryClosed); });
 }
 
 String Library::checkVolumesForRC505()
@@ -617,7 +620,7 @@ bool Library::saveSystem(const File &path)
     return xml->writeToFile(path, "");
 }
 
-bool Library::saveWaveFiles(bool inplace)
+bool Library::saveWaveFiles(bool inplace, ProgressCallback progress)
 {
     auto finalWaveDir = [&] (int patchIndex, int trackIndex) {
         return File(File::addTrailingSeparator(_wavePath.getFullPathName()) + 
@@ -644,6 +647,7 @@ bool Library::saveWaveFiles(bool inplace)
 
     // store wave files to temporary directories
     for (int patchIndex = 0; patchIndex < NumPatches; ++patchIndex) {
+        progress(patchIndex / 200.0);
         for (int trackIndex = 0; trackIndex < Patch::NumTracks; ++trackIndex) {
             auto track = _patches[patchIndex]->tracks()[trackIndex];
             switch (track->waveState()) {
@@ -666,6 +670,7 @@ bool Library::saveWaveFiles(bool inplace)
 
     // replace original folders with temporary folders
     for (int patchIndex = 0; patchIndex < NumPatches; ++patchIndex) {
+        progress(0.5 + patchIndex / 200.0);
         for (int trackIndex = 0; trackIndex < Patch::NumTracks; ++trackIndex) {
             finalWaveDir(patchIndex, trackIndex).deleteRecursively();
             temporaryWaveDir(patchIndex, trackIndex).moveFileTo(finalWaveDir(patchIndex, trackIndex));
@@ -677,7 +682,7 @@ bool Library::saveWaveFiles(bool inplace)
 
 void Library::notifyPropertyValueChanged(ValueProperty *property)
 {
-    _listeners.call(&Listener::propertyValueChanged, property);
+    notifyLocked([&] () { _listeners.call(&Listener::propertyValueChanged, property); });
     setChanged();
 }
 

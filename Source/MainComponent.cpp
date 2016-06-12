@@ -29,8 +29,34 @@ private:
     Image _imageIcon;
 };
 
+class SavingThreadWithProgressWindow : public ThreadWithProgressWindow {
+public:
+    SavingThreadWithProgressWindow(RC505::Library &library, const File &path) :
+        ThreadWithProgressWindow("Saving Library ...", true, false),
+        _library(library),
+        _path(path),
+        _success(false)
+    {
+    }
+
+    bool success() const { return _success; }
+
+    void run()
+    {
+        _success = _library.save(_path, [this] (double progress) {
+            setProgress(progress);
+        });
+    }
+
+private:
+    RC505::Library &_library;
+    File _path;
+    bool _success;
+};
+
 MainComponent::MainComponent() :
-    _audioEngine(AudioEngine::instance())
+    _audioEngine(AudioEngine::instance()),
+    _savingInProgress(false)
 {
     setSize(1400, 800);
     setAudioChannels(2, 2);
@@ -58,7 +84,7 @@ void MainComponent::newLibrary()
 
 void MainComponent::openLibrary()
 {
-    FileChooser fileChooser("Open Library...");
+    FileChooser fileChooser("Open Library");
     if (fileChooser.browseForDirectory()) {
         openLibrary(fileChooser.getResult());
     }
@@ -71,7 +97,7 @@ void MainComponent::saveLibrary()
         if (view->library().path().exists()) {
             saveLibrary(view->library(), view->library().path());
         } else {
-            FileChooser fileChooser("Save Library...");
+            FileChooser fileChooser("Save Library");
             if (fileChooser.browseForDirectory()) {
                 saveLibrary(view->library(), fileChooser.getResult());
             }
@@ -83,7 +109,7 @@ void MainComponent::saveLibraryAs()
 {
     auto view = activeLibraryView();
     if (view) {
-        FileChooser fileChooser("Save Library As...");
+        FileChooser fileChooser("Save Library As");
         if (fileChooser.browseForDirectory()) {
             saveLibrary(view->library(), fileChooser.getResult());
         }
@@ -102,6 +128,9 @@ void MainComponent::closeLibrary()
 
 bool MainComponent::allowQuit()
 {
+    if (_savingInProgress.get()) {
+        return false;
+    }
     bool allow = true;
     iterateLibraryViews([&] (LibraryView *view) {
         if (view->library().hasChanged() && !allowDiscardChanges(view->library())) {
@@ -114,8 +143,6 @@ bool MainComponent::allowQuit()
 void MainComponent::paint(Graphics &g)
 {
     g.fillAll(Colours::black);
-    g.setColour(Colours::white);
-    g.drawFittedText("No library loaded!", 0, 0, getWidth(), getHeight(), Justification::centred, 1);
 }
 
 void MainComponent::resized()
@@ -227,9 +254,13 @@ void MainComponent::openLibrary(const File &path)
 
 void MainComponent::saveLibrary(RC505::Library &library, const File &path)
 {
-    if (!library.save(path)) {
+    SavingThreadWithProgressWindow thread(library, path);
+    _savingInProgress = true;
+    thread.runThread();
+    if (!thread.success()) {
         AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error", "Failed to save library to '" + path.getFullPathName() + "'!");
     }
+    _savingInProgress = false;
 }
 
 bool MainComponent::allowDiscardChanges(RC505::Library &library)

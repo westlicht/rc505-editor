@@ -51,6 +51,7 @@ private:
     AudioEngine &_audioEngine;
     ScopedPointer<MainMultiDocumentPanel> _multiDocumentPanel;
     int _newLibraryIndex = 1;
+    Atomic<int> _savingInProgress;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };

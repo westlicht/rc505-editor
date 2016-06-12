@@ -1132,6 +1132,8 @@ class Library {
 public:
     static const int NumPatches = 99;
 
+    typedef std::function<void(double)>ProgressCallback;
+
     class Listener {
     public:
         virtual ~Listener() {}
@@ -1168,7 +1170,7 @@ public:
 
     void init();
     bool load(const File &path);
-    bool save(const File &path);
+    bool save(const File &path, ProgressCallback progress);
     void close();
 
     static String checkVolumesForRC505();
@@ -1184,8 +1186,14 @@ private:
     bool loadSystem(const String &data);
     bool saveSystem(const File &path);
 
-    bool saveWaveFiles(bool inplace);
+    bool saveWaveFiles(bool inplace, ProgressCallback progress);
 
+    template<typename Func>
+    void notifyLocked(Func func) {
+        const MessageManagerLock messageManagerLock;
+        func();
+    }
+    
     void notifyPropertyValueChanged(ValueProperty *property);
 
     String _name;
