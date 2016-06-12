@@ -126,8 +126,7 @@ PatchTreeView::PatchTreeView(RC505::Library &library) :
     setMultiSelectEnabled(true);
     setOpenCloseButtonsVisible(false);
 
-    //_root = new RootPatchTreeViewItem(_library);
-    //setRootItem(_root);
+    afterLibraryLoaded();
 }
 
 PatchTreeView::~PatchTreeView()

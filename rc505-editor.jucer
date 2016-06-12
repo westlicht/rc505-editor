@@ -135,8 +135,8 @@
             file="Source/CustomLookAndFeel.cpp"/>
       <FILE id="tdyDR8" name="CustomLookAndFeel.h" compile="0" resource="0"
             file="Source/CustomLookAndFeel.h"/>
-      <FILE id="JIdRrb" name="LibraryView.cpp" compile="1" resource="0" file="Source/LibraryView.cpp"/>
-      <FILE id="CCIUfI" name="LibraryView.h" compile="0" resource="0" file="Source/LibraryView.h"/>
+      <FILE id="YpUZXt" name="LibraryView.cpp" compile="1" resource="0" file="Source/LibraryView.cpp"/>
+      <FILE id="Ob3c7E" name="LibraryView.h" compile="0" resource="0" file="Source/LibraryView.h"/>
       <FILE id="tuGRFK" name="LooperEngine.cpp" compile="1" resource="0"
             file="Source/LooperEngine.cpp"/>
       <FILE id="ITlxr8" name="LooperEngine.h" compile="0" resource="0" file="Source/LooperEngine.h"/>
@@ -144,8 +144,8 @@
       <FILE id="HrRf5Y" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
       <FILE id="fXgqCp" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-      <FILE id="P8tJf3" name="MainWindow.cpp" compile="1" resource="0" file="Source/MainWindow.cpp"/>
-      <FILE id="iLfI9a" name="MainWindow.h" compile="0" resource="0" file="Source/MainWindow.h"/>
+      <FILE id="JIdRrb" name="MemoryView.cpp" compile="1" resource="0" file="Source/MemoryView.cpp"/>
+      <FILE id="CCIUfI" name="MemoryView.h" compile="0" resource="0" file="Source/MemoryView.h"/>
       <FILE id="gBSjCD" name="PatchTreeView.cpp" compile="1" resource="0"
             file="Source/PatchTreeView.cpp"/>
       <FILE id="Ybbk7i" name="PatchTreeView.h" compile="0" resource="0" file="Source/PatchTreeView.h"/>

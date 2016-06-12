@@ -2,37 +2,55 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-#include "CustomLookAndFeel.h"
 #include "RC505.h"
 #include "LibraryView.h"
-#include "SystemView.h"
-#include "PatchView.h"
 #include "AudioEngine.h"
 
-class MainComponent : public AudioAppComponent {
+class MainMultiDocumentPanel;
+
+class MainComponent : public AudioAppComponent,
+                      public ApplicationCommandTarget,
+                      public MountedVolumeListChangeDetector {
 public:
-    MainComponent(RC505::Library &library);
+    MainComponent();
     ~MainComponent();
 
-    LibraryView &libraryView() { return _libraryView; }
-    SystemView &systemView() { return _systemView; }
-    AudioEngine &audioEngine() { return _audioEngine; }
+    void newLibrary();
+    void openLibrary();
+    void saveLibrary();
+    void saveLibraryAs();
+    void closeLibrary();
+
+    bool allowQuit();
+
+    // Component
+    virtual void paint(Graphics &g) override;
+    virtual void resized() override;
 
     // AudioAppComponent
     virtual void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
     virtual void getNextAudioBlock(const AudioSourceChannelInfo &bufferToFill) override;
     virtual void releaseResources() override;
 
-    // Component
-    virtual void paint(Graphics &g) override;
-    virtual void resized() override;
+    // ApplicationCommandTarget
+    virtual ApplicationCommandTarget *getNextCommandTarget() override;
+    virtual void getAllCommands(Array<CommandID> &commands) override;
+    virtual void getCommandInfo(CommandID commandID, ApplicationCommandInfo &result) override;
+    virtual bool perform(const InvocationInfo &info) override;
+
+    // MountedVolumeListChangeDetector
+    virtual void mountedVolumeListChanged() override;
 
 private:
-    CustomLookAndFeel _lookAndFeel;
-    TabbedComponent _tabs;
-    LibraryView _libraryView;
-    SystemView _systemView;
+    void openLibrary(const File &path);
+    void saveLibrary(RC505::Library &library, const File &path);
+    bool allowDiscardChanges(RC505::Library &library);
+    LibraryView *activeLibraryView();
+    void iterateLibraryViews(std::function<void(LibraryView *)> handler);
+
     AudioEngine &_audioEngine;
+    ScopedPointer<MainMultiDocumentPanel> _multiDocumentPanel;
+    int _newLibraryIndex = 1;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };

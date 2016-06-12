@@ -1,109 +1,43 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "LibraryView.h"
-#include "PropertySetDialog.h"
 
-LibraryView::LibraryView(RC505::Library &library) :
-    _library(library),
-    _patchTreeView(library),
-    _patchSettingsBuffer(nullptr)
+LibraryView::LibraryView() :
+    _tabs(TabbedButtonBar::TabsAtTop),
+    _memoryView(_library),
+    _systemView(_library)
 {
-    addKeyListener(this);
-
-    addAndMakeVisible(_patchTreeView);
-    addAndMakeVisible(_patchView);
-    addAndMakeVisible(_copySettingsButton);
-    addAndMakeVisible(_pasteSettingsButton);
-
-    _patchTreeView.addListener(this);
-    _copySettingsButton.setButtonText("Copy Settings");
-    _copySettingsButton.addListener(this);
-    _pasteSettingsButton.setButtonText("Paste Settings");
-    _pasteSettingsButton.addListener(this);
-
     _library.addListener(this);
+
+    setName(_library.name());
+    addAndMakeVisible(_tabs);
+    
+    _tabs.addTab("Memory", Colours::white, &_memoryView, false);
+    _tabs.addTab("System", Colours::white, &_systemView, false);
 }
 
 LibraryView::~LibraryView()
 {
-    _patchTreeView.setRootItem(nullptr);
 }
 
-void LibraryView::paint (Graphics &g)
+void LibraryView::paint(Graphics &g)
 {
-    Component::paint(g);
+    g.setColour(Colours::black);
+    g.fillAll();
 }
 
 void LibraryView::resized()
 {
-    const int LibraryViewWidth = 200;
-    const int ButtonHeight = 30;
-    _patchTreeView.setBounds(0, 0, LibraryViewWidth, getHeight() - 2 * ButtonHeight);
-    _copySettingsButton.setBounds(0, getHeight() - 2 * ButtonHeight, LibraryViewWidth, ButtonHeight);
-    _pasteSettingsButton.setBounds(0, getHeight() - 1 * ButtonHeight, LibraryViewWidth, ButtonHeight);
-    _patchView.setBounds(LibraryViewWidth, 0, getWidth() - LibraryViewWidth, getHeight());
+    _tabs.setBounds(0, 20, getWidth(), getHeight() - 20);
 }
 
-void LibraryView::patchSelected(RC505::Patch *patch)
+void LibraryView::visibilityChanged()
 {
-    _patchView.setPatch(patch);
-    _copySettingsButton.setEnabled(true);
-}
-
-void LibraryView::beforeLibraryLoaded()
-{
-    _patchView.setPatch(nullptr);
-    _copySettingsButton.setEnabled(false);
-    _pasteSettingsButton.setEnabled(false);
-}
-
-void LibraryView::afterLibraryLoaded()
-{
-    patchSelected(_library.patches()[0]);
-}
-
-bool LibraryView::keyPressed(const KeyPress &key, Component *originatingComponent)
-{
-    if (key.isKeyCode(KeyPress::spaceKey)) {
-        _patchView.togglePlay();
-        return true;
-    }
-    return false;
-}
-
-void LibraryView::buttonClicked(Button *button)
-{
-    if (button == &_copySettingsButton) {
-        copyPatchSettings();
-    }
-    if (button == &_pasteSettingsButton) {
-        pastePatchSettings();
+    if (!isVisible()) {
+        _memoryView.patchView().stopPlaying();
     }
 }
 
-void LibraryView::copyPatchSettings()
+void LibraryView::libraryChanged()
 {
-    // Copy settings
-    if (_patchTreeView.selectedPatch()) {
-        _patchSettingsBuffer = *_patchTreeView.selectedPatch()->patchSettings();
-        _patchSettingsBuffer.setSelected(false);
-        PropertySetDialog dialog(&_patchSettingsBuffer);
-        dialog.setSize(300, 500);
-        if (DialogWindow::showModalDialog("Copy Settings", &dialog, this, Colours::white, true)) {
-            _pasteSettingsButton.setEnabled(true);
-        }
-    }
-}
-
-void LibraryView::pastePatchSettings()
-{
-    // Paste settings
-    if (AlertWindow::showOkCancelBox(AlertWindow::QuestionIcon,
-                                     "Paste Settings",
-                                     String::formatted("Are you sure to paste the copied settings to the %d selected patch(es)?", _patchTreeView.selectedPatches().size()),
-                                     String::empty, String::empty,
-                                     nullptr, nullptr)) {
-        for (auto patch : _patchTreeView.selectedPatches()) {
-            patch->patchSettings()->assign(_patchSettingsBuffer, true);
-        }
-    }
+    setName(_library.documentName());
 }

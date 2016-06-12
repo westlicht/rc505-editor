@@ -6,6 +6,14 @@ static void setupLookAndFeel()
 {
     LookAndFeel &lf = LookAndFeel::getDefaultLookAndFeel();
 
+    Colour backgroundColour = Colour(0, 0, 0);
+
+    // TreeView
+    lf.setColour(TreeView::backgroundColourId, backgroundColour);
+    lf.setColour(TreeView::linesColourId, Colours::white);
+    lf.setColour(TreeView::dragAndDropIndicatorColourId, Colours::blue);
+    lf.setColour(TreeView::selectedItemBackgroundColourId, Colours::grey);
+
     // TabbedComponent
     lf.setColour(TabbedComponent::backgroundColourId, Colours::black);
     lf.setColour(TabbedComponent::outlineColourId, Colours::white);

@@ -1,5 +1,6 @@
 #include "RC505.h"
 #include "Utils.h"
+#include "BinaryData.h"
 
 namespace RC505 {
 
@@ -353,6 +354,7 @@ void Patch::setName(const String &name)
 void Patch::moveTrack(int from, int to)
 {
     _tracks.swap(from, to);
+    _library->setChanged();
 }
 
 bool Patch::loadFromXml(XmlElement *xml)
@@ -384,6 +386,36 @@ bool Patch::saveToXml(XmlElement *xml)
 Library::Library() :
     _systemSettings(this)
 {
+    init();
+}
+
+void Library::setName(const String &name)
+{
+    if (_name != name) {
+        _name = name;
+        _listeners.call(&Listener::libraryChanged);
+    }
+}
+
+String Library::documentName() const
+{
+    return _name + (_hasChanged ? " *" : "");
+}
+
+void Library::clearChanged()
+{
+    if (_hasChanged) {
+        _hasChanged = false;
+        _listeners.call(&Listener::libraryChanged);
+    }
+}
+
+void Library::setChanged()
+{
+    if (!_hasChanged) {
+        _hasChanged = true;
+        _listeners.call(&Listener::libraryChanged);
+    }
 }
 
 void Library::movePatches(const Array<Patch *> &patches, int insertIndex)
@@ -404,13 +436,22 @@ void Library::movePatches(const Array<Patch *> &patches, int insertIndex)
     }
 }
 
+void Library::init() {
+    _listeners.call(&Listener::beforeLibraryLoaded);
+
+    setName("New Library");
+    clearChanged();
+    loadMemory(String(BinaryData::MEMORY_RC0, BinaryData::MEMORY_RC0Size));
+    loadSystem(String(BinaryData::SYSTEM_RC0, BinaryData::SYSTEM_RC0Size));
+
+    _listeners.call(&Listener::afterLibraryLoaded);
+}
+
 bool Library::load(const File &path)
 {
     _listeners.call(&Listener::beforeLibraryLoaded);
 
-    _rootPath = path;
-    _dataPath = File::addTrailingSeparator(path.getFullPathName()) + "DATA";
-    _wavePath = File::addTrailingSeparator(path.getFullPathName()) + "WAVE";
+    setPath(path);
     if (!_dataPath.exists() || !_dataPath.isDirectory()) {
         return false;
     }
@@ -429,6 +470,9 @@ bool Library::load(const File &path)
         return false;
     }
 
+    setName(path.getFullPathName());
+    clearChanged();
+
     _listeners.call(&Listener::afterLibraryLoaded);
     
     return true;
@@ -436,14 +480,17 @@ bool Library::load(const File &path)
 
 bool Library::save(const File &path)
 {
-    bool inplace = (path == _rootPath);
-    _rootPath = path;
-    _dataPath = File::addTrailingSeparator(path.getFullPathName()) + "DATA";
-    _wavePath = File::addTrailingSeparator(path.getFullPathName()) + "WAVE";
-    if (!_dataPath.exists() || !_dataPath.isDirectory()) {
-        return false;
+    _listeners.call(&Listener::beforeLibrarySaved);
+
+    bool inplace = (path == _path);
+    setPath(path);
+    if (!_dataPath.exists()) {
+        _dataPath.createDirectory();
     }
-    if (!_wavePath.exists() || !_wavePath.isDirectory()) {
+    if (!_wavePath.exists()) {
+        _wavePath.createDirectory();
+    }
+    if (!_dataPath.isDirectory() || !_wavePath.isDirectory()) {
         return false;
     }
 
@@ -462,7 +509,17 @@ bool Library::save(const File &path)
         return false;
     }
 
+    setName(path.getFullPathName());
+    clearChanged();
+
+    _listeners.call(&Listener::afterLibrarySaved);
+
     return true;
+}
+
+void Library::close()
+{
+    _listeners.call(&Listener::libraryClosed);
 }
 
 String Library::checkVolumesForRC505()
@@ -483,9 +540,21 @@ String Library::checkVolumesForRC505()
     return String::empty;
 }
 
+void Library::setPath(const File &path)
+{
+    _path = path;
+    _dataPath = File::addTrailingSeparator(_path.getFullPathName()) + "DATA";
+    _wavePath = File::addTrailingSeparator(_path.getFullPathName()) + "WAVE";
+}
+
 bool Library::loadMemory(const File &path)
 {
-    ScopedPointer<XmlElement> xml(XmlDocument::parse(path));
+    return loadMemory(path.loadFileAsString());
+}
+
+bool Library::loadMemory(const String &data)
+{
+    ScopedPointer<XmlElement> xml(XmlDocument::parse(data));
     if (!xml) {
         return false;
     }
@@ -520,9 +589,14 @@ bool Library::saveMemory(const File &path)
     return xml->writeToFile(path, "");
 }
 
-bool Library::loadSystem(const File &path)
+bool Library::loadSystem(const File &file)
 {
-    ScopedPointer<XmlElement> xml(XmlDocument::parse(path));
+    return loadSystem(file.loadFileAsString());
+}
+
+bool Library::loadSystem(const String &data)
+{
+    ScopedPointer<XmlElement> xml(XmlDocument::parse(data));
     if (!xml) {
         return false;
     }
@@ -604,6 +678,7 @@ bool Library::saveWaveFiles(bool inplace)
 void Library::notifyPropertyValueChanged(ValueProperty *property)
 {
     _listeners.call(&Listener::propertyValueChanged, property);
+    setChanged();
 }
 
 } // namespace RC505

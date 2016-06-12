@@ -16,15 +16,17 @@ class PatchView : public Component,
 public:
     PatchView();
     ~PatchView();
-    
+
     RC505::Patch *patch() const { return _patch; }
     void setPatch(RC505::Patch *patch);
     
-    void togglePlay();
+    void stopPlaying();
+    void togglePlaying();
 
     // Component
     virtual void paint(Graphics &g) override;
     virtual void resized() override;
+    virtual void visibilityChanged() override;
 
     // Timer
     virtual void timerCallback() override;

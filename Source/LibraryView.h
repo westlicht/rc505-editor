@@ -2,48 +2,31 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-#include "PatchTreeView.h"
-#include "PatchView.h"
+#include "MemoryView.h"
+#include "SystemView.h"
 #include "RC505.h"
 
 class LibraryView : public Component,
-                    public RC505::Library::Listener,
-                    public KeyListener,
-                    public DragAndDropContainer,
-                    public PatchTreeView::Listener,
-                    public Button::Listener {
+                    public RC505::Library::Listener {
 public:
-    LibraryView(RC505::Library &library);
+    LibraryView();
     virtual ~LibraryView();
+
+    RC505::Library &library() { return _library; }
 
     // Component
     virtual void paint(Graphics &g) override;
     virtual void resized() override;
-
-    // PatchTreeView::Listener
-    virtual void patchSelected(RC505::Patch *patch) override;
+    virtual void visibilityChanged() override;
 
     // RC505::Library::Listener
-    virtual void beforeLibraryLoaded() override;
-    virtual void afterLibraryLoaded() override;
-
-    // KeyListener
-    virtual bool keyPressed(const KeyPress &key, Component *originatingComponent) override;
-
-    // Button::Listener
-    virtual void buttonClicked(Button *button) override;
+    virtual void libraryChanged() override;
 
 private:
-    void copyPatchSettings();
-    void pastePatchSettings();
-    
-    RC505::Library &_library;
-    PatchTreeView _patchTreeView;
-    PatchView _patchView;
-
-    TextButton _copySettingsButton;
-    TextButton _pasteSettingsButton;
-    RC505::PatchSettings _patchSettingsBuffer;
+    RC505::Library _library;
+    TabbedComponent _tabs;
+    MemoryView _memoryView;
+    SystemView _systemView;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LibraryView)
 };

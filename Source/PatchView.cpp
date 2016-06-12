@@ -66,7 +66,13 @@ void PatchView::setPatch(RC505::Patch *patch)
     _propertyTreeView.setGroup(_patch ? _patch->patchSettings() : nullptr);    
 }
 
-void PatchView::togglePlay()
+void PatchView::stopPlaying()
+{
+    _looperEngine.setPlayingAll(false);
+    updatePlayState();
+}
+
+void PatchView::togglePlaying()
 {
     _looperEngine.setPlayingAll(!_looperEngine.isPlayingAny());
     updatePlayState();
@@ -94,6 +100,13 @@ void PatchView::resized()
     }
 }
 
+void PatchView::visibilityChanged()
+{
+    if (!isVisible()) {
+        _looperEngine.setPlayingAll(false);
+    }
+}
+
 void PatchView::timerCallback()
 {
     for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
@@ -105,7 +118,7 @@ void PatchView::timerCallback()
 void PatchView::buttonClicked(Button *button)
 {
     if (button == &_playButton) {
-        togglePlay();
+        togglePlaying();
     }
     if (button == &_clearButton) {
         clearPatch();
@@ -144,7 +157,7 @@ void PatchView::waveformViewClicked(WaveformView *waveformView)
 
 void PatchView::clearPatch()
 {
-    // TODO
+    // TODO implement
 }
 
 void PatchView::importLoops()

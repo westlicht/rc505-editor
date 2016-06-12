@@ -1099,6 +1099,8 @@ public:
     Patch(Library *library);
     Patch(const RC505::Patch &patch);
 
+    Library *library() { return _library; }
+
     int index() const;
     void setIndex(int index);
 
@@ -1133,14 +1135,26 @@ public:
     class Listener {
     public:
         virtual ~Listener() {}
+        virtual void libraryChanged() {}
         virtual void beforeLibraryLoaded() {}
         virtual void afterLibraryLoaded() {}
+        virtual void beforeLibrarySaved() {}
+        virtual void afterLibrarySaved() {}
+        virtual void libraryClosed() {}
         virtual void propertyValueChanged(ValueProperty *property) {}
     };
 
     Library();
 
-    const File &rootPath() const { return _rootPath; }
+    const String &name() const { return _name; }
+    void setName(const String &name);
+    String documentName() const;
+
+    bool hasChanged() const { return _hasChanged; }
+    void clearChanged();
+    void setChanged();
+
+    const File &path() const { return _path; }
     const File &dataPath() const { return _dataPath; }
     const File &wavePath() const { return _wavePath; }
 
@@ -1152,23 +1166,32 @@ public:
     void addListener(Listener *listener) { _listeners.add(listener); }
     void removeListener(Listener *listener) { _listeners.remove(listener); }
 
+    void init();
     bool load(const File &path);
     bool save(const File &path);
+    void close();
 
     static String checkVolumesForRC505();
     
 private:
+    void setPath(const File &path);
+
     bool loadMemory(const File &path);
+    bool loadMemory(const String &data);
     bool saveMemory(const File &path);
 
     bool loadSystem(const File &path);
+    bool loadSystem(const String &data);
     bool saveSystem(const File &path);
 
     bool saveWaveFiles(bool inplace);
 
     void notifyPropertyValueChanged(ValueProperty *property);
 
-    File _rootPath;
+    String _name;
+    bool _hasChanged;
+
+    File _path;
     File _dataPath;
     File _wavePath;
 

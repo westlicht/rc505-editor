@@ -1,26 +1,128 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MainComponent.h"
+#include "LibraryView.h"
+#include "CommandIDs.h"
 
-MainComponent::MainComponent(RC505::Library &library) :
-    _tabs(TabbedButtonBar::TabsAtTop),
-    _libraryView(library),
-    _systemView(library),
+class MainMultiDocumentPanel : public MultiDocumentPanel {
+public:
+    MainMultiDocumentPanel() {
+        _imageIcon = Image(ImageCache::getFromMemory(BinaryData::iconlarge_png, BinaryData::iconlarge_pngSize));
+    }
+
+    virtual bool tryToCloseDocument(Component *component) {
+        return true;
+    }
+
+    virtual void paint(Graphics &g) override
+    {
+        if (getNumDocuments() > 0) {
+            MultiDocumentPanel::paint(g);
+        } else {
+            g.fillAll(Colours::black);
+            g.drawImageWithin(_imageIcon, 0, 0, getWidth(), getHeight(), RectanglePlacement::onlyReduceInSize | RectanglePlacement::centred);
+            g.setColour(Colours::white);
+            g.drawFittedText("No library loaded!", 0, getHeight() / 2, getWidth(), getHeight() / 2, Justification::centred, 1);
+        }
+    }
+
+private:
+    Image _imageIcon;
+};
+
+MainComponent::MainComponent() :
     _audioEngine(AudioEngine::instance())
 {
-    setLookAndFeel(&_lookAndFeel);
-    
-    addAndMakeVisible(_tabs);
-    
-    _tabs.addTab("Library", Colours::white, &_libraryView, false);
-    _tabs.addTab("System", Colours::white, &_systemView, false);
-    
     setSize(1400, 800);
     setAudioChannels(2, 2);
+
+    _multiDocumentPanel = new MainMultiDocumentPanel();
+    _multiDocumentPanel->setSize(getWidth(), getHeight());
+    _multiDocumentPanel->setBackgroundColour(Colours::white);
+    _multiDocumentPanel->setLayoutMode(MultiDocumentPanel::MaximisedWindowsWithTabs);
+    addAndMakeVisible(_multiDocumentPanel);
+
+    mountedVolumeListChanged();
 }
 
 MainComponent::~MainComponent()
 {
     shutdownAudio();
+}
+
+void MainComponent::newLibrary()
+{
+    auto view = new LibraryView();
+    view->library().setName(String::formatted("New Library %d", _newLibraryIndex++));
+    _multiDocumentPanel->addDocument(view, Colours::white, true);
+}
+
+void MainComponent::openLibrary()
+{
+    FileChooser fileChooser("Open Library...");
+    if (fileChooser.browseForDirectory()) {
+        openLibrary(fileChooser.getResult());
+    }
+}
+
+void MainComponent::saveLibrary()
+{
+    auto view = activeLibraryView();
+    if (view) {
+        if (view->library().path().exists()) {
+            saveLibrary(view->library(), view->library().path());
+        } else {
+            FileChooser fileChooser("Save Library...");
+            if (fileChooser.browseForDirectory()) {
+                saveLibrary(view->library(), fileChooser.getResult());
+            }
+        }
+    }
+}
+
+void MainComponent::saveLibraryAs()
+{
+    auto view = activeLibraryView();
+    if (view) {
+        FileChooser fileChooser("Save Library As...");
+        if (fileChooser.browseForDirectory()) {
+            saveLibrary(view->library(), fileChooser.getResult());
+        }
+    }
+}
+
+void MainComponent::closeLibrary()
+{
+    auto view = activeLibraryView();
+    if (view) {
+        if (!view->library().hasChanged() || allowDiscardChanges(view->library())) {
+            _multiDocumentPanel->closeDocument(view, false);
+        }
+    }
+}
+
+bool MainComponent::allowQuit()
+{
+    bool allow = true;
+    iterateLibraryViews([&] (LibraryView *view) {
+        if (view->library().hasChanged() && !allowDiscardChanges(view->library())) {
+            allow = false;
+        }
+    });
+    return allow;
+}
+
+void MainComponent::paint(Graphics &g)
+{
+    g.fillAll(Colours::black);
+    g.setColour(Colours::white);
+    g.drawFittedText("No library loaded!", 0, 0, getWidth(), getHeight(), Justification::centred, 1);
+}
+
+void MainComponent::resized()
+{
+    if (_multiDocumentPanel) {
+        _multiDocumentPanel->setSize(getWidth(), getHeight());
+    }
 }
 
 void MainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
@@ -38,12 +140,118 @@ void MainComponent::releaseResources()
     _audioEngine.source().releaseResources();
 }
 
-void MainComponent::paint(Graphics &g)
+ApplicationCommandTarget *MainComponent::getNextCommandTarget()
 {
-    g.fillAll (Colours::black);
+    return nullptr;
 }
 
-void MainComponent::resized()
+void MainComponent::getAllCommands(Array<CommandID> &commands)
 {
-    _tabs.setSize(getWidth(), getHeight());
+    commands = Array<CommandID>({
+        CommandIDs::newLibrary,
+        CommandIDs::openLibrary,
+        CommandIDs::saveLibrary,
+        CommandIDs::saveLibraryAs,
+        CommandIDs::closeLibrary
+    });
+}
+
+void MainComponent::getCommandInfo(CommandID commandID, ApplicationCommandInfo &result)
+{
+    switch (commandID) {
+    case CommandIDs::newLibrary:
+        result.setInfo("New Library", "Create a new RC505 library", CommandCategories::library, 0);
+        result.addDefaultKeypress('n', ModifierKeys::commandModifier);
+        break;
+    case CommandIDs::openLibrary:
+        result.setInfo("Open Library...", "Open RC505 library", CommandCategories::library, 0);
+        result.addDefaultKeypress('o', ModifierKeys::commandModifier);
+        break;
+    case CommandIDs::saveLibrary:
+        result.setInfo("Save Library...", "Save RC505 library", CommandCategories::library, 0);
+        result.addDefaultKeypress('s', ModifierKeys::commandModifier);
+        break;
+    case CommandIDs::saveLibraryAs:
+        result.setInfo("Save Library as...", "Save RC505 library", CommandCategories::library, 0);
+        result.addDefaultKeypress('s', ModifierKeys::shiftModifier | ModifierKeys::commandModifier);
+        break;
+    case CommandIDs::closeLibrary:
+        result.setInfo("Close Library", "Close RC505 library", CommandCategories::library, 0);
+        result.addDefaultKeypress('w', ModifierKeys::commandModifier);
+        break;
+    default:
+        break;
+    }
+}
+
+bool MainComponent::perform(const InvocationInfo &info)
+{
+    switch (info.commandID) {
+    case CommandIDs::newLibrary:    newLibrary();       break;
+    case CommandIDs::openLibrary:   openLibrary();      break;
+    case CommandIDs::saveLibrary:   saveLibrary();      break;
+    case CommandIDs::saveLibraryAs: saveLibraryAs();    break;
+    case CommandIDs::closeLibrary:  closeLibrary();     break;
+    default:
+        break;
+    }
+    return true;
+}
+
+void MainComponent::mountedVolumeListChanged()
+{
+    String path = RC505::Library::checkVolumesForRC505();
+    if (path.isEmpty()) {
+        return;
+    }
+    if (AlertWindow::showOkCancelBox(AlertWindow::QuestionIcon,
+                                     "BOSS RC505 detected",
+                                     "A BOSS RC505 was detected. Do you want to load it's library?\n\n"
+                                     "WARNING: For your own safety, please create a BACKUP before editing the content!",
+                                     String::empty, String::empty,
+                                     nullptr, nullptr)) {
+        openLibrary(File(path));
+    }
+}
+
+void MainComponent::openLibrary(const File &path)
+{
+    auto view = new LibraryView();
+    if (view->library().load(path)) {
+        _multiDocumentPanel->addDocument(view, Colours::white, true);
+    } else {
+        AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error", "'" + path.getFullPathName() + "' is not a valid RC-505 library folder!");
+        delete view;
+    }
+}
+
+void MainComponent::saveLibrary(RC505::Library &library, const File &path)
+{
+    if (!library.save(path)) {
+        AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error", "Failed to save library to '" + path.getFullPathName() + "'!");
+    }
+}
+
+bool MainComponent::allowDiscardChanges(RC505::Library &library)
+{
+    return AlertWindow::showOkCancelBox(AlertWindow::QuestionIcon,
+                                        "Unsaved changes",
+                                        "The library '" + library.name() + "' contains unsaved changes.\n"
+                                        "Are you sure you want to discard the changes?",
+                                        String::empty, String::empty,
+                                        nullptr, nullptr);
+}
+
+LibraryView *MainComponent::activeLibraryView()
+{
+    return dynamic_cast<LibraryView *>(_multiDocumentPanel->getActiveDocument());
+}
+
+void MainComponent::iterateLibraryViews(std::function<void(LibraryView *)> handler)
+{
+    for (int i = 0; i < _multiDocumentPanel->getNumDocuments(); ++i) {
+        if (auto view = dynamic_cast<LibraryView *>(_multiDocumentPanel->getDocument(i))) {
+            handler(view);
+        }
+    }
 }
