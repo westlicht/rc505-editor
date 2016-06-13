@@ -30,7 +30,7 @@ public:
         MenuBarModel::setMacMainMenu(_mainMenuModel, nullptr);
 #endif
 
-        _mainWindow = new MainWindow("RC-505 Loop Station Editor");
+        _mainWindow = new MainWindow(String::formatted("RC-505 Loop Station Editor (Version %s)", ProjectInfo::versionString));
         getCommandManager().registerAllCommandsForTarget(&_mainWindow->mainComponent());
 
     }
