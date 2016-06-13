@@ -5,6 +5,7 @@
 #include "RC505.h"
 #include "LibraryView.h"
 #include "AudioEngine.h"
+#include "MountedVolumeListChangeDetector.h"
 
 class MainMultiDocumentPanel;
 
