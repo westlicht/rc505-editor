@@ -166,8 +166,6 @@
       <FILE id="ipFNJW" name="PropertyView.h" compile="0" resource="0" file="Source/PropertyView.h"/>
       <FILE id="XgY92Y" name="RC505.cpp" compile="1" resource="0" file="Source/RC505.cpp"/>
       <FILE id="PbBjvJ" name="RC505.h" compile="0" resource="0" file="Source/RC505.h"/>
-      <FILE id="yBKEuK" name="Resampler.cpp" compile="1" resource="0" file="Source/Resampler.cpp"/>
-      <FILE id="ua5iH5" name="Resampler.h" compile="0" resource="0" file="Source/Resampler.h"/>
       <FILE id="ZVHHdP" name="SystemView.cpp" compile="1" resource="0" file="Source/SystemView.cpp"/>
       <FILE id="rLjsV3" name="SystemView.h" compile="0" resource="0" file="Source/SystemView.h"/>
       <FILE id="d6V3RL" name="Theme.h" compile="0" resource="0" file="Source/Theme.h"/>

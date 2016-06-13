@@ -4,7 +4,9 @@
 
 class Utils {
 public:
-    // Returns true if the given file is a valid audio file.
+    static bool resample(const AudioSampleBuffer &src, int srcSampleRate, AudioSampleBuffer &dst, int dstSampleRate);
+	
+	// Returns true if the given file is a valid audio file.
     static bool isValidAudioFile(const File &file);
     // Reads an audio file into an AudioSampleBuffer and resamples to match the requested sample rate.
     static bool readAudioFile(const File &file, AudioSampleBuffer &buffer, int channels = 2, int sampleRate = 44100);

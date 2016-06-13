@@ -88,7 +88,6 @@ OBJECTS := \
   $(OBJDIR)/PropertyTreeView_5b1bfae1.o \
   $(OBJDIR)/PropertyView_f2e22da3.o \
   $(OBJDIR)/RC505_1d39b82a.o \
-  $(OBJDIR)/Resampler_d382b556.o \
   $(OBJDIR)/SystemView_a2cb2cfd.o \
   $(OBJDIR)/TrackLabel_3212ed72.o \
   $(OBJDIR)/TrackView_3138cff1.o \
@@ -320,11 +319,6 @@ $(OBJDIR)/PropertyView_f2e22da3.o: ../../Source/PropertyView.cpp
 $(OBJDIR)/RC505_1d39b82a.o: ../../Source/RC505.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling RC505.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/Resampler_d382b556.o: ../../Source/Resampler.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling Resampler.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/SystemView_a2cb2cfd.o: ../../Source/SystemView.cpp
