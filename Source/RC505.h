@@ -843,19 +843,21 @@ public:
 
 class PatchSettings : public Group {
 public:
+    static const int NumAssignments = 8;
+    
     RhythmSettings *rhythm = createChild<RhythmSettings>("Rhythm");
     MasterSettings *master = createChild<MasterSettings>("Master");
     RecordSettings *record = createChild<RecordSettings>("Record");
     PlaySettings *play = createChild<PlaySettings>("Play");
     InputFxSettings *inputFx = createChild<InputFxSettings>("Input Fx");
     TrackFxSettings *trackFx = createChild<TrackFxSettings>("Track Fx");
-    AssignmentSettings *assignment[8];
+    AssignmentSettings *assignments[NumAssignments];
 
     PatchSettings(Library *library) :
         Group(library, "Patch")
     {
-        for (int i = 0; i < 8; ++i) {
-            assignment[i] = createChild<AssignmentSettings>(String::formatted("Assignment %d", i + 1));
+        for (int i = 0; i < NumAssignments; ++i) {
+            assignments[i] = createChild<AssignmentSettings>(String::formatted("Assignment %d", i + 1));
         }
     }
 
@@ -865,8 +867,8 @@ public:
         master->loadFromXml(xml->getChildByName("MASTER"));
         record->loadFromXml(xml->getChildByName("REC_OPTION"));
         play->loadFromXml(xml->getChildByName("PLAY_OPTION"));
-        for (int i = 0; i < 8; ++i) {
-            assignment[i]->loadFromXml(xml->getChildByName(String::formatted("ASSIGN%d", i + 1)));
+        for (int i = 0; i < NumAssignments; ++i) {
+            assignments[i]->loadFromXml(xml->getChildByName(String::formatted("ASSIGN%d", i + 1)));
         }
         inputFx->loadFromXml(xml->getChildByName("INPUT_FX"));
         trackFx->loadFromXml(xml->getChildByName("TRACK_FX"));
@@ -888,8 +890,8 @@ public:
         master->saveToXml(xml->createNewChildElement("MASTER"));
         record->saveToXml(xml->createNewChildElement("REC_OPTION"));
         play->saveToXml(xml->createNewChildElement("PLAY_OPTION"));
-        for (int i = 0; i < 8; ++i) {
-            assignment[i]->saveToXml(xml->createNewChildElement(String::formatted("ASSIGN%d", i + 1)));
+        for (int i = 0; i < NumAssignments; ++i) {
+            assignments[i]->saveToXml(xml->createNewChildElement(String::formatted("ASSIGN%d", i + 1)));
         }
         inputFx->saveToXml(xml->createNewChildElement("INPUT_FX"));
         trackFx->saveToXml(xml->createNewChildElement("TRACK_FX"));
@@ -949,38 +951,32 @@ public:
 
 class SystemSettings : public Group {
 public:
+    static const int NumTracks = 5;
+    static const int NumAssignments = 8;
+
     SetupSettings *setup = createChild<SetupSettings>("Setup");
     InputOutputSettings *inputOutput = createChild<InputOutputSettings>("Input / Output");
     UsbSettings *usb = createChild<UsbSettings>("USB");
     MidiSettings *midi = createChild<MidiSettings>("MIDI");
-    TrackSettings *tracks[5] = {
-        createChild<TrackSettings>("Track 1"),
-        createChild<TrackSettings>("Track 2"),
-        createChild<TrackSettings>("Track 3"),
-        createChild<TrackSettings>("Track 4"),
-        createChild<TrackSettings>("Track 5")
-    };
+    TrackSettings *tracks[5];
     RhythmSettings *rhythm = createChild<RhythmSettings>("Rhythm");
     NameProperty *name = createChild<NameProperty>("Name", "NAME");
     MasterSettings *master = createChild<MasterSettings>("Master");
     RecordSettings *record = createChild<RecordSettings>("Record");
     PlaySettings *play = createChild<PlaySettings>("Play");
-    AssignmentSettings *assignment[8] = {
-        createChild<AssignmentSettings>("Assignment 1"),
-        createChild<AssignmentSettings>("Assignment 2"),
-        createChild<AssignmentSettings>("Assignment 3"),
-        createChild<AssignmentSettings>("Assignment 4"),
-        createChild<AssignmentSettings>("Assignment 5"),
-        createChild<AssignmentSettings>("Assignment 6"),
-        createChild<AssignmentSettings>("Assignment 7"),
-        createChild<AssignmentSettings>("Assignment 8")
-    };
+    AssignmentSettings *assignments[NumAssignments];
     InputFxSettings *inputFx = createChild<InputFxSettings>("Input Fx");
     TrackFxSettings *trackFx = createChild<TrackFxSettings>("Track Fx");
 
     SystemSettings(Library *library) :
         Group(library, "System")
     {
+        for (int i = 0; i < NumTracks; ++i) {
+            tracks[i] = createChild<TrackSettings>(String::formatted("Track %d", i + 1));
+        }
+        for (int i = 0; i < NumAssignments; ++i) {
+            assignments[i] = createChild<AssignmentSettings>(String::formatted("Assignment %d", i + 1));
+        }
         name->setVisible(false);
     }
 
@@ -999,7 +995,7 @@ public:
         record->loadFromXml(xml->getChildByName("REC_OPTION"));
         play->loadFromXml(xml->getChildByName("PLAY_OPTION"));
         for (int i = 0; i < 8; ++i) {
-            assignment[i]->loadFromXml(xml->getChildByName(String::formatted("ASSIGN%d", i + 1)));
+            assignments[i]->loadFromXml(xml->getChildByName(String::formatted("ASSIGN%d", i + 1)));
         }
         inputFx->loadFromXml(xml->getChildByName("INPUT_FX"));
         trackFx->loadFromXml(xml->getChildByName("TRACK_FX"));
@@ -1030,7 +1026,7 @@ public:
         record->saveToXml(xml->createNewChildElement("REC_OPTION"));
         play->saveToXml(xml->createNewChildElement("PLAY_OPTION"));
         for (int i = 0; i < 8; ++i) {
-            assignment[i]->saveToXml(xml->createNewChildElement(String::formatted("ASSIGN%d", i + 1)));
+            assignments[i]->saveToXml(xml->createNewChildElement(String::formatted("ASSIGN%d", i + 1)));
         }
         inputFx->saveToXml(xml->createNewChildElement("INPUT_FX"));
         trackFx->saveToXml(xml->createNewChildElement("TRACK_FX"));
