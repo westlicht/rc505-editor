@@ -6,6 +6,7 @@
 #include "TrackLabel.h"
 #include "WaveformView.h"
 #include "PropertyTreeView.h"
+#include "PlayButton.h"
 
 class TrackView : public Component {
 public:
@@ -17,11 +18,9 @@ public:
     RC505::Track *track() const { return _track; }
     void setTrack(RC505::Track *track);
 
-    const TrackLabel &trackLabel() const { return _trackLabel; }
-          TrackLabel &trackLabel()       { return _trackLabel; }
-
-    const WaveformView &waveformView() const { return _waveformView; }
-          WaveformView &waveformView()       { return _waveformView; }
+    TrackLabel &trackLabel() { return _trackLabel; }
+    WaveformView &waveformView() { return _waveformView; }
+    PlayButton &playButton() { return _playButton; }
 
     // Component
     virtual void paint(Graphics &g) override;
@@ -32,6 +31,7 @@ private:
     RC505::Track *_track;
     TrackLabel _trackLabel;
     WaveformView _waveformView;
+    PlayButton _playButton;
     PropertyTreeView _propertyTreeView;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TrackView)

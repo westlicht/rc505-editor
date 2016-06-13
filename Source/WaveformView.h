@@ -3,13 +3,13 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 class WaveformView : public Component,
+                     public DragAndDropContainer,
                      public FileDragAndDropTarget {
 public:
     class Listener {
     public:
         virtual ~Listener() {}
         virtual void waveformViewFilesDropped(WaveformView *waveformView, const StringArray &filenames) = 0;
-        virtual void waveformViewClicked(WaveformView *waveformView) = 0;
     };
 
     WaveformView();
@@ -28,7 +28,10 @@ public:
     // Component
     virtual void paint(Graphics &g) override;
     virtual void resized() override;
-    virtual void mouseDown(const MouseEvent &event) override;
+    virtual void mouseDrag(const MouseEvent &event) override;
+
+    // DragAndDropContainer
+    virtual bool shouldDropFilesWhenDraggedExternally(const DragAndDropTarget::SourceDetails &sourceDetails, StringArray &files, bool &canMoveFiles) override;
 
     // FileDragAndDropTarget
     virtual bool isInterestedInFileDrag(const StringArray &files) override;

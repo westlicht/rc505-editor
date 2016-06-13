@@ -49,32 +49,23 @@ void WaveformView::paint(Graphics &g)
         g.setColour(Colours::yellow);
         g.drawLine(x, 0, x, getHeight());
     }
+}
 
-    int cx = getWidth() / 2;
-    int cy = getHeight() / 2;
-    if (_playing) {
-        // draw stop icon
-        g.setColour(Colours::red);
-        g.fillRect(cx - 5, cy - 5, 10, 10);
-    } else {
-        // draw play icon
-        Path path;
-        path.startNewSubPath(cx - 5, cy - 5);
-        path.lineTo(cx + 5, cy);
-        path.lineTo(cx - 5, cy + 5);
-        path.closeSubPath();
-        g.setColour(Colours::green);
-        g.fillPath(path);
+void WaveformView::mouseDrag(const MouseEvent &event)
+{
+    if (event.getDistanceFromDragStart() > 10) {
+        // TODO
     }
+}
+
+bool WaveformView::shouldDropFilesWhenDraggedExternally(const DragAndDropTarget::SourceDetails &sourceDetails, StringArray &files, bool &canMoveFiles)
+{
+    canMoveFiles = false;
+    return true;
 }
 
 void WaveformView::resized()
 {
-}
-
-void WaveformView::mouseDown(const MouseEvent &event)
-{
-    _listeners.call(&Listener::waveformViewClicked, this);
 }
 
 bool WaveformView::isInterestedInFileDrag(const StringArray &files)

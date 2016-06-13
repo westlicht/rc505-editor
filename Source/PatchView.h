@@ -7,6 +7,7 @@
 #include "PropertyTreeView.h"
 #include "PropertyView.h"
 #include "LooperEngine.h"
+#include "PlayButton.h"
 
 class PatchView : public Component, 
                   public Timer,
@@ -39,7 +40,6 @@ public:
 
     // WaveformView::Listener
     virtual void waveformViewFilesDropped(WaveformView *waveformView, const StringArray &files) override;
-    virtual void waveformViewClicked(WaveformView *waveformView) override;
 
 private:
     void clearPatch();
@@ -56,7 +56,7 @@ private:
 
     NamePropertyView _namePropertyView;
     IntPropertyView _tempoPropertyView;
-    TextButton _playButton;
+    PlayButton _playButton;
     TextButton _clearButton;
     TextButton _importButton;
     TextButton _exportButton;

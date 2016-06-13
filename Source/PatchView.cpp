@@ -28,6 +28,7 @@ PatchView::PatchView() :
         TrackView *trackView = new TrackView(i);
         trackView->trackLabel().addListener(this);
         trackView->waveformView().addListener(this);
+        trackView->playButton().addListener(this);
         _trackViews.add(trackView);
         _tracks.addAndMakeVisible(trackView);
     }
@@ -129,6 +130,13 @@ void PatchView::buttonClicked(Button *button)
     if (button == &_exportButton) {
         exportLoops();
     }
+    for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
+        if (button == &_trackViews[i]->playButton()) {
+            _looperEngine.tracks()[i]->setPlaying(!_looperEngine.tracks()[i]->isPlaying());
+            updatePlayState();
+            break;
+        }
+    }
 }
 
 void PatchView::trackMoved(int from, int to)
@@ -146,13 +154,6 @@ void PatchView::waveformViewFilesDropped(WaveformView *waveformView, const Strin
         files.add(File(filename));
     }
     importLoopsToTracks(files, trackIndex(waveformView));
-}
-
-void PatchView::waveformViewClicked(WaveformView *waveformView)
-{
-    int index = trackIndex(waveformView);
-    _looperEngine.tracks()[index]->setPlaying(!_looperEngine.tracks()[index]->isPlaying());
-    updatePlayState();
 }
 
 void PatchView::clearPatch()
@@ -181,9 +182,10 @@ void PatchView::exportLoops()
 
 void PatchView::updatePlayState()
 {
-    _playButton.setButtonText(_looperEngine.isPlayingAny() ? "Stop" : "Play");
+    _playButton.setPlaying(_looperEngine.isPlayingAny());
     for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
         _trackViews[i]->waveformView().setPlaying(_looperEngine.tracks()[i]->isPlaying());
+        _trackViews[i]->playButton().setPlaying(_looperEngine.tracks()[i]->isPlaying());
     }
 }
 

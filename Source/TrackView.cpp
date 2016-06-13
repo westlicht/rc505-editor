@@ -10,6 +10,7 @@ TrackView::TrackView(int index) :
 
     addAndMakeVisible(_trackLabel);
     addAndMakeVisible(_waveformView);
+    addAndMakeVisible(_playButton);
     addAndMakeVisible(_propertyTreeView);
 }
 
@@ -27,12 +28,13 @@ void TrackView::setTrack(RC505::Track *track)
 
 void TrackView::paint(Graphics &g)
 {
-    g.fillAll(Colours::white);   // clear the background
+    g.fillAll(Colours::white);
 }
 
 void TrackView::resized()
 {
     _trackLabel.setBounds(5, 5, getWidth() - 10, 30);
     _waveformView.setBounds(5, 40, getWidth() - 10, 100);
-    _propertyTreeView.setBounds(5, 145, getWidth() - 10, getHeight() - 180);
+    _playButton.setBounds(5, 145, getWidth() - 10, 25);
+    _propertyTreeView.setBounds(5, 180, getWidth() - 10, getHeight() - 180);
 }
