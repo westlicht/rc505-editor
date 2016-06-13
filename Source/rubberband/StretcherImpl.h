@@ -37,6 +37,7 @@
 #include "system/Thread.h"
 #include "system/sysutils.h"
 
+#include <algorithm>
 #include <set>
 
 using namespace RubberBand;

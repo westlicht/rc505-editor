@@ -52,14 +52,14 @@
 #define getpid _getpid
 #endif
 
-#ifdef __MSVC__
-#define uint8_t unsigned __int8
-#define uint16_t unsigned __int16
-#define uint32_t unsigned __int32
-#define ssize_t long
-#else
+//#ifdef __MSVC__
+//#define uint8_t unsigned __int8
+//#define uint16_t unsigned __int16
+//#define uint32_t unsigned __int32
+//#define ssize_t long
+//#else
 #include <stdint.h>
-#endif
+//#endif
 
 #include <math.h>
 

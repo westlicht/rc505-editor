@@ -70,7 +70,7 @@ typedef struct
 	double left_calc [128], right_calc [128] ;
 
 	/* C99 struct flexible array. */
-	float	buffer [] ;
+	float	*buffer ;
 } SINC_FILTER ;
 
 static int sinc_multichan_vari_process (SRC_PRIVATE *psrc, SRC_DATA *data) ;

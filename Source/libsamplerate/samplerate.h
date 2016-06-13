@@ -30,6 +30,11 @@
 #ifndef SAMPLERATE_H
 #define SAMPLERATE_H
 
+// fix for compiling on C99
+#if (!defined (__cplusplus) && (!defined (inline)))
+#define inline __inline
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif	/* __cplusplus */

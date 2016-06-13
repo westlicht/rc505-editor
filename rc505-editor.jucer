@@ -232,6 +232,32 @@
         <MODULEPATH id="juce_audio_basics" path="../juce/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
+    <VS2015 targetFolder="Builds/VisualStudio2015" extraDefs="__MSVC__ NOMINMAX"
+            extraCompilerFlags="/wd4018 /wd4100 /wd4127 /wd4244 /wd4245 /wd4305 /wd4456 /wd4800 -I../../Source/rubberband"
+            smallIcon="HZjAva" bigIcon="hPyQXt">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="1" optimisation="1" targetName="RC-505"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="0" optimisation="3" targetName="RC-505"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_video" path="../juce/modules"/>
+        <MODULEPATH id="juce_opengl" path="../juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="../juce/modules"/>
+        <MODULEPATH id="juce_events" path="../juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../juce/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../juce/modules"/>
+        <MODULEPATH id="juce_core" path="../juce/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../juce/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../juce/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../juce/modules"/>
+      </MODULEPATHS>
+    </VS2015>
   </EXPORTFORMATS>
   <MODULES>
     <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
