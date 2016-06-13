@@ -20,8 +20,6 @@ public:
         } else {
             g.fillAll(Colours::black);
             g.drawImageWithin(_imageIcon, 0, 0, getWidth(), getHeight(), RectanglePlacement::onlyReduceInSize | RectanglePlacement::centred);
-            g.setColour(Colours::white);
-            g.drawFittedText("No library loaded!", 0, getHeight() / 2, getWidth(), getHeight() / 2, Justification::centred, 1);
         }
     }
 
@@ -66,7 +64,9 @@ MainComponent::MainComponent() :
     _multiDocumentPanel->setBackgroundColour(Colours::white);
     _multiDocumentPanel->setLayoutMode(MultiDocumentPanel::MaximisedWindowsWithTabs);
     addAndMakeVisible(_multiDocumentPanel);
+    addAndMakeVisible(_tooltipPanel);
 
+    resized();
     mountedVolumeListChanged();
 }
 
@@ -148,8 +148,9 @@ void MainComponent::paint(Graphics &g)
 void MainComponent::resized()
 {
     if (_multiDocumentPanel) {
-        _multiDocumentPanel->setSize(getWidth(), getHeight());
+        _multiDocumentPanel->setSize(getWidth(), getHeight() - 25);
     }
+    _tooltipPanel.setBounds(0, getHeight() - 25, getWidth(), 25);
 }
 
 void MainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate)

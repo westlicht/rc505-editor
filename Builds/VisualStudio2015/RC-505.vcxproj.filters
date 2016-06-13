@@ -520,6 +520,9 @@
     <ClCompile Include="..\..\Source\SystemView.cpp">
       <Filter>RC-505\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\TooltipPanel.cpp">
+      <Filter>RC-505\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\TrackLabel.cpp">
       <Filter>RC-505\Source</Filter>
     </ClCompile>
@@ -2403,6 +2406,9 @@
     <ClInclude Include="..\..\Source\PatchView.h">
       <Filter>RC-505\Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\PlayButton.h">
+      <Filter>RC-505\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\PropertySetDialog.h">
       <Filter>RC-505\Source</Filter>
     </ClInclude>
@@ -2419,6 +2425,9 @@
       <Filter>RC-505\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Theme.h">
+      <Filter>RC-505\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TooltipPanel.h">
       <Filter>RC-505\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\TrackLabel.h">

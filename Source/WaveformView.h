@@ -3,6 +3,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 class WaveformView : public Component,
+                     public SettableTooltipClient,
                      public DragAndDropContainer,
                      public FileDragAndDropTarget {
 public:

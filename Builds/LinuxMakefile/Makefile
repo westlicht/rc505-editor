@@ -89,6 +89,7 @@ OBJECTS := \
   $(OBJDIR)/PropertyView_f2e22da3.o \
   $(OBJDIR)/RC505_1d39b82a.o \
   $(OBJDIR)/SystemView_a2cb2cfd.o \
+  $(OBJDIR)/TooltipPanel_d75f3bca.o \
   $(OBJDIR)/TrackLabel_3212ed72.o \
   $(OBJDIR)/TrackView_3138cff1.o \
   $(OBJDIR)/Utils_e4b11b92.o \
@@ -324,6 +325,11 @@ $(OBJDIR)/RC505_1d39b82a.o: ../../Source/RC505.cpp
 $(OBJDIR)/SystemView_a2cb2cfd.o: ../../Source/SystemView.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling SystemView.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/TooltipPanel_d75f3bca.o: ../../Source/TooltipPanel.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling TooltipPanel.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/TrackLabel_3212ed72.o: ../../Source/TrackLabel.cpp

@@ -3,6 +3,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 class TrackLabel : public Component,
+                   public SettableTooltipClient,
                    public DragAndDropContainer,
                    public DragAndDropTarget {
 public:

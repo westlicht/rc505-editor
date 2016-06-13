@@ -6,6 +6,7 @@
 #include "LibraryView.h"
 #include "AudioEngine.h"
 #include "MountedVolumeListChangeDetector.h"
+#include "TooltipPanel.h"
 
 class MainMultiDocumentPanel;
 
@@ -51,6 +52,7 @@ private:
 
     AudioEngine &_audioEngine;
     ScopedPointer<MainMultiDocumentPanel> _multiDocumentPanel;
+    TooltipPanel _tooltipPanel;
     int _newLibraryIndex = 1;
     Atomic<int> _savingInProgress;
 

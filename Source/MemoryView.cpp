@@ -15,9 +15,12 @@ MemoryView::MemoryView(RC505::Library &library) :
     addAndMakeVisible(_pasteSettingsButton);
 
     _patchTreeView.addListener(this);
+    _patchTreeView.setTooltip("Click to display a patch. Select one or multiple patches and drag to rearrange.");
     _copySettingsButton.setButtonText("Copy Settings");
+    _copySettingsButton.setTooltip("Copy a set of patch settings from the selected patch to the clipboard.");
     _copySettingsButton.addListener(this);
     _pasteSettingsButton.setButtonText("Paste Settings");
+    _pasteSettingsButton.setTooltip("Paste a set of patch settings to the currently selected patches from the clipboard.");
     _pasteSettingsButton.addListener(this);
 
     _library.addListener(this);

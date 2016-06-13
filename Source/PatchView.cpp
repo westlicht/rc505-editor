@@ -16,12 +16,16 @@ PatchView::PatchView() :
     addAndMakeVisible(_tabs);
     
     _playButton.setButtonText("Play");
+    _playButton.setTooltip("Start/stop playing all tracks at once.");
     _playButton.addListener(this);
     _clearButton.setButtonText("Clear Patch");
+    _clearButton.setTooltip("Clear the current patch.");
     _clearButton.addListener(this);
     _importButton.setButtonText("Import Loops");
+    _importButton.setTooltip("Import tracks from audio files.");
     _importButton.addListener(this);
     _exportButton.setButtonText("Export Loops");
+    _exportButton.setTooltip("Export tracks to audio files.");
     _exportButton.addListener(this);
 
     for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
@@ -34,8 +38,12 @@ PatchView::PatchView() :
     }
     
     _namePropertyView.textEditor().setFont(24.f);
+    _namePropertyView.setTooltip("Current patch name. Click to edit.");
+    _tempoPropertyView.setTooltip("Current patch tempo. Click or drag to edit.");
     _tabs.addTab("Tracks", Colours::white, &_tracks, false);
     _tabs.addTab("Settings", Colours::white, &_propertyTreeView, false);
+    _tabs.getTabbedButtonBar().getTabButton(0)->setTooltip("Show tracks stored in the current patch.");
+    _tabs.getTabbedButtonBar().getTabButton(1)->setTooltip("Show settings stored in the current patch.");
 
     AudioEngine::instance().addSource(&_looperEngine);
 

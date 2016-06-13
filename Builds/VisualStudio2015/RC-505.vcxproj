@@ -171,6 +171,7 @@
     <ClCompile Include="..\..\Source\PropertyView.cpp"/>
     <ClCompile Include="..\..\Source\RC505.cpp"/>
     <ClCompile Include="..\..\Source\SystemView.cpp"/>
+    <ClCompile Include="..\..\Source\TooltipPanel.cpp"/>
     <ClCompile Include="..\..\Source\TrackLabel.cpp"/>
     <ClCompile Include="..\..\Source\TrackView.cpp"/>
     <ClCompile Include="..\..\Source\Utils.cpp"/>
@@ -1795,12 +1796,14 @@
     <ClInclude Include="..\..\Source\MountedVolumeListChangeDetector.h"/>
     <ClInclude Include="..\..\Source\PatchTreeView.h"/>
     <ClInclude Include="..\..\Source\PatchView.h"/>
+    <ClInclude Include="..\..\Source\PlayButton.h"/>
     <ClInclude Include="..\..\Source\PropertySetDialog.h"/>
     <ClInclude Include="..\..\Source\PropertyTreeView.h"/>
     <ClInclude Include="..\..\Source\PropertyView.h"/>
     <ClInclude Include="..\..\Source\RC505.h"/>
     <ClInclude Include="..\..\Source\SystemView.h"/>
     <ClInclude Include="..\..\Source\Theme.h"/>
+    <ClInclude Include="..\..\Source\TooltipPanel.h"/>
     <ClInclude Include="..\..\Source\TrackLabel.h"/>
     <ClInclude Include="..\..\Source\TrackView.h"/>
     <ClInclude Include="..\..\Source\Utils.h"/>

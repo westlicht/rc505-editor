@@ -12,6 +12,12 @@ TrackView::TrackView(int index) :
     addAndMakeVisible(_waveformView);
     addAndMakeVisible(_playButton);
     addAndMakeVisible(_propertyTreeView);
+
+    _trackLabel.setTooltip("Track number. Drag and drop over a different track number to exchange tracks.");
+    _waveformView.setTooltip("Waveform view. Drag files from desktop to import a loop, drag waveform to desktop to export a loop.");
+    _playButton.setTooltip("Start/stop playing a single track.");
+    _propertyTreeView.setTooltip("Track settings.");
+    _propertyTreeView.setLabelWidth(100);
 }
 
 TrackView::~TrackView()

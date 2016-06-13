@@ -8,7 +8,8 @@
 // PropertyView
 // ----------------------------------------------------------------------------
 
-class PropertyView : public Component {
+class PropertyView : public Component,
+                     public SettableTooltipClient {
 public:
     virtual ~PropertyView() {}
     virtual void updateValue() = 0;

@@ -153,6 +153,7 @@
       <FILE id="Ybbk7i" name="PatchTreeView.h" compile="0" resource="0" file="Source/PatchTreeView.h"/>
       <FILE id="kF1x0C" name="PatchView.cpp" compile="1" resource="0" file="Source/PatchView.cpp"/>
       <FILE id="QVLIO1" name="PatchView.h" compile="0" resource="0" file="Source/PatchView.h"/>
+      <FILE id="SKIajW" name="PlayButton.h" compile="0" resource="0" file="Source/PlayButton.h"/>
       <FILE id="lPG4jX" name="PropertySetDialog.cpp" compile="1" resource="0"
             file="Source/PropertySetDialog.cpp"/>
       <FILE id="oStBWh" name="PropertySetDialog.h" compile="0" resource="0"
@@ -169,6 +170,9 @@
       <FILE id="ZVHHdP" name="SystemView.cpp" compile="1" resource="0" file="Source/SystemView.cpp"/>
       <FILE id="rLjsV3" name="SystemView.h" compile="0" resource="0" file="Source/SystemView.h"/>
       <FILE id="d6V3RL" name="Theme.h" compile="0" resource="0" file="Source/Theme.h"/>
+      <FILE id="PW94Uv" name="TooltipPanel.cpp" compile="1" resource="0"
+            file="Source/TooltipPanel.cpp"/>
+      <FILE id="LUYCIe" name="TooltipPanel.h" compile="0" resource="0" file="Source/TooltipPanel.h"/>
       <FILE id="M5MNQy" name="TrackLabel.cpp" compile="1" resource="0" file="Source/TrackLabel.cpp"/>
       <FILE id="kCa6fZ" name="TrackLabel.h" compile="0" resource="0" file="Source/TrackLabel.h"/>
       <FILE id="Q1sEwT" name="TrackView.cpp" compile="1" resource="0" file="Source/TrackView.cpp"/>
