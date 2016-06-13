@@ -2,7 +2,9 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class TrackLabel : public Component, public DragAndDropContainer, public DragAndDropTarget {
+class TrackLabel : public Component,
+                   public DragAndDropContainer,
+                   public DragAndDropTarget {
 public:
     class Listener {
     public:
@@ -16,12 +18,13 @@ public:
     void addListener(Listener *listener) { _listeners.add(listener); }
     void removeListener(Listener *listener) { _listeners.remove(listener); }
 
-    void paint(Graphics &g);
+    // Component
+    virtual void paint(Graphics &g) override;
+    virtual void mouseDrag(const MouseEvent &event) override;
 
-    void mouseDrag(const MouseEvent &event) override;
-
-    bool isInterestedInDragSource(const SourceDetails &dragSourceDetails) override;
-    void itemDropped(const SourceDetails &dragSourceDetails) override;
+    // DragAndDropTarget
+    virtual bool isInterestedInDragSource(const SourceDetails &dragSourceDetails) override;
+    virtual void itemDropped(const SourceDetails &dragSourceDetails) override;
 
 private:
     int _index;
