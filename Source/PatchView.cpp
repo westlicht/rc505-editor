@@ -55,9 +55,10 @@ void PatchView::setPatch(RC505::Patch *patch)
 {
     _patch = patch;
     
+    stopPlaying();
     _looperEngine.setPatch(_patch);
-    _looperEngine.setPlayingAll(false);
-    updatePlayState();
+    //_looperEngine.setPlayingAll(false);
+    //updatePlayState();
     _namePropertyView.setProperty(_patch ? _patch->patchName() : nullptr);
     _tempoPropertyView.setProperty(_patch ? _patch->patchSettings()->master->tempo : nullptr);
     for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
@@ -104,7 +105,7 @@ void PatchView::resized()
 void PatchView::visibilityChanged()
 {
     if (!isVisible()) {
-        _looperEngine.setPlayingAll(false);
+        stopPlaying();
     }
 }
 
@@ -141,6 +142,7 @@ void PatchView::buttonClicked(Button *button)
 
 void PatchView::trackMoved(int from, int to)
 {
+    stopPlaying();
     _patch->moveTrack(from, to);
     for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
         _trackViews[i]->setTrack(_patch->tracks()[i]);
