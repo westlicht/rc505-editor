@@ -1,0 +1,19 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2015
+Project("{F0C6E37D-F98C-5B32-4610-46A8A7B611A5}") = "RC-505", "RC-505.vcxproj", "{6CEB40D5-778E-9636-9459-C89A21D63A35}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CEB40D5-778E-9636-9459-C89A21D63A35}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6CEB40D5-778E-9636-9459-C89A21D63A35}.Debug|Win32.Build.0 = Debug|Win32
+		{6CEB40D5-778E-9636-9459-C89A21D63A35}.Release|Win32.ActiveCfg = Release|Win32
+		{6CEB40D5-778E-9636-9459-C89A21D63A35}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
