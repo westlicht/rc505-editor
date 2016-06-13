@@ -142,8 +142,10 @@ void LooperEngine::setPatch(RC505::Patch *patch)
 
 void LooperEngine::setPlayingAll(bool playing)
 {
-    for (const auto &track : _tracks) {
-        track->setPlaying(playing);
+    if (_patch) {
+        for (const auto &track : _tracks) {
+            track->setPlaying(playing);
+        }
     }
 }
 
