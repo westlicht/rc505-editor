@@ -25,6 +25,7 @@
 #include	<stdio.h>
 #include	<stdlib.h>
 #include	<string.h>
+#include    <math.h>
 
 #include	"samplerate.h"
 #include	"float_cast.h"

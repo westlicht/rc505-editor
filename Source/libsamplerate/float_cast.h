@@ -217,21 +217,26 @@
 		return res [1] ;
 	} /* double2int */
 
-#elif 1 //(defined (__MACH__) && defined (__APPLE__))
+#elif (defined (__MACH__) && defined (__APPLE__))
+
+	#include    <emmintrin.h>
+	#include    <mmintrin.h>
 
 	/* For Apple MacOSX. */
 
-	__inline long int
+	static inline long int
 	lrint(double flt)
 	{
 		return _mm_cvtsd_si32(_mm_load_sd(&flt));
 	}
 
-	__inline long int
+	static inline long int
 	lrintf(float flt)
 	{
 		return _mm_cvtss_si32(_mm_load_ss(&flt));
 	}
+
+#elif (defined (__linux__))
 
 #if 0
 	#undef		HAVE_LRINT_REPLACEMENT
