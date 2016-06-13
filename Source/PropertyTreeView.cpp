@@ -8,7 +8,8 @@
 template<typename TProperty, typename TPropertyView>
 class PropertyTreeViewComponent : public Component {
 public:
-    PropertyTreeViewComponent(TProperty *property) :
+    PropertyTreeViewComponent(PropertyTreeView *treeView, TProperty *property) :
+        _treeView(treeView),
         _property(property),
         _propertyView(property)
     {
@@ -17,12 +18,11 @@ public:
 
     virtual void resized() override
     {
-        const int marginLeft = 150;
-        const int maxWidth = 250;
-        _propertyView.setBounds(marginLeft, 0, jmin(maxWidth, getWidth() - marginLeft), getHeight());
+        _propertyView.setBounds(_treeView->_labelWidth, 0, jmin(_treeView->_valueWidth, getWidth() - _treeView->_labelWidth), getHeight());
     }
 
 private:
+    PropertyTreeView *_treeView;
     TProperty *_property;
     TPropertyView _propertyView;
 };
@@ -70,16 +70,17 @@ public:
 
     virtual Component *createItemComponent() override
     {
+        PropertyTreeView *treeView = static_cast<PropertyTreeView *>(getOwnerView());
         if (RC505::BoolProperty *boolProperty = dynamic_cast<RC505::BoolProperty *>(_property)) {
-            return new PropertyTreeViewComponent<RC505::BoolProperty, BoolPropertyView>(boolProperty);
+            return new PropertyTreeViewComponent<RC505::BoolProperty, BoolPropertyView>(treeView, boolProperty);
         } else if (RC505::IntProperty *intProperty = dynamic_cast<RC505::IntProperty *>(_property)) {
-            return new PropertyTreeViewComponent<RC505::IntProperty, IntPropertyView>(intProperty);
+            return new PropertyTreeViewComponent<RC505::IntProperty, IntPropertyView>(treeView, intProperty);
         } else  if (RC505::EnumProperty *enumProperty = dynamic_cast<RC505::EnumProperty *>(_property)) {
-            return new PropertyTreeViewComponent<RC505::EnumProperty, EnumPropertyView>(enumProperty);
+            return new PropertyTreeViewComponent<RC505::EnumProperty, EnumPropertyView>(treeView, enumProperty);
         } else  if (RC505::NameProperty *nameProperty = dynamic_cast<RC505::NameProperty *>(_property)) {
-            return new PropertyTreeViewComponent<RC505::NameProperty, NamePropertyView>(nameProperty);
+            return new PropertyTreeViewComponent<RC505::NameProperty, NamePropertyView>(treeView, nameProperty);
         } else  if (RC505::ValueProperty *valueProperty = dynamic_cast<RC505::ValueProperty *>(_property)) {
-            return new PropertyTreeViewComponent<RC505::ValueProperty, ValuePropertyView>(valueProperty);
+            return new PropertyTreeViewComponent<RC505::ValueProperty, ValuePropertyView>(treeView, valueProperty);
         }
         return nullptr;
     }
@@ -106,7 +107,9 @@ public:
 // PropertyTreeView
 // ----------------------------------------------------------------------------
 
-PropertyTreeView::PropertyTreeView()
+PropertyTreeView::PropertyTreeView() :
+    _labelWidth(150),
+    _valueWidth(150)
 {
     setRootItemVisible(false);
     setDefaultOpenness(false);
@@ -128,6 +131,18 @@ void PropertyTreeView::setGroup(RC505::Group *group)
     if (state) {
         restoreOpennessState(*state, true);
     }
+}
+
+void PropertyTreeView::setLabelWidth(int labelWidth)
+{
+    _labelWidth = labelWidth;
+    repaint();
+}
+
+void PropertyTreeView::setValueWidth(int valueWidth)
+{
+    _valueWidth = valueWidth;
+    repaint();
 }
 
 // ----------------------------------------------------------------------------
