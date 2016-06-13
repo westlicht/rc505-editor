@@ -10,6 +10,7 @@ public:
     public:
         virtual ~Listener() {}
         virtual void waveformViewFilesDropped(WaveformView *waveformView, const StringArray &filenames) = 0;
+        virtual void waveformViewFileDragged(WaveformView *waveformView, File &file) = 0;
     };
 
     WaveformView();
@@ -29,10 +30,7 @@ public:
     virtual void paint(Graphics &g) override;
     virtual void resized() override;
     virtual void mouseDrag(const MouseEvent &event) override;
-
-    // DragAndDropContainer
-    virtual bool shouldDropFilesWhenDraggedExternally(const DragAndDropTarget::SourceDetails &sourceDetails, StringArray &files, bool &canMoveFiles) override;
-
+    
     // FileDragAndDropTarget
     virtual bool isInterestedInFileDrag(const StringArray &files) override;
     virtual void filesDropped(const StringArray &files, int x, int y) override;

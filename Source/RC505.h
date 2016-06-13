@@ -1170,7 +1170,8 @@ public:
     void close();
 
     static String checkVolumesForRC505();
-    
+    static String tempDirectory();
+
 private:
     void setPath(const File &path);
 

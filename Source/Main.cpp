@@ -45,6 +45,9 @@ public:
 
         _mainWindow = nullptr;
         _mainMenuModel = nullptr;
+
+        // clear temporary directory
+        File(RC505::Library::tempDirectory()).deleteRecursively();
     }
 
     void systemRequestedQuit() override

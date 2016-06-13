@@ -40,6 +40,7 @@ public:
 
     // WaveformView::Listener
     virtual void waveformViewFilesDropped(WaveformView *waveformView, const StringArray &files) override;
+    virtual void waveformViewFileDragged(WaveformView *waveformView, File &file) override;
 
 private:
     void clearPatch();

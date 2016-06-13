@@ -527,7 +527,7 @@ void Library::close()
 
 String Library::checkVolumesForRC505()
 {
-    #if JUCE_MAC
+#if JUCE_MAC
     File volumesPath("/Volumes");
     Array<File> results;
     volumesPath.findChildFiles(results, File::findDirectories, false);
@@ -539,8 +539,18 @@ String Library::checkVolumesForRC505()
             }
         }
     }
-    #endif
+#endif
     return String::empty;
+}
+
+String Library::tempDirectory()
+{
+    File path(File::addTrailingSeparator(File::getSpecialLocation(File::tempDirectory).getFullPathName()) + "RC505");
+    if (!path.exists() || !path.isDirectory()) {
+        path.deleteFile();
+        path.createDirectory();
+    }
+    return path.getFullPathName();
 }
 
 void Library::setPath(const File &path)

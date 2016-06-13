@@ -54,14 +54,12 @@ void WaveformView::paint(Graphics &g)
 void WaveformView::mouseDrag(const MouseEvent &event)
 {
     if (event.getDistanceFromDragStart() > 10) {
-        // TODO
+        File file;
+        _listeners.call(&Listener::waveformViewFileDragged, this, file);
+        if (file.exists()) {
+            performExternalDragDropOfFiles(StringArray({file.getFullPathName()}), true);
+        }
     }
-}
-
-bool WaveformView::shouldDropFilesWhenDraggedExternally(const DragAndDropTarget::SourceDetails &sourceDetails, StringArray &files, bool &canMoveFiles)
-{
-    canMoveFiles = false;
-    return true;
 }
 
 void WaveformView::resized()

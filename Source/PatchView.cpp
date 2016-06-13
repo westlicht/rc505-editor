@@ -156,6 +156,15 @@ void PatchView::waveformViewFilesDropped(WaveformView *waveformView, const Strin
     importLoopsToTracks(files, trackIndex(waveformView));
 }
 
+void PatchView::waveformViewFileDragged(WaveformView *waveformView, File &file)
+{
+    auto track = _trackViews[trackIndex(waveformView)]->track();
+    if (track->waveState() != RC505::Track::WaveEmpty) {
+        file = File::addTrailingSeparator(RC505::Library::tempDirectory()) + String::formatted("track-%d.wav", track->index() + 1);
+        track->saveWaveTo(file);
+    }
+}
+
 void PatchView::clearPatch()
 {
     // TODO implement
@@ -174,7 +183,7 @@ void PatchView::exportLoops()
     FileChooser fileChooser("Export Loops");
     if (fileChooser.browseForDirectory()) {
         for (const auto &track : _patch->tracks()) {
-            File file(File::addTrailingSeparator(fileChooser.getResult().getFullPathName()) + String::formatted("loop-%d-%d.wav", _patch->index(), track->index()));
+            File file(File::addTrailingSeparator(fileChooser.getResult().getFullPathName()) + String::formatted("track-%d.wav", track->index() + 1));
             track->saveWaveTo(file);
         }
     }
