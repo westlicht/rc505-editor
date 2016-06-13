@@ -219,22 +219,24 @@
 
 #elif (defined (__MACH__) && defined (__APPLE__))
 
+#if 0
 	#include    <emmintrin.h>
 	#include    <mmintrin.h>
 
 	/* For Apple MacOSX. */
 
-	static inline long int
+	__inline long int
 	lrint(double flt)
 	{
 		return _mm_cvtsd_si32(_mm_load_sd(&flt));
 	}
 
-	static inline long int
+	__inline long int
 	lrintf(float flt)
 	{
 		return _mm_cvtss_si32(_mm_load_ss(&flt));
 	}
+#endif
 
 #elif (defined (__linux__))
 
