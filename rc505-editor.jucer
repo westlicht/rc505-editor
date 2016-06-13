@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="gO08rc" name="RC-505" projectType="guiapp" version="0.0.1"
               bundleIdentifier="ch.westlicht.rc505" includeBinaryInAppConfig="1"
-              jucerVersion="4.1.0" companyEmail="simon.kallweit@gmail.com"
+              jucerVersion="4.2.1" companyEmail="simon.kallweit@gmail.com"
               companyName="westlicht" companyWebsite="westlicht.ch" defines="">
   <MAINGROUP id="FP8VHC" name="RC-505">
     <GROUP id="{D21FB55B-E8F8-6DAB-3311-5EB3C5E0EE8A}" name="Resources">
@@ -146,6 +146,8 @@
       <FILE id="fXgqCp" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="JIdRrb" name="MemoryView.cpp" compile="1" resource="0" file="Source/MemoryView.cpp"/>
       <FILE id="CCIUfI" name="MemoryView.h" compile="0" resource="0" file="Source/MemoryView.h"/>
+      <FILE id="UWX1fm" name="MountedVolumeListChangeDetector.h" compile="0"
+            resource="0" file="Source/MountedVolumeListChangeDetector.h"/>
       <FILE id="gBSjCD" name="PatchTreeView.cpp" compile="1" resource="0"
             file="Source/PatchTreeView.cpp"/>
       <FILE id="Ybbk7i" name="PatchTreeView.h" compile="0" resource="0" file="Source/PatchTreeView.h"/>
@@ -206,6 +208,32 @@
         <MODULEPATH id="juce_audio_utils" path="../juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" smallIcon="HZjAva" bigIcon="hPyQXt"
+                cppLanguageStandard="-std=c++11" extraCompilerFlags="-msse2 -I../../Source/rubberband"
+                extraLinkerFlags="">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
+                       targetName="RC-505"/>
+        <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="3"
+                       targetName="RC-505"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_video" path="../juce/modules"/>
+        <MODULEPATH id="juce_opengl" path="../juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="../juce/modules"/>
+        <MODULEPATH id="juce_events" path="../juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../juce/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../juce/modules"/>
+        <MODULEPATH id="juce_core" path="../juce/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../juce/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../juce/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../juce/modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
   </EXPORTFORMATS>
   <MODULES>
     <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
@@ -224,4 +252,7 @@
     <MODULES id="juce_video" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
   <JUCEOPTIONS/>
+  <LIVE_SETTINGS>
+    <LINUX/>
+  </LIVE_SETTINGS>
 </JUCERPROJECT>
