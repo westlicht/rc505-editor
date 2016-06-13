@@ -25,13 +25,15 @@ public:
         LookAndFeel::setDefaultLookAndFeel(&_customLookAndFeel);
 
         _mainMenuModel = new MainMenuModel();
+        _mainWindow = new MainWindow(String::formatted("RC-505 Loop Station Editor (Version %s)", ProjectInfo::versionString));
+        getCommandManager().registerAllCommandsForTarget(&_mainWindow->mainComponent());
 
 #if JUCE_MAC
         MenuBarModel::setMacMainMenu(_mainMenuModel, nullptr);
+#else
+        _mainWindow->setMenuBar(_mainMenuModel);
 #endif
 
-        _mainWindow = new MainWindow(String::formatted("RC-505 Loop Station Editor (Version %s)", ProjectInfo::versionString));
-        getCommandManager().registerAllCommandsForTarget(&_mainWindow->mainComponent());
 
     }
 
