@@ -107,6 +107,8 @@ protected:
     String _id;
     String _value;
     ListenerList<Listener> _listeners;
+
+    friend class Patch;
 };
 
 class BoolProperty : public ValueProperty {
@@ -1107,6 +1109,8 @@ public:
     String name() const;
     void setName(const String &name);
 
+    void clear();
+
     bool allTracksEmpty() const;
     void moveTrack(int from, int to);
 
@@ -1204,6 +1208,8 @@ private:
     OwnedArray<Patch> _patches;
     SystemSettings _systemSettings;
     ListenerList<Listener> _listeners;
+
+    ScopedPointer<XmlElement> _factoryPatchXml;
 
     friend class ValueProperty;
     friend class Patch;

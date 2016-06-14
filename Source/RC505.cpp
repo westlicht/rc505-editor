@@ -351,6 +351,17 @@ void Patch::setName(const String &name)
     _patchName.setValue(name);
 }
 
+void Patch::clear()
+{
+    int oldIndex = _index;
+    loadFromXml(_library->_factoryPatchXml);
+    _index = oldIndex;
+    for (const auto &track : _tracks) {
+        track->clearAudioBuffer();
+    }
+    _patchName.notifyValueChanged();
+}
+
 bool Patch::allTracksEmpty() const
 {
     for (const auto &track : _tracks) {
@@ -453,6 +464,9 @@ void Library::init() {
     clearChanged();
     loadMemory(String(BinaryData::MEMORY_RC0, BinaryData::MEMORY_RC0Size));
     loadSystem(String(BinaryData::SYSTEM_RC0, BinaryData::SYSTEM_RC0Size));
+
+    _factoryPatchXml = new XmlElement("mem");
+    _patches[0]->saveToXml(_factoryPatchXml);
 
     notifyLocked([&] () { _listeners.call(&Listener::afterLibraryLoaded); });
 }

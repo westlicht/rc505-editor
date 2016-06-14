@@ -22,7 +22,6 @@ PatchView::PatchView() :
     _clearButton.setButtonText("Clear Patch");
     _clearButton.setTooltip("Clear the current patch.");
     _clearButton.addListener(this);
-    _clearButton.setEnabled(false); // TODO
     _importButton.setButtonText("Import Loops");
     _importButton.setTooltip("Import tracks from audio files.");
     _importButton.addListener(this);
@@ -185,7 +184,8 @@ void PatchView::waveformViewFileDragged(WaveformView *waveformView, File &file)
 
 void PatchView::clearPatch()
 {
-    // TODO implement
+    _patch->clear();
+    setPatch(_patch);
 }
 
 void PatchView::importLoops()
