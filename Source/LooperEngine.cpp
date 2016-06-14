@@ -106,7 +106,7 @@ void LooperEngine::Track::getNextAudioBlock(const AudioSourceChannelInfo &buffer
 
     float volume = _track->trackSettings()->playLevel->value() / 50.f;
     float pan = (_track->trackSettings()->pan->value() - 50) / 50.f;
-    float gain[2] = { volume - jmin(0.f, pan), volume + jmax(0.f, pan) };
+    float gain[2] = { volume * jmin(1.f, 1.f - pan), volume * jmin(1.f, 1.f + pan) };
     bufferToFill.buffer->applyGain(0, bufferToFill.startSample, bufferToFill.numSamples, gain[0]);
     bufferToFill.buffer->applyGain(1, bufferToFill.startSample, bufferToFill.numSamples, gain[1]);
 }
