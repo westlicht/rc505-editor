@@ -39,6 +39,8 @@ public:
 private:
     void copyPatchSettings();
     void pastePatchSettings();
+
+    static const int PatchTreeViewWidth = 200;
     
     RC505::Library &_library;
     PatchTreeView _patchTreeView;

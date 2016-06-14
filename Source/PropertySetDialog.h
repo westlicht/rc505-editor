@@ -9,6 +9,7 @@ public:
     PropertySetDialog(RC505::Group *group);
 
     // Component
+    virtual void paint(Graphics &g) override;
     virtual void resized() override;
 
     // Button::Listener

@@ -8,6 +8,7 @@
     <GROUP id="{D21FB55B-E8F8-6DAB-3311-5EB3C5E0EE8A}" name="Resources">
       <FILE id="hPyQXt" name="icon-large.png" compile="0" resource="1" file="Resources/icon-large.png"/>
       <FILE id="HZjAva" name="icon-small.png" compile="0" resource="1" file="Resources/icon-small.png"/>
+      <FILE id="h4q7fD" name="Matrix.ttf" compile="0" resource="1" file="Resources/Matrix.ttf"/>
       <FILE id="uXQBOj" name="MEMORY.RC0" compile="0" resource="1" file="Resources/MEMORY.RC0"/>
       <FILE id="TQafX2" name="SYSTEM.RC0" compile="0" resource="1" file="Resources/SYSTEM.RC0"/>
     </GROUP>

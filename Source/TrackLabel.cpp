@@ -1,5 +1,6 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TrackLabel.h"
+#include "CustomLookAndFeel.h"
 
 TrackLabel::TrackLabel(int index) :
     _index(index)
@@ -12,14 +13,9 @@ TrackLabel::~TrackLabel()
 
 void TrackLabel::paint (Graphics &g)
 {
-    g.fillAll(Colours::black);
-
-    g.setColour(Colours::grey);
-    g.drawRect(getLocalBounds(), 1);
-
-    g.setColour(Colours::lightblue);
-    g.setFont(20.f);
-    g.drawText(String::formatted("Track %d", _index + 1), getLocalBounds(), Justification::centred, true);
+    g.setColour(findColour(mainTextColourId));
+    g.setFont(25.f);
+    g.drawText(String::formatted("%d", _index + 1), getLocalBounds(), Justification::centred, true);
 }
 
 void TrackLabel::mouseDrag(const MouseEvent &event)

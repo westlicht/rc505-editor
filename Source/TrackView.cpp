@@ -1,5 +1,17 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "TrackView.h"
+#include "CustomLookAndFeel.h"
+
+void TrackViewGroup::paint(Graphics &g)
+{
+    g.fillAll(findColour(mainBackgroundColourId));
+    g.setColour(findColour(mainBorderColourId));
+    int trackWidth = getWidth() / RC505::Patch::NumTracks;
+    for (int i = 1; i < RC505::Patch::NumTracks; ++i) {
+        int x = i * trackWidth;
+        g.drawLine(x + 0.5f, 0, x + 0.5f, getHeight());
+    }
+}
 
 TrackView::TrackView(int index) :
     _index(index),
@@ -34,13 +46,12 @@ void TrackView::setTrack(RC505::Track *track)
 
 void TrackView::paint(Graphics &g)
 {
-    g.fillAll(Colours::white);
 }
 
 void TrackView::resized()
 {
-    _trackLabel.setBounds(5, 5, getWidth() - 10, 30);
-    _waveformView.setBounds(5, 40, getWidth() - 10, 100);
-    _playButton.setBounds(5, 145, getWidth() - 10, 25);
-    _propertyTreeView.setBounds(5, 180, getWidth() - 10, getHeight() - 180);
+    _trackLabel.setBounds(10, 10, getWidth() - 20, 30);
+    _waveformView.setBounds(10, 50, getWidth() - 20, 100);
+    _playButton.setBounds(10, 160, getWidth() - 20, 30);
+    _propertyTreeView.setBounds(10, 220, getWidth() - 20, getHeight() - 220);
 }

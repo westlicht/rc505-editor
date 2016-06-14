@@ -4,6 +4,11 @@
 
 class PlayButton : public Button {
 public:
+    enum ColourIds {
+        playColourId    = 0x2360000,
+        stopColourId    = 0x2360001,
+    };
+
     PlayButton() :
         Button("Play")
     {
@@ -25,7 +30,7 @@ protected:
         int cy = getHeight() / 2;
         if (_playing) {
             // draw stop icon
-            g.setColour(Colours::red);
+            g.setColour(findColour(stopColourId));
             g.fillRect(cx - 5, cy - 5, 10, 10);
         } else {
             // draw play icon
@@ -34,7 +39,7 @@ protected:
             path.lineTo(cx + 5, cy);
             path.lineTo(cx - 5, cy + 5);
             path.closeSubPath();
-            g.setColour(Colours::green);
+            g.setColour(findColour(playColourId));
             g.fillPath(path);
         }
     }

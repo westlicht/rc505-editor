@@ -2418,6 +2418,7 @@
   <ItemGroup>
     <None Include="..\..\Resources\icon-large.png"/>
     <None Include="..\..\Resources\icon-small.png"/>
+    <None Include="..\..\Resources\Matrix.ttf"/>
     <None Include="..\..\Resources\MEMORY.RC0"/>
     <None Include="..\..\Resources\SYSTEM.RC0"/>
     <None Include="..\..\Source\rubberband\kissfft\COPYING"/>

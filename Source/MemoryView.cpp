@@ -1,6 +1,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MemoryView.h"
 #include "PropertySetDialog.h"
+#include "CustomLookAndFeel.h"
 
 MemoryView::MemoryView(RC505::Library &library) :
     _library(library),
@@ -33,19 +34,19 @@ MemoryView::~MemoryView()
     _patchTreeView.setRootItem(nullptr);
 }
 
-void MemoryView::paint (Graphics &g)
+void MemoryView::paint(Graphics &g)
 {
-    Component::paint(g);
+    g.fillAll(findColour(mainBackgroundColourId));
+    g.setColour(findColour(mainBorderColourId));
+    g.drawLine(PatchTreeViewWidth + 0.5f, 0.f, PatchTreeViewWidth + 0.5f, getHeight());
 }
 
 void MemoryView::resized()
 {
-    const int MemoryViewWidth = 200;
-    const int ButtonHeight = 30;
-    _patchTreeView.setBounds(0, 0, MemoryViewWidth, getHeight() - 2 * ButtonHeight);
-    _copySettingsButton.setBounds(0, getHeight() - 2 * ButtonHeight, MemoryViewWidth, ButtonHeight);
-    _pasteSettingsButton.setBounds(0, getHeight() - 1 * ButtonHeight, MemoryViewWidth, ButtonHeight);
-    _patchView.setBounds(MemoryViewWidth, 0, getWidth() - MemoryViewWidth, getHeight());
+    _patchTreeView.setBounds(0, 0, PatchTreeViewWidth, getHeight() - 90);
+    _copySettingsButton.setBounds(10, getHeight() - 80, PatchTreeViewWidth - 20, 30);
+    _pasteSettingsButton.setBounds(10, getHeight() - 40, PatchTreeViewWidth - 20, 30);
+    _patchView.setBounds(PatchTreeViewWidth + 1, 0, getWidth() - PatchTreeViewWidth - 1, getHeight());
 }
 
 void MemoryView::patchSelected(RC505::Patch *patch)

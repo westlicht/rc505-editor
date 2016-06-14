@@ -22,7 +22,7 @@ public:
 
         initCommandManager();
 
-        LookAndFeel::setDefaultLookAndFeel(&_customLookAndFeel);
+        LookAndFeel::setDefaultLookAndFeel(&CustomLookAndFeel::instance());
 
         _mainMenuModel = new MainMenuModel();
         _mainWindow = new MainWindow(String::formatted("RC-505 Loop Station Editor (Version %s ALPHA)", ProjectInfo::versionString));
@@ -33,8 +33,6 @@ public:
 #else
         _mainWindow->setMenuBar(_mainMenuModel);
 #endif
-
-
     }
 
     void shutdown() override
@@ -45,6 +43,8 @@ public:
 
         _mainWindow = nullptr;
         _mainMenuModel = nullptr;
+
+        CustomLookAndFeel::free();
 
         // clear temporary directory
         File(RC505::Library::tempDirectory()).deleteRecursively();
@@ -200,7 +200,6 @@ private:
         _commandManager->registerAllCommandsForTarget(this);
     }
 
-    CustomLookAndFeel _customLookAndFeel;
     ScopedPointer<MainMenuModel> _mainMenuModel;
     ScopedPointer<MainWindow> _mainWindow;
     ScopedPointer<ApplicationCommandManager> _commandManager;

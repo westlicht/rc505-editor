@@ -15,6 +15,7 @@ LibraryView::LibraryView() :
     _tabs.addTab("System", Colours::white, &_systemView, false);
     _tabs.getTabbedButtonBar().getTabButton(0)->setTooltip("Show patches stored in the library.");
     _tabs.getTabbedButtonBar().getTabButton(1)->setTooltip("Show system settings stored in the library.");
+    _tabs.setOutline(0.f);
 }
 
 LibraryView::~LibraryView()

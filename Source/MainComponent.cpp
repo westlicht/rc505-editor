@@ -2,6 +2,7 @@
 #include "MainComponent.h"
 #include "LibraryView.h"
 #include "CommandIDs.h"
+#include "CustomLookAndFeel.h"
 
 class MainMultiDocumentPanel : public MultiDocumentPanel {
 public:
@@ -80,6 +81,7 @@ void MainComponent::newLibrary()
     auto view = new LibraryView();
     view->library().setName(String::formatted("New Library %d", _newLibraryIndex++));
     _multiDocumentPanel->addDocument(view, Colours::white, true);
+    _multiDocumentPanel->getCurrentTabbedComponent()->setOutline(0);
 }
 
 void MainComponent::openLibrary()
@@ -142,15 +144,17 @@ bool MainComponent::allowQuit()
 
 void MainComponent::paint(Graphics &g)
 {
-    g.fillAll(Colours::black);
+    g.fillAll(findColour(mainBackgroundColourId));
+    g.setColour(findColour(mainBorderColourId));
+    g.drawLine(0.f, getHeight() - 30.5f, getWidth(), getHeight() - 30.5f);
 }
 
 void MainComponent::resized()
 {
     if (_multiDocumentPanel) {
-        _multiDocumentPanel->setSize(getWidth(), getHeight() - 25);
+        _multiDocumentPanel->setSize(getWidth(), getHeight() - 31);
     }
-    _tooltipPanel.setBounds(0, getHeight() - 25, getWidth(), 25);
+    _tooltipPanel.setBounds(0, getHeight() - 30, getWidth(), 30);
 }
 
 void MainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
@@ -247,6 +251,7 @@ void MainComponent::openLibrary(const File &path)
     auto view = new LibraryView();
     if (view->library().load(path)) {
         _multiDocumentPanel->addDocument(view, Colours::white, true);
+        _multiDocumentPanel->getCurrentTabbedComponent()->setOutline(0);
     } else {
         AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error", "'" + path.getFullPathName() + "' is not a valid RC-505 library folder!");
         delete view;

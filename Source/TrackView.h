@@ -8,6 +8,11 @@
 #include "PropertyTreeView.h"
 #include "PlayButton.h"
 
+class TrackViewGroup : public Component {
+public:
+    virtual void paint(Graphics &g) override;
+};
+
 class TrackView : public Component {
 public:
     TrackView(int index);

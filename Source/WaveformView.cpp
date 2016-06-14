@@ -1,5 +1,6 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "WaveformView.h"
+#include "CustomLookAndFeel.h"
 
 AudioFormatManager WaveformView::_audioFormatManager;
 AudioThumbnailCache WaveformView::_audioThumbnailCache(8);
@@ -39,15 +40,23 @@ void WaveformView::setPlayPosition(double position)
 
 void WaveformView::paint(Graphics &g)
 {
-    g.fillAll(Colours::black);
-    g.setColour(Colours::white);
-    Rectangle<int> area(0, 0, getWidth(), getHeight());
+    const int radius = 10;
+
+    Rectangle<int> area(1, 1, getWidth() - 2, getHeight() - 2);
+    g.setColour(findColour(backgroundColourId));
+    g.fillRoundedRectangle(area.toFloat(), radius);
+    g.setColour(findColour(borderColourId));
+    g.drawRoundedRectangle(area.toFloat(), radius, 2.f);
+
+    g.setColour(findColour(waveformColourId).withAlpha(0.5f));
+    area = area.withTrimmedLeft(1).withTrimmedRight(1).withTrimmedTop(radius).withTrimmedBottom(radius);
     _audioThumbnail.drawChannels(g, area, 0.0, _audioThumbnail.getTotalLength(), 1.f);
+    _audioThumbnail.drawChannels(g, area, 0.0, _audioThumbnail.getTotalLength(), 0.8f);
 
     if (_playing) {
-        float x = _playPosition * getWidth();
-        g.setColour(Colours::yellow);
-        g.drawLine(x, 0, x, getHeight());
+        float x = area.getX() + _playPosition * area.getWidth();
+        g.setColour(findColour(cursorColourId));
+        g.drawLine(x, area.getY(), x, area.getY() + area.getHeight());
     }
 }
 

@@ -1,5 +1,6 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PropertySetDialog.h"
+#include "CustomLookAndFeel.h"
 
 PropertySetDialog::PropertySetDialog(RC505::Group *group)
 {
@@ -13,11 +14,16 @@ PropertySetDialog::PropertySetDialog(RC505::Group *group)
     _buttonOk.addListener(this);
 }
 
+void PropertySetDialog::paint(Graphics &g)
+{
+    g.fillAll(findColour(mainBackgroundColourId));
+}
+
 void PropertySetDialog::resized()
 {
-    _propertySetTreeView.setSize(getWidth(), getHeight() - 40);
-    _buttonCancel.setBounds(5, getHeight() - 35, getWidth() / 2 - 10, 30);
-    _buttonOk.setBounds(getWidth() / 2 + 5, getHeight() - 35, getWidth() / 2 - 10, 30);
+    _propertySetTreeView.setSize(getWidth(), getHeight() - 50);
+    _buttonCancel.setBounds(10, getHeight() - 40, getWidth() / 2 - 15, 30);
+    _buttonOk.setBounds(getWidth() / 2 + 5, getHeight() - 40, getWidth() / 2 - 15, 30);
 }
 
 void PropertySetDialog::buttonClicked(Button *button)

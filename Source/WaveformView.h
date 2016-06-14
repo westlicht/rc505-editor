@@ -7,6 +7,13 @@ class WaveformView : public Component,
                      public DragAndDropContainer,
                      public FileDragAndDropTarget {
 public:
+    enum ColourIds {
+        backgroundColourId  = 0x2350000,
+        borderColourId      = 0x2350001,
+        waveformColourId    = 0x2350002,
+        cursorColourId      = 0x2350003
+    };
+
     class Listener {
     public:
         virtual ~Listener() {}

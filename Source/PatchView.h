@@ -63,7 +63,7 @@ private:
     TextButton _exportButton;
 
     TabbedComponent _tabs;
-    Component _tracks;
+    TrackViewGroup _trackViewGroup;
     OwnedArray<TrackView> _trackViews;
     PropertyTreeView _propertyTreeView;
 

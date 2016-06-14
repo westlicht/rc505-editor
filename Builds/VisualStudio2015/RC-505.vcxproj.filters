@@ -4268,6 +4268,9 @@
     <None Include="..\..\Resources\icon-small.png">
       <Filter>RC-505\Resources</Filter>
     </None>
+    <None Include="..\..\Resources\Matrix.ttf">
+      <Filter>RC-505\Resources</Filter>
+    </None>
     <None Include="..\..\Resources\MEMORY.RC0">
       <Filter>RC-505\Resources</Filter>
     </None>

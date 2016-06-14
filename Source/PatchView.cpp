@@ -2,6 +2,7 @@
 #include "PatchView.h"
 #include "Utils.h"
 #include "AudioEngine.h"
+#include "CustomLookAndFeel.h"
 
 PatchView::PatchView() :
     _patch(nullptr),
@@ -21,6 +22,7 @@ PatchView::PatchView() :
     _clearButton.setButtonText("Clear Patch");
     _clearButton.setTooltip("Clear the current patch.");
     _clearButton.addListener(this);
+    _clearButton.setEnabled(false); // TODO
     _importButton.setButtonText("Import Loops");
     _importButton.setTooltip("Import tracks from audio files.");
     _importButton.addListener(this);
@@ -34,16 +36,19 @@ PatchView::PatchView() :
         trackView->waveformView().addListener(this);
         trackView->playButton().addListener(this);
         _trackViews.add(trackView);
-        _tracks.addAndMakeVisible(trackView);
+        _trackViewGroup.addAndMakeVisible(trackView);
     }
     
-    _namePropertyView.textEditor().setFont(24.f);
+    Font font = CustomLookAndFeel::instance().matrixFont();
+    font.setHeight(24.f);
+    _namePropertyView.textEditor().setFont(font);
     _namePropertyView.setTooltip("Current patch name. Click to edit.");
     _tempoPropertyView.setTooltip("Current patch tempo. Click or drag to edit.");
-    _tabs.addTab("Tracks", Colours::white, &_tracks, false);
+    _tabs.addTab("Tracks", Colours::white, &_trackViewGroup, false);
     _tabs.addTab("Settings", Colours::white, &_propertyTreeView, false);
     _tabs.getTabbedButtonBar().getTabButton(0)->setTooltip("Show tracks stored in the current patch.");
     _tabs.getTabbedButtonBar().getTabButton(1)->setTooltip("Show settings stored in the current patch.");
+    _tabs.setOutline(0.f);
 
     AudioEngine::instance().addSource(&_looperEngine);
 
@@ -90,21 +95,23 @@ void PatchView::togglePlaying()
 
 void PatchView::paint(Graphics &g)
 {
-    g.fillAll(Colours::white);
+    g.fillAll(findColour(mainBackgroundColourId));
+    g.setColour(findColour(mainBorderColourId));
+    g.drawLine(0.f, 59.5f, getWidth(), 59.5f);
 }
 
 void PatchView::resized()
 {
     _namePropertyView.setBounds(10, 10, 200, 40);
     _tempoPropertyView.setBounds(220, 10, 200, 40);
-    _playButton.setBounds(500, 15, 110, 30);
-    _clearButton.setBounds(620, 15, 110, 30);
-    _importButton.setBounds(740, 15, 110, 30);
-    _exportButton.setBounds(860, 15, 110, 30);
+    _playButton.setBounds(getWidth() - 480, 15, 110, 30);
+    _clearButton.setBounds(getWidth() - 360, 15, 110, 30);
+    _importButton.setBounds(getWidth() - 240, 15, 110, 30);
+    _exportButton.setBounds(getWidth() - 120, 15, 110, 30);
     _tabs.setBounds(0, 60, getWidth(), getHeight() - 60);
 
-    int trackWidth = _tracks.getWidth() / RC505::Patch::NumTracks;
-    int trackHeight = _tracks.getHeight();
+    int trackWidth = _trackViewGroup.getWidth() / RC505::Patch::NumTracks;
+    int trackHeight = _trackViewGroup.getHeight();
     for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
         _trackViews[i]->setBounds(i * trackWidth, 0, trackWidth, trackHeight);
     }

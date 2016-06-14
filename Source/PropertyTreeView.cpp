@@ -1,5 +1,6 @@
 #include "PropertyTreeView.h"
 #include "PropertyView.h"
+#include "CustomLookAndFeel.h"
 
 // ----------------------------------------------------------------------------
 // PropertyTreeViewComponent
@@ -87,9 +88,10 @@ public:
 
     virtual void paintItem(Graphics &g, int width, int height) override
     {
+        auto &lookAndFeel = LookAndFeel::getDefaultLookAndFeel();
         const int fontHeight = 14;
         g.setFont(fontHeight);
-        g.setColour(Colours::black);
+        g.setColour(lookAndFeel.findColour(mainTextColourId));
         Rectangle<int> area(width, height);
         String text = _property->name();
         g.drawFittedText(text, area.reduced(4, 2), Justification::left, area.getHeight() / fontHeight);
@@ -176,16 +178,15 @@ public:
 
     virtual void paintItem(Graphics &g, int width, int height) override
     {
+        auto &lookAndFeel = LookAndFeel::getDefaultLookAndFeel();
         const int fontHeight = 14;
         g.setFont(fontHeight);
-        g.setColour(Colours::black);
+        g.setColour(lookAndFeel.findColour(mainTextColourId));
         Rectangle<int> area(height, 0, width - height, height);
         String text = _property->name();
         g.drawFittedText(text, area.reduced(4, 2), Justification::left, area.getHeight() / fontHeight);
-
-        auto &lf = LookAndFeel::getDefaultLookAndFeel();
         auto state = _property->selectedState();
-        lf.drawTickBox(g, *getOwnerView(), 2, 2, height - 4, height - 4, state != RC505::Property::Unselected, state !=  RC505::Property::PartiallySelected, false, false);
+        lookAndFeel.drawTickBox(g, *getOwnerView(), 2, 2, height - 4, height - 4, state != RC505::Property::Unselected, state !=  RC505::Property::PartiallySelected, false, false);
     }
 
     virtual void itemClicked(const MouseEvent &e) override
