@@ -68,6 +68,7 @@ void PatchView::setPatch(RC505::Patch *patch)
 {
     _patch = patch;
     
+    _exportButton.setEnabled(_patch ? !_patch->allTracksEmpty() : true);
     stopPlaying();
     _looperEngine.setPatch(_patch);
     //_looperEngine.setPlayingAll(false);
@@ -252,4 +253,6 @@ void PatchView::importLoopsToTracks(const Array<File> &files, int trackIndex)
             ++trackIndex;
         }
     }
+
+    _exportButton.setEnabled(!_patch->allTracksEmpty());
 }

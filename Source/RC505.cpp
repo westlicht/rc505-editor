@@ -351,6 +351,16 @@ void Patch::setName(const String &name)
     _patchName.setValue(name);
 }
 
+bool Patch::allTracksEmpty() const
+{
+    for (const auto &track : _tracks) {
+        if (track->waveState() != Track::WaveEmpty) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void Patch::moveTrack(int from, int to)
 {
     _tracks.swap(from, to);

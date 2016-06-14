@@ -1107,6 +1107,7 @@ public:
     String name() const;
     void setName(const String &name);
 
+    bool allTracksEmpty() const;
     void moveTrack(int from, int to);
 
     bool loadFromXml(XmlElement *xml);
