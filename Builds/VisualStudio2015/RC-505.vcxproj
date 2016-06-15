@@ -1789,6 +1789,7 @@
     <ClInclude Include="..\..\Source\AudioEngine.h"/>
     <ClInclude Include="..\..\Source\CommandIDs.h"/>
     <ClInclude Include="..\..\Source\CustomLookAndFeel.h"/>
+    <ClInclude Include="..\..\Source\LibraryTasks.h"/>
     <ClInclude Include="..\..\Source\LibraryView.h"/>
     <ClInclude Include="..\..\Source\LooperEngine.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>

@@ -2385,6 +2385,9 @@
     <ClInclude Include="..\..\Source\CustomLookAndFeel.h">
       <Filter>RC-505\Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\LibraryTasks.h">
+      <Filter>RC-505\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\LibraryView.h">
       <Filter>RC-505\Source</Filter>
     </ClInclude>
