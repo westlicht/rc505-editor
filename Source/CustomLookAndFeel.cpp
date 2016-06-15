@@ -135,7 +135,7 @@ void CustomLookAndFeel::drawTreeviewPlusMinusBox(Graphics &g, const Rectangle<fl
     Path p;
     p.addTriangle(0.f, 0.f, 1.f, isOpen ? 0.f : 0.5f, isOpen ? 0.5f : 0.f, 1.f);
     g.setColour(findColour(mainBorderColourId).brighter(isMouseOver ? 0.4f : 0.f));
-    g.fillPath(p, p.getTransformToScaleToFit(area.reduced (2, area.getHeight() / 4), true));
+    g.fillPath(p, p.getTransformToScaleToFit(area.reduced(2, area.getHeight() / 4), true));
 }
 
 void CustomLookAndFeel::drawTickBox(Graphics &g, Component &component,
@@ -158,19 +158,22 @@ void CustomLookAndFeel::drawTickBox(Graphics &g, Component &component,
         g.setColour(component.findColour(isEnabled ? ToggleButton::tickColourId
                                                    : ToggleButton::tickDisabledColourId));
         const AffineTransform trans(AffineTransform::scale(w / 9.f, h / 9.f).translated(x, y));
-        g.strokePath (tick, PathStrokeType (2.5f), trans);
+        g.strokePath(tick, PathStrokeType(2.5f), trans);
     }
 }
 
-
-int CustomLookAndFeel::getTabButtonBestWidth(TabBarButton &, int) { return 300; }
+int CustomLookAndFeel::getTabButtonBestWidth(TabBarButton &, int)
+{
+    return 300;
+}
 
 static Colour getTabBackgroundColour(TabBarButton& button)
 {
     const Colour bkg(button.findColour(mainBackgroundColourId).contrasting(0.15f));
 
-    if (button.isFrontTab())
+    if (button.isFrontTab()) {
         return bkg.overlaidWith(Colours::yellow.withAlpha(0.5f));
+    }
 
     return bkg;
 }
