@@ -10,6 +10,11 @@ TooltipPanel::~TooltipPanel()
 {
 }
 
+void TooltipPanel::setDefaultTooltip(const String &tooltip)
+{
+    _defaultTooltip = tooltip;
+}
+
 void TooltipPanel::paint(Graphics &g)
 {
     g.fillAll(Colours::black);
@@ -27,9 +32,9 @@ void TooltipPanel::timerCallback()
         client = dynamic_cast<TooltipClient *>(component);
         component = component->getParentComponent();
     }
-    if (client != _client) {
-        _client = client;
-        _tooltip = _client ? _client->getTooltip() : "";
+    String tooltip = client ? client->getTooltip() : _defaultTooltip;
+    if (tooltip != _tooltip) {
+        _tooltip = tooltip;
         repaint();
     }
 }

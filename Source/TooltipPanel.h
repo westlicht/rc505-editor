@@ -8,6 +8,8 @@ public:
     TooltipPanel();
     virtual ~TooltipPanel();
 
+    void setDefaultTooltip(const String &tooltip);
+
     // Component
     virtual void paint(Graphics &g) override;
 
@@ -15,6 +17,6 @@ public:
     virtual void timerCallback() override;
 
 private:
-    TooltipClient *_client;
+    String _defaultTooltip;
     String _tooltip;
 };

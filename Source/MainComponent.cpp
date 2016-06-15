@@ -43,6 +43,7 @@ MainComponent::MainComponent() :
     addAndMakeVisible(_tooltipPanel);
 
     resized();
+    documentsChanged();
     mountedVolumeListChanged();
 }
 
@@ -56,7 +57,7 @@ void MainComponent::newLibrary()
     auto view = new LibraryView();
     view->library().setName(String::formatted("New Library %d", _newLibraryIndex++));
     _multiDocumentPanel->addDocument(view, Colours::white, true);
-    _multiDocumentPanel->getCurrentTabbedComponent()->setOutline(0);
+    documentsChanged();
 }
 
 void MainComponent::openLibrary()
@@ -99,6 +100,7 @@ void MainComponent::closeLibrary()
     if (view) {
         if (!view->library().hasChanged() || allowDiscardChanges(view->library())) {
             _multiDocumentPanel->closeDocument(view, false);
+            documentsChanged();
         }
     }
 }
@@ -223,7 +225,7 @@ void MainComponent::openLibrary(const File &path)
     auto view = new LibraryView();
     if (LoadLibraryTask::loadLibrary(view->library(), path)) {
         _multiDocumentPanel->addDocument(view, Colours::white, true);
-        _multiDocumentPanel->getCurrentTabbedComponent()->setOutline(0);
+        documentsChanged();
     } else {
         delete view;
     }
@@ -256,4 +258,15 @@ void MainComponent::iterateLibraryViews(std::function<void(LibraryView *)> handl
             handler(view);
         }
     }
+}
+
+void MainComponent::documentsChanged()
+{
+    if (_multiDocumentPanel->getCurrentTabbedComponent()) {
+        _multiDocumentPanel->getCurrentTabbedComponent()->setOutline(0);
+    }
+    _tooltipPanel.setDefaultTooltip(_multiDocumentPanel->getNumDocuments() != 0 ? "" :
+        "No library loaded! Create a new library, open an existing library or connect an RC-505 Loop Station ..."
+    );
+
 }

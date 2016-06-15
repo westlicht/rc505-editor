@@ -49,6 +49,7 @@ private:
     bool allowDiscardChanges(RC505::Library &library);
     LibraryView *activeLibraryView();
     void iterateLibraryViews(std::function<void(LibraryView *)> handler);
+    void documentsChanged();
 
     AudioEngine &_audioEngine;
     ScopedPointer<MainMultiDocumentPanel> _multiDocumentPanel;
