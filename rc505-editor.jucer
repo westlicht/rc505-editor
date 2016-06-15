@@ -136,6 +136,7 @@
             file="Source/CustomLookAndFeel.cpp"/>
       <FILE id="tdyDR8" name="CustomLookAndFeel.h" compile="0" resource="0"
             file="Source/CustomLookAndFeel.h"/>
+      <FILE id="epipUS" name="LibraryTasks.h" compile="0" resource="0" file="Source/LibraryTasks.h"/>
       <FILE id="YpUZXt" name="LibraryView.cpp" compile="1" resource="0" file="Source/LibraryView.cpp"/>
       <FILE id="Ob3c7E" name="LibraryView.h" compile="0" resource="0" file="Source/LibraryView.h"/>
       <FILE id="tuGRFK" name="LooperEngine.cpp" compile="1" resource="0"
