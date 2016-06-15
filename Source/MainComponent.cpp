@@ -30,8 +30,7 @@ private:
 };
 
 MainComponent::MainComponent() :
-    _audioEngine(AudioEngine::instance()),
-    _taskInProgress(false)
+    _audioEngine(AudioEngine::instance())
 {
     setSize(1400, 800);
     setAudioChannels(2, 2);
@@ -106,9 +105,6 @@ void MainComponent::closeLibrary()
 
 bool MainComponent::allowQuit()
 {
-    if (_taskInProgress.get()) {
-        return false;
-    }
     bool allow = true;
     iterateLibraryViews([&] (LibraryView *view) {
         if (view->library().hasChanged() && !allowDiscardChanges(view->library())) {
@@ -225,21 +221,17 @@ void MainComponent::mountedVolumeListChanged()
 void MainComponent::openLibrary(const File &path)
 {
     auto view = new LibraryView();
-    _taskInProgress = true;
     if (LoadLibraryTask::loadLibrary(view->library(), path)) {
         _multiDocumentPanel->addDocument(view, Colours::white, true);
         _multiDocumentPanel->getCurrentTabbedComponent()->setOutline(0);
     } else {
         delete view;
     }
-    _taskInProgress = false;
 }
 
 void MainComponent::saveLibrary(RC505::Library &library, const File &path)
 {
-    _taskInProgress = true;
     SaveLibraryTask::saveLibrary(library, path);
-    _taskInProgress = false;
 }
 
 bool MainComponent::allowDiscardChanges(RC505::Library &library)

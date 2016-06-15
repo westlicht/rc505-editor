@@ -54,7 +54,6 @@ private:
     ScopedPointer<MainMultiDocumentPanel> _multiDocumentPanel;
     TooltipPanel _tooltipPanel;
     int _newLibraryIndex = 1;
-    Atomic<int> _taskInProgress;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };

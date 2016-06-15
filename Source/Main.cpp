@@ -52,6 +52,9 @@ public:
 
     void systemRequestedQuit() override
     {
+        if (ModalComponentManager::getInstance()->getNumModalComponents() > 0) {
+            return;
+        }
         if (_mainWindow->mainComponent().allowQuit()) {
             quit();
         }
