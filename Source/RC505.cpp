@@ -471,8 +471,10 @@ void Library::init() {
     notifyLocked([&] () { _listeners.call(&Listener::afterLibraryLoaded); });
 }
 
-bool Library::load(const File &path)
+bool Library::load(const File &path, ProgressCallback progress)
 {
+    progress(0.0);
+
     notifyLocked([&] () { _listeners.call(&Listener::beforeLibraryLoaded); });
 
     setPath(path);
@@ -488,6 +490,7 @@ bool Library::load(const File &path)
         Logger::outputDebugString("Failed to load memory settings from '" + memoryPath.getFullPathName() + "'");
         return false;
     }
+    progress(0.5);
     File systemPath = File::addTrailingSeparator(_dataPath.getFullPathName()) + "SYSTEM.RC0";
     if (!loadSystem(systemPath)) {
         Logger::outputDebugString("Failed to load system settings from '" + systemPath.getFullPathName() + "'");
@@ -496,6 +499,7 @@ bool Library::load(const File &path)
 
     setName(path.getFullPathName());
     clearChanged();
+    progress(1.0);
 
     notifyLocked([&] () { _listeners.call(&Listener::afterLibraryLoaded); });
     

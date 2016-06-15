@@ -3,6 +3,7 @@
 #include "LibraryView.h"
 #include "CommandIDs.h"
 #include "CustomLookAndFeel.h"
+#include "LibraryTasks.h"
 
 class MainMultiDocumentPanel : public MultiDocumentPanel {
 public:
@@ -28,34 +29,9 @@ private:
     Image _imageIcon;
 };
 
-class SavingThreadWithProgressWindow : public ThreadWithProgressWindow {
-public:
-    SavingThreadWithProgressWindow(RC505::Library &library, const File &path) :
-        ThreadWithProgressWindow("Saving Library ...", true, false),
-        _library(library),
-        _path(path),
-        _success(false)
-    {
-    }
-
-    bool success() const { return _success; }
-
-    void run()
-    {
-        _success = _library.save(_path, [this] (double progress) {
-            setProgress(progress);
-        });
-    }
-
-private:
-    RC505::Library &_library;
-    File _path;
-    bool _success;
-};
-
 MainComponent::MainComponent() :
     _audioEngine(AudioEngine::instance()),
-    _savingInProgress(false)
+    _taskInProgress(false)
 {
     setSize(1400, 800);
     setAudioChannels(2, 2);
@@ -130,7 +106,7 @@ void MainComponent::closeLibrary()
 
 bool MainComponent::allowQuit()
 {
-    if (_savingInProgress.get()) {
+    if (_taskInProgress.get()) {
         return false;
     }
     bool allow = true;
@@ -249,24 +225,21 @@ void MainComponent::mountedVolumeListChanged()
 void MainComponent::openLibrary(const File &path)
 {
     auto view = new LibraryView();
-    if (view->library().load(path)) {
+    _taskInProgress = true;
+    if (LoadLibraryTask::loadLibrary(view->library(), path)) {
         _multiDocumentPanel->addDocument(view, Colours::white, true);
         _multiDocumentPanel->getCurrentTabbedComponent()->setOutline(0);
     } else {
-        AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error", "'" + path.getFullPathName() + "' is not a valid RC-505 library folder!");
         delete view;
     }
+    _taskInProgress = false;
 }
 
 void MainComponent::saveLibrary(RC505::Library &library, const File &path)
 {
-    SavingThreadWithProgressWindow thread(library, path);
-    _savingInProgress = true;
-    thread.runThread();
-    if (!thread.success()) {
-        AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error", "Failed to save library to '" + path.getFullPathName() + "'!");
-    }
-    _savingInProgress = false;
+    _taskInProgress = true;
+    SaveLibraryTask::saveLibrary(library, path);
+    _taskInProgress = false;
 }
 
 bool MainComponent::allowDiscardChanges(RC505::Library &library)

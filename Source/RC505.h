@@ -1170,7 +1170,7 @@ public:
     void removeListener(Listener *listener) { _listeners.remove(listener); }
 
     void init();
-    bool load(const File &path);
+    bool load(const File &path, ProgressCallback progress);
     bool save(const File &path, ProgressCallback progress);
     void close();
 
