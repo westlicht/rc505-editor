@@ -1,7 +1,6 @@
 #pragma once
 
-namespace CommandIDs
-{
+namespace CommandIDs {
     enum {
         newLibrary             = 0x202000, 
         openLibrary            = 0x202001,
@@ -11,7 +10,6 @@ namespace CommandIDs
     };
 }
 
-namespace CommandCategories
-{
+namespace CommandCategories {
     static const char* const library = "Library";
 }
