@@ -212,9 +212,9 @@ void MainComponent::mountedVolumeListChanged()
         return;
     }
     if (AlertWindow::showOkCancelBox(AlertWindow::QuestionIcon,
-                                     "BOSS RC505 detected",
-                                     "A BOSS RC505 was detected. Do you want to load it's library?\n\n"
-                                     "WARNING: For your own safety, please create a BACKUP before editing the content!",
+                                     "RC-505 Loop Station detected",
+                                     "A RC-505 Loop Station was detected via USB. Do you want to load it's library?\n\n"
+                                     "WARNING: For your own safety, create a BACKUP before writing the library back!",
                                      String::empty, String::empty,
                                      nullptr, nullptr)) {
         openLibrary(File(path));
@@ -283,7 +283,7 @@ void MainComponent::documentsChanged()
         _multiDocumentPanel->getCurrentTabbedComponent()->setOutline(0);
     }
     _tooltipPanel.setDefaultTooltip(_multiDocumentPanel->getNumDocuments() != 0 ? "" :
-        "No library loaded! Create a new library, open an existing library or connect an RC-505 Loop Station ..."
+        "No library loaded! Create a new library, open an existing library or connect an RC-505 Loop Station via USB ..."
     );
 
 }
