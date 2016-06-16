@@ -1053,7 +1053,7 @@ class Track {
 public:
     enum WaveState {
         WaveEmpty,      // no wave file assigned to track
-        WaveOriginal,   // original wave file assigned to track (stored in _waveFile)
+        WaveOriginal,   // original wave file assigned to track (stored in _originalWaveFile)
         WaveChanged,    // changed wave file assigned (stored in _audioBuffer)
     };
 
@@ -1065,7 +1065,7 @@ public:
     TrackSettings *trackSettings() { return &_trackSettings; }
 
     const WaveState waveState() const { return _waveState; }
-    const File &waveFile() const { return _waveFile; }
+    const File &originalWaveFile() const { return _originalWaveFile; }
 
     const AudioSampleBuffer &audioBuffer() const;
     void setAudioBuffer(const AudioSampleBuffer &audioBuffer);
@@ -1082,7 +1082,7 @@ private:
     TrackSettings _trackSettings;
 
     WaveState _waveState;
-    File _waveFile;
+    File _originalWaveFile;
     mutable AudioSampleBuffer _audioBuffer;
 };
 
@@ -1111,6 +1111,10 @@ public:
 
     void clear();
 
+    bool hasWaveChanged() const { return _hasWaveChanged; }
+    void clearWaveChanged();
+    void setWaveChanged();
+
     bool allTracksEmpty() const;
     void moveTrack(int from, int to);
 
@@ -1120,6 +1124,7 @@ public:
 private:
     Library *_library;
     int _index;
+    bool _hasWaveChanged;
     OwnedArray<Track> _tracks;
     PatchSettings _patchSettings;
     NameProperty _patchName;
@@ -1133,7 +1138,7 @@ class Library {
 public:
     static const int NumPatches = 99;
 
-    typedef std::function<void(double)>ProgressCallback;
+    typedef std::function<void(String)>StatusCallback;
 
     class Listener {
     public:
@@ -1170,8 +1175,8 @@ public:
     void removeListener(Listener *listener) { _listeners.remove(listener); }
 
     void init();
-    bool load(const File &path, ProgressCallback progress);
-    bool save(const File &path, ProgressCallback progress);
+    bool load(const File &path, StatusCallback statusCallback);
+    bool save(const File &path, StatusCallback statusCallback);
     void close();
 
     static String checkVolumesForRC505();
@@ -1188,7 +1193,7 @@ private:
     bool loadSystem(const String &data);
     bool saveSystem(const File &path);
 
-    bool saveWaveFiles(bool inplace, ProgressCallback progress);
+    bool saveWaveFiles(bool inplace, StatusCallback statusCallback);
 
     template<typename Func>
     void notifyLocked(Func func) {

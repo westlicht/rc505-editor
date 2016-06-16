@@ -4,7 +4,7 @@
 class LoadLibraryTask : public ThreadWithProgressWindow {
 public:
     LoadLibraryTask(RC505::Library &library, const File &path) :
-        ThreadWithProgressWindow("Loading Library ...", true, false),
+        ThreadWithProgressWindow("Loading Library ...", false, false),
         _library(library),
         _path(path),
         _success(false)
@@ -15,8 +15,9 @@ public:
 
     void run()
     {
-        _success = _library.load(_path, [this] (double progress) {
-            setProgress(progress);
+        setStatusMessage("Preparing ...");
+        _success = _library.load(_path, [this] (String status) {
+            setStatusMessage(status);
         });
     }
 
@@ -38,7 +39,7 @@ private:
 class SaveLibraryTask : public ThreadWithProgressWindow {
 public:
     SaveLibraryTask(RC505::Library &library, const File &path) :
-        ThreadWithProgressWindow("Saving Library ...", true, false),
+        ThreadWithProgressWindow("Saving Library ...", false, false),
         _library(library),
         _path(path),
         _success(false)
@@ -49,8 +50,9 @@ public:
 
     void run()
     {
-        _success = _library.save(_path, [this] (double progress) {
-            setProgress(progress);
+        setStatusMessage("Preparing ...");
+        _success = _library.save(_path, [this] (String status) {
+            setStatusMessage(status);
         });
     }
 
