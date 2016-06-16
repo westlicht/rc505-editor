@@ -45,6 +45,7 @@ MainComponent::MainComponent() :
     resized();
     documentsChanged();
     mountedVolumeListChanged();
+    startTimer(500);
 }
 
 MainComponent::~MainComponent()
@@ -217,6 +218,22 @@ void MainComponent::mountedVolumeListChanged()
                                      String::empty, String::empty,
                                      nullptr, nullptr)) {
         openLibrary(File(path));
+    }
+}
+
+void MainComponent::timerCallback()
+{
+    Array<LibraryView *> viewsToClose;
+    iterateLibraryViews([&] (LibraryView *view) {
+        if (view->library().path() != File() && !view->library().path().exists()) {
+            viewsToClose.add(view);
+        }
+    });
+    if (viewsToClose.size() > 0) {
+        for (const auto &view : viewsToClose) {
+            _multiDocumentPanel->closeDocument(view, false);
+        }
+        documentsChanged();
     }
 }
 

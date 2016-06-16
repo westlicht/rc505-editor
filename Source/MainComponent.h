@@ -12,7 +12,8 @@ class MainMultiDocumentPanel;
 
 class MainComponent : public AudioAppComponent,
                       public ApplicationCommandTarget,
-                      public MountedVolumeListChangeDetector {
+                      public MountedVolumeListChangeDetector,
+                      public Timer {
 public:
     MainComponent();
     ~MainComponent();
@@ -42,6 +43,9 @@ public:
 
     // MountedVolumeListChangeDetector
     virtual void mountedVolumeListChanged() override;
+
+    // Timer
+    virtual void timerCallback() override;
 
 private:
     void openLibrary(const File &path);
