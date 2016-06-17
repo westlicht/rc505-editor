@@ -26,7 +26,9 @@ public:
         g.setFont(font);
         g.setColour(lookAndFeel.findColour(mainTextColourId));
         Rectangle<int> area(width, height);
-        String text = String::formatted("%02d: %-16s %s", _patch->index() + 1, _patch->name().toStdString().c_str(), _patch->hasWaveChanged() ? "*" : " ");
+        String text = String::formatted("%02d: ", _patch->index() + 1) + _patch->name();
+        while (text.length() < 21) text += " ";
+        if (_patch->hasWaveChanged()) text += "*";
         g.drawFittedText(text, area.reduced(4, 2), Justification::left, area.getHeight() / fontHeight);
     }
 
