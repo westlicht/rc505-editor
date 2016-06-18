@@ -23,8 +23,9 @@ public:
 
         LookAndFeel::setDefaultLookAndFeel(&CustomLookAndFeel::instance());
 
-        _mainMenuModel = new MainMenuModel();
-        _mainWindow = new MainWindow(String::formatted("RC-505 Editor (Version %s BETA)", ProjectInfo::versionString));
+        _mainMenuModel = new MainMenuModel();\
+        String windowTitle = String(ProjectInfo::projectName) + " (" + ProjectInfo::versionString + " BETA)";
+        _mainWindow = new MainWindow(windowTitle);
         getCommandManager().registerAllCommandsForTarget(&_mainWindow->mainComponent());
 
 #if JUCE_MAC
