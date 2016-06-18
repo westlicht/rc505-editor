@@ -1,6 +1,5 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MainComponent.h"
-#include "Theme.h"
 #include "CommandIDs.h"
 #include "CustomLookAndFeel.h"
 

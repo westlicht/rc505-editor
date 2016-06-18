@@ -1731,7 +1731,6 @@
     <ClInclude Include="..\..\Source\PropertyView.h"/>
     <ClInclude Include="..\..\Source\RC505.h"/>
     <ClInclude Include="..\..\Source\SystemView.h"/>
-    <ClInclude Include="..\..\Source\Theme.h"/>
     <ClInclude Include="..\..\Source\TooltipPanel.h"/>
     <ClInclude Include="..\..\Source\TrackLabel.h"/>
     <ClInclude Include="..\..\Source\TrackView.h"/>

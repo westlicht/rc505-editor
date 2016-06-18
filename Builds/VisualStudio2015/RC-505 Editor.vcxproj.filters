@@ -2298,9 +2298,6 @@
     <ClInclude Include="..\..\Source\SystemView.h">
       <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Theme.h">
-      <Filter>RC-505 Editor\Source</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\TooltipPanel.h">
       <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
