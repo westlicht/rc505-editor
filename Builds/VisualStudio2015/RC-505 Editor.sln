@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2015
-Project("{F0C6E37D-F98C-5B32-4610-46A8A7B611A5}") = "RC-505", "RC-505.vcxproj", "{6CEB40D5-778E-9636-9459-C89A21D63A35}"
+Project("{FE2EDF6B-C48B-6979-10C2-E973E0F5A8AB}") = "RC-505 Editor", "RC-505 Editor.vcxproj", "{6CEB40D5-778E-9636-9459-C89A21D63A35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

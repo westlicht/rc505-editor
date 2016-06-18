@@ -10,9 +10,9 @@
     <key>CFBundleIdentifier</key>
     <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
     <key>CFBundleName</key>
-    <string>RC-505</string>
+    <string>RC-505 Editor</string>
     <key>CFBundleDisplayName</key>
-    <string>RC-505</string>
+    <string>RC-505 Editor</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleSignature</key>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="gO08rc" name="RC-505" projectType="guiapp" version="0.0.2"
-              bundleIdentifier="ch.westlicht.rc505" includeBinaryInAppConfig="1"
+<JUCERPROJECT id="gO08rc" name="RC-505 Editor" projectType="guiapp" version="0.0.2"
+              bundleIdentifier="ch.westlicht.rc-505-editor" includeBinaryInAppConfig="1"
               jucerVersion="4.2.1" companyEmail="simon.kallweit@gmail.com"
               companyName="westlicht" companyWebsite="westlicht.ch" defines="">
-  <MAINGROUP id="FP8VHC" name="RC-505">
+  <MAINGROUP id="FP8VHC" name="RC-505 Editor">
     <GROUP id="{D21FB55B-E8F8-6DAB-3311-5EB3C5E0EE8A}" name="Resources">
       <FILE id="hPyQXt" name="icon-large.png" compile="0" resource="1" file="Resources/icon-large.png"/>
       <FILE id="HZjAva" name="icon-small.png" compile="0" resource="1" file="Resources/icon-small.png"/>
@@ -191,9 +191,9 @@
                smallIcon="HZjAva" bigIcon="hPyQXt" extraLinkerFlags="-stdlib=libc++">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="10.10 SDK" osxCompatibility="10.8 SDK" osxArchitecture="default"
-                       isDebug="1" optimisation="1" targetName="RC505"/>
+                       isDebug="1" optimisation="1" targetName="RC-505 Editor"/>
         <CONFIGURATION name="Release" osxSDK="10.10 SDK" osxCompatibility="10.8 SDK"
-                       osxArchitecture="default" isDebug="0" optimisation="3" targetName="RC505"/>
+                       osxArchitecture="default" isDebug="0" optimisation="3" targetName="RC-505 Editor"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../juce/modules"/>
@@ -202,9 +202,6 @@
         <MODULEPATH id="juce_data_structures" path="../juce/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../juce/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../juce/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../juce/modules"/>
-        <MODULEPATH id="juce_video" path="../juce/modules"/>
-        <MODULEPATH id="juce_opengl" path="../juce/modules"/>
         <MODULEPATH id="juce_audio_basics" path="../juce/modules"/>
         <MODULEPATH id="juce_audio_devices" path="../juce/modules"/>
         <MODULEPATH id="juce_audio_formats" path="../juce/modules"/>
@@ -217,19 +214,16 @@
                 extraLinkerFlags="">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
-                       targetName="RC-505"/>
+                       targetName="rc-505-editor"/>
         <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="3"
-                       targetName="RC-505"/>
+                       targetName="rc-505-editor"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_video" path="../juce/modules"/>
-        <MODULEPATH id="juce_opengl" path="../juce/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../juce/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../juce/modules"/>
         <MODULEPATH id="juce_graphics" path="../juce/modules"/>
         <MODULEPATH id="juce_events" path="../juce/modules"/>
         <MODULEPATH id="juce_data_structures" path="../juce/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../juce/modules"/>
         <MODULEPATH id="juce_core" path="../juce/modules"/>
         <MODULEPATH id="juce_audio_utils" path="../juce/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../juce/modules"/>
@@ -243,19 +237,16 @@
             smallIcon="HZjAva" bigIcon="hPyQXt">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="1" optimisation="1" targetName="RC-505"/>
+                       isDebug="1" optimisation="1" targetName="RC-505 Editor"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="0" optimisation="3" targetName="RC-505"/>
+                       isDebug="0" optimisation="3" targetName="RC-505 Editor"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_video" path="../juce/modules"/>
-        <MODULEPATH id="juce_opengl" path="../juce/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../juce/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../juce/modules"/>
         <MODULEPATH id="juce_graphics" path="../juce/modules"/>
         <MODULEPATH id="juce_events" path="../juce/modules"/>
         <MODULEPATH id="juce_data_structures" path="../juce/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../juce/modules"/>
         <MODULEPATH id="juce_core" path="../juce/modules"/>
         <MODULEPATH id="juce_audio_utils" path="../juce/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../juce/modules"/>
@@ -272,17 +263,15 @@
     <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_core" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_events" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_video" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
   <JUCEOPTIONS/>
   <LIVE_SETTINGS>
     <LINUX/>
+    <OSX/>
   </LIVE_SETTINGS>
 </JUCERPROJECT>

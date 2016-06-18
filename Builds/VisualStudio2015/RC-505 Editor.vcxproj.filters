@@ -2,44 +2,44 @@
 
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="RC-505">
-      <UniqueIdentifier>{0288ECD4-879F-45D2-80CD-94B95BA4B225}</UniqueIdentifier>
+    <Filter Include="RC-505 Editor">
+      <UniqueIdentifier>{FDAB429D-4831-52C7-F7E8-A5DD978E70A6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RC-505\Resources">
-      <UniqueIdentifier>{45B09D05-E5CE-80E1-B441-7E6281E5C8C4}</UniqueIdentifier>
+    <Filter Include="RC-505 Editor\Resources">
+      <UniqueIdentifier>{76FEDEDD-3348-F2F1-1EEC-0F4DA239A1DF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RC-505\Source">
-      <UniqueIdentifier>{E2F5AE93-9AEA-D6D6-1A5B-AE32384623FE}</UniqueIdentifier>
+    <Filter Include="RC-505 Editor\Source">
+      <UniqueIdentifier>{F67E38DB-BF92-5658-479F-BFC66B910E47}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RC-505\Source\libsamplerate">
-      <UniqueIdentifier>{F4693EBB-5580-5F93-4B1F-40B099AC2851}</UniqueIdentifier>
+    <Filter Include="RC-505 Editor\Source\libsamplerate">
+      <UniqueIdentifier>{0785099A-BD05-B62D-BE51-D5770314C327}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RC-505\Source\rubberband">
-      <UniqueIdentifier>{180AF5C1-D8D0-F228-B0DA-3BA47B8F5AE4}</UniqueIdentifier>
+    <Filter Include="RC-505 Editor\Source\rubberband">
+      <UniqueIdentifier>{73016730-B4D1-B884-5FBA-E6E8CA0B604B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RC-505\Source\rubberband\audiocurves">
-      <UniqueIdentifier>{22DFF8C4-B4EE-4729-3F27-C6523804494C}</UniqueIdentifier>
+    <Filter Include="RC-505 Editor\Source\rubberband\audiocurves">
+      <UniqueIdentifier>{128194D4-03C6-F038-4D5E-A822EE84A29E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RC-505\Source\rubberband\base">
-      <UniqueIdentifier>{F02EC1E3-C498-F856-BBB3-F02107AFC6AB}</UniqueIdentifier>
+    <Filter Include="RC-505 Editor\Source\rubberband\base">
+      <UniqueIdentifier>{BB06E117-A4C7-0831-32D4-670886495BEF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RC-505\Source\rubberband\dsp">
-      <UniqueIdentifier>{1C95B0A1-7E9E-54E1-B6C1-48919B74609A}</UniqueIdentifier>
+    <Filter Include="RC-505 Editor\Source\rubberband\dsp">
+      <UniqueIdentifier>{AC708CCE-6094-C6A5-ED65-ABA8A1459E9F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RC-505\Source\rubberband\float_cast">
-      <UniqueIdentifier>{A5D22148-D4A6-8D60-582D-44B8C0C4B80E}</UniqueIdentifier>
+    <Filter Include="RC-505 Editor\Source\rubberband\float_cast">
+      <UniqueIdentifier>{76E287E7-20D8-3BCD-DCF5-7B93FE0B2F0B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RC-505\Source\rubberband\kissfft">
-      <UniqueIdentifier>{A09D5C6F-6E4F-5773-5EEF-DE48D1032F06}</UniqueIdentifier>
+    <Filter Include="RC-505 Editor\Source\rubberband\kissfft">
+      <UniqueIdentifier>{A04DA0AE-56E8-3C63-B721-BD8EF91E99DB}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RC-505\Source\rubberband\pommier">
-      <UniqueIdentifier>{55028974-AAB1-EEFB-2EC6-1DD4E2374212}</UniqueIdentifier>
+    <Filter Include="RC-505 Editor\Source\rubberband\pommier">
+      <UniqueIdentifier>{97FFCA7F-57FC-01B8-3B76-7F2F99EFC06A}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RC-505\Source\rubberband\speex">
-      <UniqueIdentifier>{4755E57F-EFDA-5ECC-3C17-0EB3F99144D3}</UniqueIdentifier>
+    <Filter Include="RC-505 Editor\Source\rubberband\speex">
+      <UniqueIdentifier>{3A91B1D1-7C61-636B-0909-859401F537BE}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RC-505\Source\rubberband\system">
-      <UniqueIdentifier>{F83A1DD7-162A-1AD3-2EC0-D364813DF383}</UniqueIdentifier>
+    <Filter Include="RC-505 Editor\Source\rubberband\system">
+      <UniqueIdentifier>{28C54507-8FE2-6661-5DC3-4298430AB0B8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Juce Modules">
       <UniqueIdentifier>{422C46B7-0467-2DB0-BF3C-16DFCAFD69AC}</UniqueIdentifier>
@@ -221,15 +221,6 @@
     <Filter Include="Juce Modules\juce_core\zip\zlib">
       <UniqueIdentifier>{585D6A72-C5E7-BCF1-A168-63A40C6B6313}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Juce Modules\juce_cryptography">
-      <UniqueIdentifier>{3C7C8F35-6C08-9866-6663-6FEFE2EFC9FC}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Juce Modules\juce_cryptography\encryption">
-      <UniqueIdentifier>{7703D2CE-C32A-936A-0EEF-949FE6E52EB5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Juce Modules\juce_cryptography\hashing">
-      <UniqueIdentifier>{8D283B6C-13BA-9EF6-1B18-B1C393786943}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Juce Modules\juce_data_structures">
       <UniqueIdentifier>{928D8FCC-5E00-174B-6538-93E8D75AB396}</UniqueIdentifier>
     </Filter>
@@ -368,172 +359,145 @@
     <Filter Include="Juce Modules\juce_gui_extra\native">
       <UniqueIdentifier>{C413328B-5D81-89EE-F4F3-75752E700DE4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Juce Modules\juce_opengl">
-      <UniqueIdentifier>{639E16C5-DA8B-ADBA-6E24-7B596378EAB2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Juce Modules\juce_opengl\geometry">
-      <UniqueIdentifier>{B3141847-8F13-F67D-45B2-E3ECF6E09088}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Juce Modules\juce_opengl\native">
-      <UniqueIdentifier>{151B49D8-6102-F802-1C07-D59931BC0574}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Juce Modules\juce_opengl\opengl">
-      <UniqueIdentifier>{2D8D0E19-E676-83EB-38D9-F73500DD6B79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Juce Modules\juce_opengl\utils">
-      <UniqueIdentifier>{9E586194-C056-101C-5311-F2AF5191AC80}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Juce Modules\juce_video">
-      <UniqueIdentifier>{72A923E2-C729-DB92-D7BF-A9D4AFAE5896}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Juce Modules\juce_video\capture">
-      <UniqueIdentifier>{7F11E7D2-54C0-2A36-5F15-BEC0A5374A08}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Juce Modules\juce_video\native">
-      <UniqueIdentifier>{EE985DEA-CD83-8132-7219-542BB1DAD560}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Juce Modules\juce_video\playback">
-      <UniqueIdentifier>{0E43EA8A-95EE-4253-E1B7-160F38ACBB00}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Juce Library Code">
       <UniqueIdentifier>{8B4D1BAA-6DB4-CAEC-A0FA-271F354D5C61}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\libsamplerate\samplerate.c">
-      <Filter>RC-505\Source\libsamplerate</Filter>
+      <Filter>RC-505 Editor\Source\libsamplerate</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\libsamplerate\src_linear.c">
-      <Filter>RC-505\Source\libsamplerate</Filter>
+      <Filter>RC-505 Editor\Source\libsamplerate</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\libsamplerate\src_sinc.c">
-      <Filter>RC-505\Source\libsamplerate</Filter>
+      <Filter>RC-505 Editor\Source\libsamplerate</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\libsamplerate\src_zoh.c">
-      <Filter>RC-505\Source\libsamplerate</Filter>
+      <Filter>RC-505 Editor\Source\libsamplerate</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\audiocurves\CompoundAudioCurve.cpp">
-      <Filter>RC-505\Source\rubberband\audiocurves</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\audiocurves</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\audiocurves\ConstantAudioCurve.cpp">
-      <Filter>RC-505\Source\rubberband\audiocurves</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\audiocurves</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\audiocurves\HighFrequencyAudioCurve.cpp">
-      <Filter>RC-505\Source\rubberband\audiocurves</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\audiocurves</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\audiocurves\PercussiveAudioCurve.cpp">
-      <Filter>RC-505\Source\rubberband\audiocurves</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\audiocurves</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\audiocurves\SilentAudioCurve.cpp">
-      <Filter>RC-505\Source\rubberband\audiocurves</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\audiocurves</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\audiocurves\SpectralDifferenceAudioCurve.cpp">
-      <Filter>RC-505\Source\rubberband\audiocurves</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\audiocurves</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\base\Profiler.cpp">
-      <Filter>RC-505\Source\rubberband\base</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\base</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\dsp\AudioCurveCalculator.cpp">
-      <Filter>RC-505\Source\rubberband\dsp</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\dsp</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\dsp\FFT.cpp">
-      <Filter>RC-505\Source\rubberband\dsp</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\dsp</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\dsp\Resampler.cpp">
-      <Filter>RC-505\Source\rubberband\dsp</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\dsp</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\kissfft\kiss_fft.c">
-      <Filter>RC-505\Source\rubberband\kissfft</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\kissfft</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\kissfft\kiss_fftr.c">
-      <Filter>RC-505\Source\rubberband\kissfft</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\kissfft</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\speex\resample.c">
-      <Filter>RC-505\Source\rubberband\speex</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\speex</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\system\Allocators.cpp">
-      <Filter>RC-505\Source\rubberband\system</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\system</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\system\sysutils.cpp">
-      <Filter>RC-505\Source\rubberband\system</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\system</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\system\Thread.cpp">
-      <Filter>RC-505\Source\rubberband\system</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\system</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\system\VectorOpsComplex.cpp">
-      <Filter>RC-505\Source\rubberband\system</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\system</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\RubberBandStretcher.cpp">
-      <Filter>RC-505\Source\rubberband</Filter>
+      <Filter>RC-505 Editor\Source\rubberband</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\StretchCalculator.cpp">
-      <Filter>RC-505\Source\rubberband</Filter>
+      <Filter>RC-505 Editor\Source\rubberband</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\StretcherChannelData.cpp">
-      <Filter>RC-505\Source\rubberband</Filter>
+      <Filter>RC-505 Editor\Source\rubberband</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\StretcherImpl.cpp">
-      <Filter>RC-505\Source\rubberband</Filter>
+      <Filter>RC-505 Editor\Source\rubberband</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\rubberband\StretcherProcess.cpp">
-      <Filter>RC-505\Source\rubberband</Filter>
+      <Filter>RC-505 Editor\Source\rubberband</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\AudioEngine.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\CustomLookAndFeel.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\LibraryView.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\LooperEngine.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\MainComponent.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\MemoryView.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\PatchTreeView.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\PatchView.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\PropertySetDialog.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\PropertyTreeView.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\PropertyView.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\RC505.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\SystemView.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\TooltipPanel.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\TrackLabel.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\TrackView.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Utils.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\WaveformView.cpp">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\juce\modules\juce_audio_basics\buffers\juce_AudioDataConverters.cpp">
       <Filter>Juce Modules\juce_audio_basics\buffers</Filter>
@@ -1275,30 +1239,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\juce\modules\juce_core\juce_core.mm">
       <Filter>Juce Modules\juce_core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_cryptography\encryption\juce_BlowFish.cpp">
-      <Filter>Juce Modules\juce_cryptography\encryption</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_cryptography\encryption\juce_Primes.cpp">
-      <Filter>Juce Modules\juce_cryptography\encryption</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_cryptography\encryption\juce_RSAKey.cpp">
-      <Filter>Juce Modules\juce_cryptography\encryption</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_cryptography\hashing\juce_MD5.cpp">
-      <Filter>Juce Modules\juce_cryptography\hashing</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_cryptography\hashing\juce_SHA256.cpp">
-      <Filter>Juce Modules\juce_cryptography\hashing</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_cryptography\hashing\juce_Whirlpool.cpp">
-      <Filter>Juce Modules\juce_cryptography\hashing</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_cryptography\juce_cryptography.cpp">
-      <Filter>Juce Modules\juce_cryptography</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_cryptography\juce_cryptography.mm">
-      <Filter>Juce Modules\juce_cryptography</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\juce\modules\juce_data_structures\app_properties\juce_ApplicationProperties.cpp">
       <Filter>Juce Modules\juce_data_structures\app_properties</Filter>
@@ -2152,66 +2092,6 @@
     <ClCompile Include="..\..\..\juce\modules\juce_gui_extra\juce_gui_extra.mm">
       <Filter>Juce Modules\juce_gui_extra</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLContext.cpp">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLFrameBuffer.cpp">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLGraphicsContext.cpp">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLHelpers.cpp">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLImage.cpp">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLPixelFormat.cpp">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLShaderProgram.cpp">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLTexture.cpp">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_opengl\utils\juce_OpenGLAppComponent.cpp">
-      <Filter>Juce Modules\juce_opengl\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_opengl\juce_opengl.cpp">
-      <Filter>Juce Modules\juce_opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_opengl\juce_opengl.mm">
-      <Filter>Juce Modules\juce_opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_video\capture\juce_CameraDevice.cpp">
-      <Filter>Juce Modules\juce_video\capture</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_video\native\juce_android_CameraDevice.cpp">
-      <Filter>Juce Modules\juce_video\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_video\native\juce_mac_CameraDevice.mm">
-      <Filter>Juce Modules\juce_video\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_video\native\juce_mac_QuickTimeMovieComponent.mm">
-      <Filter>Juce Modules\juce_video\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_video\native\juce_win32_CameraDevice.cpp">
-      <Filter>Juce Modules\juce_video\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_video\native\juce_win32_DirectShowComponent.cpp">
-      <Filter>Juce Modules\juce_video\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_video\native\juce_win32_QuickTimeMovieComponent.cpp">
-      <Filter>Juce Modules\juce_video\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_video\juce_video.cpp">
-      <Filter>Juce Modules\juce_video</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\juce\modules\juce_video\juce_video.mm">
-      <Filter>Juce Modules\juce_video</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp">
       <Filter>Juce Library Code</Filter>
     </ClCompile>
@@ -2233,9 +2113,6 @@
     <ClCompile Include="..\..\JuceLibraryCode\juce_core.cpp">
       <Filter>Juce Library Code</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JuceLibraryCode\juce_cryptography.cpp">
-      <Filter>Juce Library Code</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\juce_data_structures.cpp">
       <Filter>Juce Library Code</Filter>
     </ClCompile>
@@ -2251,199 +2128,193 @@
     <ClCompile Include="..\..\JuceLibraryCode\juce_gui_extra.cpp">
       <Filter>Juce Library Code</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JuceLibraryCode\juce_opengl.cpp">
-      <Filter>Juce Library Code</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\JuceLibraryCode\juce_video.cpp">
-      <Filter>Juce Library Code</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\libsamplerate\common.h">
-      <Filter>RC-505\Source\libsamplerate</Filter>
+      <Filter>RC-505 Editor\Source\libsamplerate</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\libsamplerate\fastest_coeffs.h">
-      <Filter>RC-505\Source\libsamplerate</Filter>
+      <Filter>RC-505 Editor\Source\libsamplerate</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\libsamplerate\float_cast.h">
-      <Filter>RC-505\Source\libsamplerate</Filter>
+      <Filter>RC-505 Editor\Source\libsamplerate</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\libsamplerate\high_qual_coeffs.h">
-      <Filter>RC-505\Source\libsamplerate</Filter>
+      <Filter>RC-505 Editor\Source\libsamplerate</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\libsamplerate\mid_qual_coeffs.h">
-      <Filter>RC-505\Source\libsamplerate</Filter>
+      <Filter>RC-505 Editor\Source\libsamplerate</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\libsamplerate\samplerate.h">
-      <Filter>RC-505\Source\libsamplerate</Filter>
+      <Filter>RC-505 Editor\Source\libsamplerate</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\audiocurves\CompoundAudioCurve.h">
-      <Filter>RC-505\Source\rubberband\audiocurves</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\audiocurves</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\audiocurves\ConstantAudioCurve.h">
-      <Filter>RC-505\Source\rubberband\audiocurves</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\audiocurves</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\audiocurves\HighFrequencyAudioCurve.h">
-      <Filter>RC-505\Source\rubberband\audiocurves</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\audiocurves</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\audiocurves\PercussiveAudioCurve.h">
-      <Filter>RC-505\Source\rubberband\audiocurves</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\audiocurves</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\audiocurves\SilentAudioCurve.h">
-      <Filter>RC-505\Source\rubberband\audiocurves</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\audiocurves</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\audiocurves\SpectralDifferenceAudioCurve.h">
-      <Filter>RC-505\Source\rubberband\audiocurves</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\audiocurves</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\base\Profiler.h">
-      <Filter>RC-505\Source\rubberband\base</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\base</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\base\RingBuffer.h">
-      <Filter>RC-505\Source\rubberband\base</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\base</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\base\Scavenger.h">
-      <Filter>RC-505\Source\rubberband\base</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\base</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\dsp\AudioCurveCalculator.h">
-      <Filter>RC-505\Source\rubberband\dsp</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\dsp</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\dsp\FFT.h">
-      <Filter>RC-505\Source\rubberband\dsp</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\dsp</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\dsp\MovingMedian.h">
-      <Filter>RC-505\Source\rubberband\dsp</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\dsp</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\dsp\Resampler.h">
-      <Filter>RC-505\Source\rubberband\dsp</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\dsp</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\dsp\SampleFilter.h">
-      <Filter>RC-505\Source\rubberband\dsp</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\dsp</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\dsp\SincWindow.h">
-      <Filter>RC-505\Source\rubberband\dsp</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\dsp</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\dsp\Window.h">
-      <Filter>RC-505\Source\rubberband\dsp</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\dsp</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\float_cast\float_cast.h">
-      <Filter>RC-505\Source\rubberband\float_cast</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\float_cast</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\kissfft\_kiss_fft_guts.h">
-      <Filter>RC-505\Source\rubberband\kissfft</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\kissfft</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\kissfft\kiss_fft.h">
-      <Filter>RC-505\Source\rubberband\kissfft</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\kissfft</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\kissfft\kiss_fftr.h">
-      <Filter>RC-505\Source\rubberband\kissfft</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\kissfft</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\pommier\neon_mathfun.h">
-      <Filter>RC-505\Source\rubberband\pommier</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\pommier</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\pommier\sse_mathfun.h">
-      <Filter>RC-505\Source\rubberband\pommier</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\pommier</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\speex\speex_resampler.h">
-      <Filter>RC-505\Source\rubberband\speex</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\speex</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\system\Allocators.h">
-      <Filter>RC-505\Source\rubberband\system</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\system</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\system\sysutils.h">
-      <Filter>RC-505\Source\rubberband\system</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\system</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\system\Thread.h">
-      <Filter>RC-505\Source\rubberband\system</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\system</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\system\VectorOps.h">
-      <Filter>RC-505\Source\rubberband\system</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\system</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\system\VectorOpsComplex.h">
-      <Filter>RC-505\Source\rubberband\system</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\system</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\Config.h">
-      <Filter>RC-505\Source\rubberband</Filter>
+      <Filter>RC-505 Editor\Source\rubberband</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\RubberBandStretcher.h">
-      <Filter>RC-505\Source\rubberband</Filter>
+      <Filter>RC-505 Editor\Source\rubberband</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\StretchCalculator.h">
-      <Filter>RC-505\Source\rubberband</Filter>
+      <Filter>RC-505 Editor\Source\rubberband</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\StretcherChannelData.h">
-      <Filter>RC-505\Source\rubberband</Filter>
+      <Filter>RC-505 Editor\Source\rubberband</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\rubberband\StretcherImpl.h">
-      <Filter>RC-505\Source\rubberband</Filter>
+      <Filter>RC-505 Editor\Source\rubberband</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\AudioEngine.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\CommandIDs.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\CustomLookAndFeel.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\LibraryTasks.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\LibraryView.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\LooperEngine.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\MainComponent.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\MemoryView.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\MountedVolumeListChangeDetector.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PatchTreeView.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PatchView.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PlayButton.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PropertySetDialog.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PropertyTreeView.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\PropertyView.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\RC505.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SystemView.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Theme.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\TooltipPanel.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\TrackLabel.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\TrackView.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Utils.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\WaveformView.h">
-      <Filter>RC-505\Source</Filter>
+      <Filter>RC-505 Editor\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\juce\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h">
       <Filter>Juce Modules\juce_audio_basics\buffers</Filter>
@@ -3411,30 +3282,6 @@
     <ClInclude Include="..\..\..\juce\modules\juce_core\juce_core.h">
       <Filter>Juce Modules\juce_core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_cryptography\encryption\juce_BlowFish.h">
-      <Filter>Juce Modules\juce_cryptography\encryption</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_cryptography\encryption\juce_Primes.h">
-      <Filter>Juce Modules\juce_cryptography\encryption</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_cryptography\encryption\juce_RSAKey.h">
-      <Filter>Juce Modules\juce_cryptography\encryption</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_cryptography\hashing\juce_MD5.h">
-      <Filter>Juce Modules\juce_cryptography\hashing</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_cryptography\hashing\juce_SHA256.h">
-      <Filter>Juce Modules\juce_cryptography\hashing</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_cryptography\hashing\juce_Whirlpool.h">
-      <Filter>Juce Modules\juce_cryptography\hashing</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_cryptography\juce_cryptography.h">
-      <Filter>Juce Modules\juce_cryptography</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_cryptography\juce_cryptography.h">
-      <Filter>Juce Modules\juce_cryptography</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\juce\modules\juce_data_structures\app_properties\juce_ApplicationProperties.h">
       <Filter>Juce Modules\juce_data_structures\app_properties</Filter>
     </ClInclude>
@@ -4170,90 +4017,6 @@
     <ClInclude Include="..\..\..\juce\modules\juce_gui_extra\juce_gui_extra.h">
       <Filter>Juce Modules\juce_gui_extra</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\geometry\juce_Draggable3DOrientation.h">
-      <Filter>Juce Modules\juce_opengl\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\geometry\juce_Matrix3D.h">
-      <Filter>Juce Modules\juce_opengl\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\geometry\juce_Quaternion.h">
-      <Filter>Juce Modules\juce_opengl\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\geometry\juce_Vector3D.h">
-      <Filter>Juce Modules\juce_opengl\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\native\juce_MissingGLDefinitions.h">
-      <Filter>Juce Modules\juce_opengl\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\native\juce_OpenGL_android.h">
-      <Filter>Juce Modules\juce_opengl\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\native\juce_OpenGL_ios.h">
-      <Filter>Juce Modules\juce_opengl\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\native\juce_OpenGL_linux.h">
-      <Filter>Juce Modules\juce_opengl\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\native\juce_OpenGL_osx.h">
-      <Filter>Juce Modules\juce_opengl\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\native\juce_OpenGL_win32.h">
-      <Filter>Juce Modules\juce_opengl\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\native\juce_OpenGLExtensions.h">
-      <Filter>Juce Modules\juce_opengl\native</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLContext.h">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLFrameBuffer.h">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLGraphicsContext.h">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLHelpers.h">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLImage.h">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLPixelFormat.h">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLRenderer.h">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLShaderProgram.h">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\opengl\juce_OpenGLTexture.h">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\utils\juce_OpenGLAppComponent.h">
-      <Filter>Juce Modules\juce_opengl\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\juce_opengl.h">
-      <Filter>Juce Modules\juce_opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_opengl\juce_opengl.h">
-      <Filter>Juce Modules\juce_opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_video\capture\juce_CameraDevice.h">
-      <Filter>Juce Modules\juce_video\capture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_video\playback\juce_DirectShowComponent.h">
-      <Filter>Juce Modules\juce_video\playback</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_video\playback\juce_QuickTimeMovieComponent.h">
-      <Filter>Juce Modules\juce_video\playback</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_video\juce_video.h">
-      <Filter>Juce Modules\juce_video</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\juce\modules\juce_video\juce_video.h">
-      <Filter>Juce Modules\juce_video</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\AppConfig.h">
       <Filter>Juce Library Code</Filter>
     </ClInclude>
@@ -4266,25 +4029,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Resources\icon-large.png">
-      <Filter>RC-505\Resources</Filter>
+      <Filter>RC-505 Editor\Resources</Filter>
     </None>
     <None Include="..\..\Resources\icon-small.png">
-      <Filter>RC-505\Resources</Filter>
+      <Filter>RC-505 Editor\Resources</Filter>
     </None>
     <None Include="..\..\Resources\Matrix.ttf">
-      <Filter>RC-505\Resources</Filter>
+      <Filter>RC-505 Editor\Resources</Filter>
     </None>
     <None Include="..\..\Resources\MEMORY.RC0">
-      <Filter>RC-505\Resources</Filter>
+      <Filter>RC-505 Editor\Resources</Filter>
     </None>
     <None Include="..\..\Resources\SYSTEM.RC0">
-      <Filter>RC-505\Resources</Filter>
+      <Filter>RC-505 Editor\Resources</Filter>
     </None>
     <None Include="..\..\Source\rubberband\kissfft\COPYING">
-      <Filter>RC-505\Source\rubberband\kissfft</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\kissfft</Filter>
     </None>
     <None Include="..\..\Source\rubberband\speex\COPYING">
-      <Filter>RC-505\Source\rubberband\speex</Filter>
+      <Filter>RC-505 Editor\Source\rubberband\speex</Filter>
     </None>
     <None Include="..\..\..\juce\modules\juce_audio_formats\codecs\flac\Flac Licence.txt">
       <Filter>Juce Modules\juce_audio_formats\codecs\flac</Filter>
