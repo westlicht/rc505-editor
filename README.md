@@ -1,8 +1,8 @@
-# RC-505 Loop Station Editor
+# RC-505 Editor
 
 ![Screenshot](screenshot.png)
 
-The RC-505 Loop Station Editor allows for easy management of the content stored on the [BOSS RC-505 Loop Station](http://www.boss.info/products/rc-505/). The software is written in C++11 on top of the [JUCE](http://www.juce.com) framework and runs on all major platforms (OSX, Linux and Windows). It was originally developed to simplify the task of copying loops created in DAWs to the looper but evolved into a fully featured editor with the following functionality:
+The *RC-505 Editor* allows for easy management of the content stored on the [BOSS RC-505 Loop Station](http://www.boss.info/products/rc-505/). The software is written in C++11 on top of the [JUCE](http://www.juce.com) framework and runs on all major platforms (OSX, Linux and Windows). It was originally developed to simplify the task of copying loops created in DAWs to the looper but evolved into a fully featured editor with the following functionality:
 
 - play/preview patches (not supporting all features of the hardware)
 - rename and move patches
@@ -10,6 +10,10 @@ The RC-505 Loop Station Editor allows for easy management of the content stored 
 - edit patch settings
 - import audio loops (automatically convert audio format for compatibility with RC-505)
 - export audio loops
+
+## Download
+
+You can download the latest releases for OSX and Windows on the [Releases](https://github.com/westlicht/rc505-editor/releases/latest) page. On Linux, please compile the application yourself, see the *Compiling* section for instructions.
 
 ## Usage
 
@@ -19,7 +23,7 @@ The RC-505 Loop Station Editor allows for easy management of the content stored 
 
 Use the following steps to create a backup:
 
-- connect the BOSS RC-505 to a PC or Mac via USB
+- connect the BOSS RC-505 Loop Station to a PC or Mac via USB
 - wait for the USB data volume to show up
 - copy all content of the ROLAND folder to a save place
 
@@ -31,7 +35,7 @@ TODO
 
 #### OSX
 
-- open the project `/Builds/MacOSX/RC-505.xcodeproj` in Xcode
+- open the project `/Builds/MacOSX/RC-505 Editor.xcodeproj` in Xcode
 - build
 
 #### Linux
@@ -42,7 +46,7 @@ TODO
 
 #### Windows
 
-- open the project `\Builds\VisualStudio2015\RC-505.sln` in Visual Studio 2015 (community edition)
+- open the project `\Builds\VisualStudio2015\RC-505 Editor.sln` in Visual Studio 2015 (community edition)
 - build
 
 ## Information
