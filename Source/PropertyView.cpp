@@ -100,6 +100,72 @@ void BoolPropertyView::buttonClicked(Button *button)
 }
 
 // ----------------------------------------------------------------------------
+// BitSetPropertyView
+// ----------------------------------------------------------------------------
+
+BitSetPropertyView::BitSetPropertyView(RC505::BitSetProperty *property) :
+    _property(nullptr)
+{
+    for (int i = 0; i < property->bits(); ++i) {
+        auto toggleButton = new ToggleButton("");
+        toggleButton->addListener(this);
+        addAndMakeVisible(toggleButton);
+        _toggleButtons.add(toggleButton);
+    }
+    setProperty(property);
+}
+
+BitSetPropertyView::~BitSetPropertyView()
+{
+    setProperty(nullptr);
+}
+
+void BitSetPropertyView::setProperty(RC505::BitSetProperty *property)
+{
+    if (_property) {
+        _property->removeListener(this);
+    }
+    _property = property;
+    if (_property) {
+        _property->addListener(this);
+    }
+    updateValue();
+}
+
+void BitSetPropertyView::resized()
+{
+    int spacing = getHeight() + 5;
+    for (int i = 0; i < _toggleButtons.size(); ++i) {
+        _toggleButtons[i]->setBounds(i * spacing, 0, spacing, getHeight());
+    }
+}
+
+void BitSetPropertyView::updateValue()
+{
+    if (_property) {
+        for (int i = 0; i < _toggleButtons.size(); ++i) {
+            _toggleButtons[i]->setToggleState(_property->bitValue(i), dontSendNotification);
+        }
+    }
+}
+
+void BitSetPropertyView::valueChanged(RC505::ValueProperty *property)
+{
+    updateValue();
+}
+
+void BitSetPropertyView::buttonClicked(Button *button)
+{
+    if (_property) {
+        for (int i = 0; i < _toggleButtons.size(); ++i) {
+            if (button == _toggleButtons[i]) {
+                _property->setBitValue(i, _toggleButtons[i]->getToggleState());
+            }
+        }
+    }
+}
+
+// ----------------------------------------------------------------------------
 // IntPropertyView
 // ----------------------------------------------------------------------------
 

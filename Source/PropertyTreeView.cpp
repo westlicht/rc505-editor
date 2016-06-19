@@ -74,6 +74,8 @@ public:
         PropertyTreeView *treeView = static_cast<PropertyTreeView *>(getOwnerView());
         if (RC505::BoolProperty *boolProperty = dynamic_cast<RC505::BoolProperty *>(_property)) {
             return new PropertyTreeViewComponent<RC505::BoolProperty, BoolPropertyView>(treeView, boolProperty);
+        } else if (RC505::BitSetProperty *bitSetProperty = dynamic_cast<RC505::BitSetProperty *>(_property)) {
+            return new PropertyTreeViewComponent<RC505::BitSetProperty, BitSetPropertyView>(treeView, bitSetProperty);
         } else if (RC505::IntProperty *intProperty = dynamic_cast<RC505::IntProperty *>(_property)) {
             return new PropertyTreeViewComponent<RC505::IntProperty, IntPropertyView>(treeView, intProperty);
         } else  if (RC505::EnumProperty *enumProperty = dynamic_cast<RC505::EnumProperty *>(_property)) {

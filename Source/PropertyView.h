@@ -86,6 +86,43 @@ private:
 };
 
 // ----------------------------------------------------------------------------
+// BitSetPropertyView
+// ----------------------------------------------------------------------------
+
+class BitSetPropertyView : public PropertyView,
+                           public RC505::ValueProperty::Listener,
+                           public Button::Listener {
+public:
+    BitSetPropertyView(RC505::BitSetProperty *property = nullptr);
+    ~BitSetPropertyView();
+
+    const ToggleButton &toggleButton(int index) const { return *_toggleButtons[index]; }
+          ToggleButton &toggleButton(int index)       { return *_toggleButtons[index]; }
+
+    RC505::BitSetProperty *property() { return _property; }
+
+    void setProperty(RC505::BitSetProperty *property);
+
+    // Component
+    virtual void resized() override;
+
+    // PropertyView
+    virtual void updateValue() override;
+
+    // RC505::ValueProperty::Listener
+    virtual void valueChanged(RC505::ValueProperty *property) override;
+
+    // Button::Listener
+    virtual void buttonClicked(Button *button) override;
+
+private:
+    RC505::BitSetProperty *_property;
+    OwnedArray<ToggleButton> _toggleButtons;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BitSetPropertyView)
+};
+
+// ----------------------------------------------------------------------------
 // IntPropertyView
 // ----------------------------------------------------------------------------
 
