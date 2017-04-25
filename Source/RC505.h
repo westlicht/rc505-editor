@@ -4,10 +4,17 @@
 
 #include <functional>
 
+// version 2 adds a bunch of new settings over version 1
+#define RC505_VERSION 2
+
 namespace RC505 {
 
 class Library;
 class Patch;
+
+// ----------------------------------------------------------------------------
+// Property
+// ----------------------------------------------------------------------------
 
 class Property {
 public:
@@ -988,7 +995,7 @@ public:
         inputOutput->loadFromXml(xml->getChildByName("INPUT_OUTPUT"));
         usb->loadFromXml(xml->getChildByName("USB"));
         midi->loadFromXml(xml->getChildByName("MIDI"));
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < NumTracks; ++i) {
             tracks[i]->loadFromXml(xml->getChildByName(String::formatted("TRACK%d", i + 1)));
         }
         rhythm->loadFromXml(xml->getChildByName("RHYTHM"));
@@ -996,7 +1003,7 @@ public:
         master->loadFromXml(xml->getChildByName("MASTER"));
         record->loadFromXml(xml->getChildByName("REC_OPTION"));
         play->loadFromXml(xml->getChildByName("PLAY_OPTION"));
-        for (int i = 0; i < 8; ++i) {
+        for (int i = 0; i < NumAssignments; ++i) {
             assignments[i]->loadFromXml(xml->getChildByName(String::formatted("ASSIGN%d", i + 1)));
         }
         inputFx->loadFromXml(xml->getChildByName("INPUT_FX"));
@@ -1019,7 +1026,7 @@ public:
         inputOutput->saveToXml(xml->createNewChildElement("INPUT_OUTPUT"));
         usb->saveToXml(xml->createNewChildElement("USB"));
         midi->saveToXml(xml->createNewChildElement("MIDI"));
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < NumTracks; ++i) {
             tracks[i]->saveToXml(xml->createNewChildElement(String::formatted("TRACK%d", i + 1)));
         }
         rhythm->saveToXml(xml->createNewChildElement("RHYTHM"));
@@ -1027,7 +1034,7 @@ public:
         master->saveToXml(xml->createNewChildElement("MASTER"));
         record->saveToXml(xml->createNewChildElement("REC_OPTION"));
         play->saveToXml(xml->createNewChildElement("PLAY_OPTION"));
-        for (int i = 0; i < 8; ++i) {
+        for (int i = 0; i < NumAssignments; ++i) {
             assignments[i]->saveToXml(xml->createNewChildElement(String::formatted("ASSIGN%d", i + 1)));
         }
         inputFx->saveToXml(xml->createNewChildElement("INPUT_FX"));
