@@ -550,7 +550,7 @@ public:
     EnumProperty *quantize = createChild<EnumProperty>("Quantize", "LpQtz", StringArray({"REC END","MEASURE","BEAT"}));
     Property *loopMode = createChild<ValueProperty>("Loop Mode", "LpMod"); // TODO ?
     IntProperty *loopLength = createChild<IntProperty>("Loop Length", "LpLen", LoopLengthType);
-    Property *allStart = createChild<ValueProperty>("All Start", "AllStrt"); // TODO BITSET
+    BitSetProperty *allStart = createChild<BitSetProperty>("All Start", "AllStrt", 5);
     IntProperty *fadeTime = createChild<IntProperty>("Fade Time", "FadeTim", FadeTimeType);
     EnumProperty *targetTrack = createChild<EnumProperty>("Target Track", "TgtTr", StringArray({"TRACK1","TRACK2","TRACK3","TRACK4","TRACK5"}));
     PlaySettings(Library *library, const String &name) : Group(library, name) {}
