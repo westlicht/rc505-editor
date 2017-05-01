@@ -9,8 +9,10 @@
       <FILE id="hPyQXt" name="icon-large.png" compile="0" resource="1" file="Resources/icon-large.png"/>
       <FILE id="HZjAva" name="icon-small.png" compile="0" resource="1" file="Resources/icon-small.png"/>
       <FILE id="h4q7fD" name="Matrix.ttf" compile="0" resource="1" file="Resources/Matrix.ttf"/>
-      <FILE id="uXQBOj" name="MEMORY.RC0" compile="0" resource="1" file="Resources/MEMORY.RC0"/>
-      <FILE id="TQafX2" name="SYSTEM.RC0" compile="0" resource="1" file="Resources/SYSTEM.RC0"/>
+      <FILE id="rx4oc1" name="MEMORY.RC0.v1" compile="0" resource="1" file="Resources/MEMORY.RC0.v1"/>
+      <FILE id="M4Q8e2" name="MEMORY.RC0.v2" compile="0" resource="1" file="Resources/MEMORY.RC0.v2"/>
+      <FILE id="YD3emt" name="SYSTEM.RC0.v1" compile="0" resource="1" file="Resources/SYSTEM.RC0.v1"/>
+      <FILE id="BuDPbn" name="SYSTEM.RC0.v2" compile="0" resource="1" file="Resources/SYSTEM.RC0.v2"/>
     </GROUP>
     <GROUP id="{BF7CAD53-3295-BF47-4572-AC24F0381F56}" name="Source">
       <GROUP id="{94225AD2-DE10-AF5D-91BE-E48816A77E2F}" name="libsamplerate">
