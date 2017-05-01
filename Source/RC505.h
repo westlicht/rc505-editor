@@ -57,6 +57,10 @@ protected:
     bool _selected;
 };
 
+// ----------------------------------------------------------------------------
+// ValueProperty
+// ----------------------------------------------------------------------------
+
 class ValueProperty : public Property {
 public:
     class Listener {
@@ -118,6 +122,10 @@ protected:
     friend class Patch;
 };
 
+// ----------------------------------------------------------------------------
+// BoolProperty
+// ----------------------------------------------------------------------------
+
 class BoolProperty : public ValueProperty {
 public:
     BoolProperty(Library *library, const String &name, const String &desc) :
@@ -153,6 +161,10 @@ public:
 private:
     bool _value;
 };
+
+// ----------------------------------------------------------------------------
+// BitSetProperty
+// ----------------------------------------------------------------------------
 
 class BitSetProperty : public ValueProperty {
 public:
@@ -209,6 +221,10 @@ private:
     int _bits;
     int _value;
 };
+
+// ----------------------------------------------------------------------------
+// IntProperty
+// ----------------------------------------------------------------------------
 
 class IntProperty : public ValueProperty {
 public:
@@ -275,6 +291,10 @@ private:
     int _value;
 };
 
+// ----------------------------------------------------------------------------
+// EnumProperty
+// ----------------------------------------------------------------------------
+
 class EnumProperty : public ValueProperty {
 public:
     EnumProperty(Library *library, const String &name, const String &desc, const StringArray &options) :
@@ -313,6 +333,10 @@ private:
     StringArray _options;
     int _value;
 };
+
+// ----------------------------------------------------------------------------
+// NameProperty
+// ----------------------------------------------------------------------------
 
 class NameProperty : public ValueProperty {
 public:
@@ -357,6 +381,10 @@ public:
 private:
     String _value;
 };
+
+// ----------------------------------------------------------------------------
+// Group
+// ----------------------------------------------------------------------------
 
 class Group : public Property {
 public:
@@ -446,7 +474,11 @@ protected:
     
     OwnedArray<Property> _children;
 };
-    
+
+// ----------------------------------------------------------------------------
+// Group classes
+// ----------------------------------------------------------------------------
+
 class TrackSettings : public Group {
 public:
     BoolProperty *reverse = createChild<BoolProperty>("Reverse", "Rev");
