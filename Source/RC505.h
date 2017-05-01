@@ -154,6 +154,62 @@ private:
     bool _value;
 };
 
+class BitSetProperty : public ValueProperty {
+public:
+    BitSetProperty(Library *library, const String &name, const String &desc, int bits) :
+        ValueProperty(library, name, desc),
+        _bits(bits)
+    {
+    }
+
+    int bits() const { return _bits; }
+
+    const int value() const { return _value; }
+    void setValue(int value) { _value = value; notifyValueChanged(); }
+
+    const bool bitValue(int index)
+    {
+        jassert(index < _bits);
+        return (_value & (1<<index)) != 0;
+    }
+
+    void setBitValue(int index, bool value)
+    {
+        jassert(index < _bits);
+        if (value) {
+            _value |= (1<<index);
+        } else {
+            _value &= ~(1<<index);
+        }
+    }
+
+    virtual void assign(const Property &other, bool selectedOnly) override
+    {
+        if (!selectedOnly || other.selected()) {
+            setValue(static_cast<const BitSetProperty *>(&other)->value());
+        }
+    }
+
+    virtual bool loadFromXml(XmlElement *xml) override
+    {
+        if (!xml->getFirstChildElement() || !xml->getFirstChildElement()->isTextElement()) {
+            return false;
+        }
+        _value = xml->getFirstChildElement()->getText().getIntValue();
+        return true;
+    }
+    
+    virtual bool saveToXml(XmlElement *xml) override
+    {
+        xml->addTextElement(String(_value));
+        return true;
+    }
+
+private:
+    int _bits;
+    int _value;
+};
+
 class IntProperty : public ValueProperty {
 public:
     struct Type {
