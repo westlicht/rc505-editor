@@ -18,11 +18,17 @@ namespace BinaryData
     extern const char*   Matrix_ttf;
     const int            Matrix_ttfSize = 74340;
 
-    extern const char*   MEMORY_RC0;
-    const int            MEMORY_RC0Size = 1233520;
+    extern const char*   MEMORY_RC0_v1;
+    const int            MEMORY_RC0_v1Size = 1233520;
 
-    extern const char*   SYSTEM_RC0;
-    const int            SYSTEM_RC0Size = 13020;
+    extern const char*   MEMORY_RC0_v2;
+    const int            MEMORY_RC0_v2Size = 1670605;
+
+    extern const char*   SYSTEM_RC0_v1;
+    const int            SYSTEM_RC0_v1Size = 13020;
+
+    extern const char*   SYSTEM_RC0_v2;
+    const int            SYSTEM_RC0_v2Size = 17544;
 
     extern const char*   COPYING;
     const int            COPYINGSize = 1475;
@@ -34,7 +40,7 @@ namespace BinaryData
     extern const char* namedResourceList[];
 
     // Number of elements in the namedResourceList array.
-    const int namedResourceListSize = 7;
+    const int namedResourceListSize = 9;
 
     // If you provide the name of one of the binary resource variables above, this function will
     // return the corresponding data and its size (or a null pointer if the name isn't found).
