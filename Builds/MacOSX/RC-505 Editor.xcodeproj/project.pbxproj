@@ -281,7 +281,6 @@
 		285A3405AE5E261C7C185D7B = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_GZIPCompressorOutputStream.cpp"; path = "../../JuceLibraryCode/modules/juce_core/zip/juce_GZIPCompressorOutputStream.cpp"; sourceTree = "SOURCE_ROOT"; };
 		2875FB066F8E25AFF984D789 = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		288D63A7D51DC2CE2F44DCCF = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_BubbleMessageComponent.cpp"; path = "../../JuceLibraryCode/modules/juce_gui_extra/misc/juce_BubbleMessageComponent.cpp"; sourceTree = "SOURCE_ROOT"; };
-		28EAB282ADEDCE154C356396 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Theme.h; path = ../../Source/Theme.h; sourceTree = "SOURCE_ROOT"; };
 		2906FC65D0EA6AB5BDF2A4EB = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "_kiss_fft_guts.h"; path = "../../Source/rubberband/kissfft/_kiss_fft_guts.h"; sourceTree = "SOURCE_ROOT"; };
 		29188F9484B7D3153503A9A9 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_PathStrokeType.cpp"; path = "../../JuceLibraryCode/modules/juce_graphics/geometry/juce_PathStrokeType.cpp"; sourceTree = "SOURCE_ROOT"; };
 		2943E3128BB9BD99249AFBE2 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_AiffAudioFormat.cpp"; path = "../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_AiffAudioFormat.cpp"; sourceTree = "SOURCE_ROOT"; };
@@ -1446,7 +1445,6 @@
 					66151721C789ECBCFFE3CE16,
 					7D22497AEEAB37B48C777D57,
 					46717E85E64C2EA831A88165,
-					28EAB282ADEDCE154C356396,
 					EB2C798DABC0BBC7515B1BC4,
 					04065B48D2361EAC57DABE29,
 					D5D2F8471B5ADE1CE0C1B339,
@@ -2825,8 +2823,8 @@
 					"_DEBUG=1",
 					"DEBUG=1",
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
-					"JUCE_APP_VERSION=0.0.2",
-					"JUCE_APP_VERSION_HEX=0x2", );
+					"JUCE_APP_VERSION=0.0.3",
+					"JUCE_APP_VERSION_HEX=0x3", );
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ("../../JuceLibraryCode", "../../JuceLibraryCode/modules", "$(inherited)");
 				INFOPLIST_FILE = Info-App.plist;
@@ -2850,8 +2848,8 @@
 					"_NDEBUG=1",
 					"NDEBUG=1",
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
-					"JUCE_APP_VERSION=0.0.2",
-					"JUCE_APP_VERSION_HEX=0x2", );
+					"JUCE_APP_VERSION=0.0.3",
+					"JUCE_APP_VERSION_HEX=0x3", );
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ("../../JuceLibraryCode", "../../JuceLibraryCode/modules", "$(inherited)");

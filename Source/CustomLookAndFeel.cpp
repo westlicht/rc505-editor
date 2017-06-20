@@ -140,10 +140,10 @@ void CustomLookAndFeel::drawTreeviewPlusMinusBox(Graphics &g, const Rectangle<fl
 
 void CustomLookAndFeel::drawTickBox(Graphics &g, Component &component,
                                     float x, float y, float w, float h,
-                                    const bool ticked,
-                                    const bool isEnabled,
-                                    const bool isMouseOverButton,
-                                    const bool isButtonDown)
+                                    bool ticked,
+                                    bool isEnabled,
+                                    bool isMouseOverButton,
+                                    bool isButtonDown)
 {
     const float boxSize = w * 0.7f;
 
