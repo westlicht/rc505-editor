@@ -2,7 +2,7 @@
 
 ![Screenshot](screenshot.png)
 
-The *RC-505 Editor* allows for easy management of the content stored on the [BOSS RC-505 Loop Station](http://www.boss.info/products/rc-505/). The software is written in C++11 on top of the [JUCE](http://www.juce.com) framework and runs on all major platforms (OSX, Linux and Windows). It was originally developed to simplify the task of copying loops created in DAWs to the looper but evolved into a fully featured editor with the following functionality:
+The *RC-505 Editor* allows for easy management of the content stored on the [BOSS RC-505 Loop Station](http://www.boss.info/products/rc-505/). The software is written in C++11 on top of the [JUCE](http://www.juce.com) framework and runs on all major platforms (OSX, Linux and Windows). It was originally developed to simplify the task of copying loops created in DAWs to the looper, but evolved into a fully featured editor with the following functionality:
 
 - play/preview patches (not supporting all features of the hardware)
 - rename and move patches
