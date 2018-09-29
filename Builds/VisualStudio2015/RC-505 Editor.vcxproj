@@ -2311,8 +2311,10 @@
     <None Include="..\..\Resources\icon-large.png"/>
     <None Include="..\..\Resources\icon-small.png"/>
     <None Include="..\..\Resources\Matrix.ttf"/>
-    <None Include="..\..\Resources\MEMORY.RC0"/>
-    <None Include="..\..\Resources\SYSTEM.RC0"/>
+    <None Include="..\..\Resources\MEMORY.RC0.v1"/>
+    <None Include="..\..\Resources\MEMORY.RC0.v2"/>
+    <None Include="..\..\Resources\SYSTEM.RC0.v1"/>
+    <None Include="..\..\Resources\SYSTEM.RC0.v2"/>
     <None Include="..\..\Source\rubberband\kissfft\COPYING"/>
     <None Include="..\..\Source\rubberband\speex\COPYING"/>
     <None Include="..\..\JuceLibraryCode\modules\juce_audio_formats\codecs\flac\Flac Licence.txt"/>
