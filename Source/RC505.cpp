@@ -667,6 +667,19 @@ void Library::close()
     notifyLocked([&] () { _listeners.call(&Listener::libraryClosed); });
 }
 
+int Library::libraryVersion(const File &path) {
+    File dataPath = File::addTrailingSeparator(path.getFullPathName()) + "DATA";
+    File memoryPath = File::addTrailingSeparator(dataPath.getFullPathName()) + "MEMORY.RC0";
+    ScopedPointer<XmlElement> xml(XmlDocument::parse(memoryPath.loadFileAsString()));
+    if (!xml) {
+        return 0;
+    }
+    if (!xml->hasAttribute("revision")) {
+        return -1;
+    }
+    return xml->getIntAttribute("revision");
+}
+
 String Library::checkVolumesForRC505()
 {
 #if JUCE_MAC

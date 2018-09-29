@@ -1479,6 +1479,7 @@ public:
     bool save(const File &path, StatusCallback statusCallback);
     void close();
 
+    static int libraryVersion(const File &path);
     static String checkVolumesForRC505();
     static String tempDirectory();
 
