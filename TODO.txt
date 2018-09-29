@@ -1,0 +1,6 @@
+- update to revision 2 database
+- recent libraries menu
+- about screen
+- clear track
+- only display settings that area actually used (effects for example)
+- update findTempoAndMeasures to work as described in manual (range 80-160 bpm)
