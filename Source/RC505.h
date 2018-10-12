@@ -490,7 +490,7 @@ public:
     BoolProperty *trackFx = createChild<BoolProperty>("Track Fx", "TrkFx");
     EnumProperty *playMode = createChild<EnumProperty>("Play Mode", "PlyMod", StringArray({"MULTI","SINGLE"}));
     EnumProperty *startMode = createChild<EnumProperty>("Start Mode", "StrtMod", StringArray({"IMMEDIATE","FADE IN"}));
-    EnumProperty *stopMode = createChild<EnumProperty>("Stop Mode", "StpMod", StringArray({"IMMEDIATE","LOOP END"}));
+    EnumProperty *stopMode = createChild<EnumProperty>("Stop Mode", "StpMod", StringArray({"IMMEDIATE","FADE OUT","LOOP END"}));
     Property *measMod = createChild<ValueProperty>("MeasMod", "MeasMod"); // TODO ?
     IntProperty *measLen = createChild<IntProperty>("MeasLen", "MeasLen"); // TODO ?
     Property *measBtLp = createChild<ValueProperty>("MeasBtLp", "MeasBtLp"); // TODO ?
