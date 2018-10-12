@@ -141,7 +141,7 @@ private:
 
         virtual String getTextFromValue(double value) override
         {
-            return _property ? _property->type().formatter(float(value)) : String::empty;
+            return _property ? _property->type().formatter(float(value)) : String();
         }
 
     private:

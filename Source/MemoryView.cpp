@@ -105,9 +105,7 @@ void MemoryView::pastePatchSettings()
     // Paste settings
     if (AlertWindow::showOkCancelBox(AlertWindow::QuestionIcon,
                                      "Paste Settings",
-                                     String::formatted("Are you sure to paste the copied settings to the %d selected patch(es)?", _patchTreeView.selectedPatches().size()),
-                                     String::empty, String::empty,
-                                     nullptr, nullptr)) {
+                                     String::formatted("Are you sure to paste the copied settings to the %d selected patch(es)?", _patchTreeView.selectedPatches().size()))) {
         for (auto patch : _patchTreeView.selectedPatches()) {
             patch->patchSettings()->assign(_patchSettingsBuffer, true);
         }

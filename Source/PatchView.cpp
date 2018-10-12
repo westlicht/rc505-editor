@@ -190,7 +190,7 @@ void PatchView::clearPatch()
 
 void PatchView::importLoops()
 {
-    FileChooser fileChooser("Import Loops", File::nonexistent, "*.wav");
+    FileChooser fileChooser("Import Loops", File(), "*.wav");
     if (fileChooser.browseForMultipleFilesToOpen()) {
         importLoopsToTracks(fileChooser.getResults());
     }

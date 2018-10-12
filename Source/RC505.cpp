@@ -686,7 +686,7 @@ String Library::checkVolumesForRC505()
     File volumesPath("/Volumes");
     Array<File> results;
     volumesPath.findChildFiles(results, File::findDirectories, false);
-    for (const auto path : results) {
+    for (const auto &path : results) {
         if (path.getFileName() == "BOSS_RC-505") {
             String fullPath = File::addTrailingSeparator(path.getFullPathName()) + "ROLAND";
             if (File(fullPath).exists()) {
@@ -695,7 +695,7 @@ String Library::checkVolumesForRC505()
         }
     }
 #endif
-    return String::empty;
+    return String();
 }
 
 String Library::tempDirectory()

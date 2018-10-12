@@ -21,7 +21,7 @@ public:
     virtual void drawButtonBackground(Graphics &g, Button &button, const Colour &backgroundColour, bool isMouseOverButton, bool isButtonDown) override;
 
     virtual void drawTreeviewPlusMinusBox(Graphics &g, const Rectangle<float> &area, Colour backgroundColour, bool isOpen, bool isMouseOver) override;
-    virtual void drawTickBox(Graphics &g, Component &component, float x, float y, float w, float h, bool ticked, bool isEnabled, bool isMouseOverButton, bool isButtonDown);
+    virtual void drawTickBox(Graphics &g, Component &component, float x, float y, float w, float h, bool ticked, bool isEnabled, bool isMouseOverButton, bool isButtonDown) override;
 
     virtual int getTabButtonBestWidth(TabBarButton&, int tabDepth) override;
     virtual void drawTabButton(TabBarButton &button, Graphics &g, bool isMouseOver, bool isMouseDown) override;

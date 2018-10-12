@@ -11,7 +11,7 @@ public:
         _imageIcon = Image(ImageCache::getFromMemory(BinaryData::iconlarge_png, BinaryData::iconlarge_pngSize));
     }
 
-    virtual bool tryToCloseDocument(Component *component) {
+    virtual bool tryToCloseDocument(Component *component) override {
         return true;
     }
 
@@ -214,9 +214,7 @@ void MainComponent::mountedVolumeListChanged()
     if (AlertWindow::showOkCancelBox(AlertWindow::QuestionIcon,
                                      "RC-505 Loop Station detected",
                                      "A RC-505 Loop Station was detected via USB. Do you want to load it's library?\n\n"
-                                     "WARNING: For your own safety, create a BACKUP before writing the library back!",
-                                     String::empty, String::empty,
-                                     nullptr, nullptr)) {
+                                     "WARNING: For your own safety, create a BACKUP before writing the library back!")) {
         openLibrary(File(path));
     }
 }
@@ -258,9 +256,7 @@ bool MainComponent::allowDiscardChanges(RC505::Library &library)
     return AlertWindow::showOkCancelBox(AlertWindow::QuestionIcon,
                                         "Unsaved changes",
                                         "The library '" + library.name() + "' contains unsaved changes.\n"
-                                        "Are you sure you want to discard the changes?",
-                                        String::empty, String::empty,
-                                        nullptr, nullptr);
+                                        "Are you sure you want to discard the changes?");
 }
 
 LibraryView *MainComponent::activeLibraryView()
