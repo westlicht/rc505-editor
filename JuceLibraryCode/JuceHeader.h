@@ -10,8 +10,7 @@
 
 */
 
-#ifndef __APPHEADERFILE_GO08RC__
-#define __APPHEADERFILE_GO08RC__
+#pragma once
 
 #include "AppConfig.h"
 
@@ -43,5 +42,3 @@ namespace ProjectInfo
     const int          versionNumber  = 0x3;
 }
 #endif
-
-#endif   // __APPHEADERFILE_GO08RC__
