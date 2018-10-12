@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="gO08rc" name="RC-505 Editor" projectType="guiapp" version="0.0.3"
               bundleIdentifier="ch.westlicht.rc-505-editor" includeBinaryInAppConfig="1"
-              jucerVersion="4.2.1" companyEmail="simon.kallweit@gmail.com"
+              jucerVersion="5.3.2" companyEmail="simon.kallweit@gmail.com"
               companyName="westlicht" companyWebsite="westlicht.ch" defines="">
   <MAINGROUP id="FP8VHC" name="RC-505 Editor">
     <GROUP id="{D21FB55B-E8F8-6DAB-3311-5EB3C5E0EE8A}" name="Resources">
@@ -191,10 +191,8 @@
     <XCODE_MAC targetFolder="Builds/MacOSX" extraDefs="" extraCompilerFlags="-I../../Source/rubberband -stdlib=libc++"
                smallIcon="HZjAva" bigIcon="hPyQXt" extraLinkerFlags="-stdlib=libc++">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" osxSDK="10.10 SDK" osxCompatibility="10.8 SDK" osxArchitecture="default"
-                       isDebug="1" optimisation="1" targetName="RC-505 Editor"/>
-        <CONFIGURATION name="Release" osxSDK="10.10 SDK" osxCompatibility="10.8 SDK"
-                       osxArchitecture="default" isDebug="0" optimisation="3" targetName="RC-505 Editor"/>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="RC-505 Editor"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="RC-505 Editor"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../juce/modules"/>
