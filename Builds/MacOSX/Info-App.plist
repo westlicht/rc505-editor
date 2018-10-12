@@ -8,7 +8,7 @@
     <key>CFBundleIconFile</key>
     <string>Icon.icns</string>
     <key>CFBundleIdentifier</key>
-    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <string>ch.westlicht.rc-505-editor</string>
     <key>CFBundleName</key>
     <string>RC-505 Editor</string>
     <key>CFBundleDisplayName</key>
@@ -22,7 +22,7 @@
     <key>CFBundleVersion</key>
     <string>0.0.3</string>
     <key>NSHumanReadableCopyright</key>
-    <string>westlicht</string>
+    <string></string>
     <key>NSHighResolutionCapable</key>
     <true/>
   </dict>

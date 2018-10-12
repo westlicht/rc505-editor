@@ -1,6 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2015
-Project("{FE2EDF6B-C48B-6979-10C2-E973E0F5A8AB}") = "RC-505 Editor", "RC-505 Editor.vcxproj", "{6CEB40D5-778E-9636-9459-C89A21D63A35}"
+
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RC-505 Editor - App", "RC-505 Editor_App.vcxproj", "{7EF2258D-047D-17AC-AA11-4C7EC650FB45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,10 +9,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6CEB40D5-778E-9636-9459-C89A21D63A35}.Debug|Win32.ActiveCfg = Debug|Win32
-		{6CEB40D5-778E-9636-9459-C89A21D63A35}.Debug|Win32.Build.0 = Debug|Win32
-		{6CEB40D5-778E-9636-9459-C89A21D63A35}.Release|Win32.ActiveCfg = Release|Win32
-		{6CEB40D5-778E-9636-9459-C89A21D63A35}.Release|Win32.Build.0 = Release|Win32
+		{7EF2258D-047D-17AC-AA11-4C7EC650FB45}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7EF2258D-047D-17AC-AA11-4C7EC650FB45}.Debug|Win32.Build.0 = Debug|Win32
+		{7EF2258D-047D-17AC-AA11-4C7EC650FB45}.Release|Win32.ActiveCfg = Release|Win32
+		{7EF2258D-047D-17AC-AA11-4C7EC650FB45}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
