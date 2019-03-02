@@ -29,7 +29,9 @@ Use the following steps to create a backup:
 
 #### Overview
 
-TODO
+**This software only works with RC-505 loopers that have been updated with the latest 2.0 firmware version.**
+
+Due to lack of time there is currently no documentation on how to use the application. Feel free to write a user manual and open an issue or pull request so it can be added here.
 
 ## Compiling
 
@@ -46,7 +48,7 @@ TODO
 
 #### Windows
 
-- open the project `\Builds\VisualStudio2015\RC-505 Editor.sln` in Visual Studio 2015 (community edition)
+- open the project `\Builds\VisualStudio2017\RC-505 Editor.sln` in Visual Studio 2017 (community edition)
 - build
 
 ## Information
