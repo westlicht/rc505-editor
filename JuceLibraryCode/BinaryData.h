@@ -17,14 +17,8 @@ namespace BinaryData
     extern const char*   Matrix_ttf;
     const int            Matrix_ttfSize = 74340;
 
-    extern const char*   MEMORY_RC0_v1;
-    const int            MEMORY_RC0_v1Size = 1233520;
-
     extern const char*   MEMORY_RC0_v2;
     const int            MEMORY_RC0_v2Size = 1670605;
-
-    extern const char*   SYSTEM_RC0_v1;
-    const int            SYSTEM_RC0_v1Size = 13020;
 
     extern const char*   SYSTEM_RC0_v2;
     const int            SYSTEM_RC0_v2Size = 17544;
@@ -36,7 +30,7 @@ namespace BinaryData
     const int            COPYING2Size = 1774;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 9;
+    const int namedResourceListSize = 7;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

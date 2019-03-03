@@ -642,13 +642,6 @@
 			path = "../../Source/rubberband/kissfft/kiss_fftr.h";
 			sourceTree = "SOURCE_ROOT";
 		};
-		5474E70C9C14C43F34706935 = {
-			isa = PBXFileReference;
-			lastKnownFileType = file.v1;
-			name = SYSTEM.RC0.v1;
-			path = ../../Resources/SYSTEM.RC0.v1;
-			sourceTree = "SOURCE_ROOT";
-		};
 		55A9BB976AC351301DC92183 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -1020,13 +1013,6 @@
 			path = "../../JuceLibraryCode/modules/juce_data_structures";
 			sourceTree = "SOURCE_ROOT";
 		};
-		A5D75BD41E5BD5DF8EE5F051 = {
-			isa = PBXFileReference;
-			lastKnownFileType = file.v1;
-			name = MEMORY.RC0.v1;
-			path = ../../Resources/MEMORY.RC0.v1;
-			sourceTree = "SOURCE_ROOT";
-		};
 		A8E26A8FBBAE23199F991536 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -1376,9 +1362,7 @@
 				866B7E08A92EDD741E5BC468,
 				EAE581AA37B18F507D208C48,
 				EF5F8A721F5A9E90F189C6CC,
-				A5D75BD41E5BD5DF8EE5F051,
 				C5D0C8BF30D0AEF067CDCF93,
-				5474E70C9C14C43F34706935,
 				7AC819503EC93CC701C66F2F,
 			);
 			name = Resources;
