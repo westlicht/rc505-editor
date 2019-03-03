@@ -4,10 +4,10 @@
 
 #include <functional>
 
-// version 2 adds a bunch of new settings over version 1
-#define RC505_VERSION 2
-
 namespace RC505 {
+
+// this model only support firmware revision 2
+static const int Revision = 2;
 
 class Library;
 class Patch;
@@ -1343,7 +1343,12 @@ class Library {
 public:
     static const int NumPatches = 99;
 
-    typedef std::function<void(String)>StatusCallback;
+    typedef std::function<void(String)> StatusCallback;
+    
+    struct Info {
+        bool valid;
+        int revision;
+    };
 
     class Listener {
     public:
@@ -1383,8 +1388,8 @@ public:
     bool load(const File &path, StatusCallback statusCallback);
     bool save(const File &path, StatusCallback statusCallback);
     void close();
-
-    static int libraryVersion(const File &path);
+    
+    static Info libraryInfo(const File &path);
     static String checkVolumesForRC505();
     static String tempDirectory();
 

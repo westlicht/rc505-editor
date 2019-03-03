@@ -16,8 +16,8 @@ public:
     void run()
     {
         setStatusMessage("Preparing ...");
-        _version = RC505::Library::libraryVersion(_path);
-        if (_version != RC505_VERSION) {
+        _info = RC505::Library::libraryInfo(_path);
+        if (!_info.valid || _info.revision != RC505::Revision) {
             return;
         }
         _success = _library.load(_path, [this] (String status) {
@@ -29,11 +29,18 @@ public:
         LoadLibraryTask task(library, path);
         task.runThread();
         if (!task.success()) {
-            if (task._version != RC505_VERSION) {
+            auto info = task._info;
+            if (!info.valid) {
                 AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error",
                     "Failed to load library from '" + path.getFullPathName() + "'!\n"
-                    "Library uses OS revision " + String(task._version) + ", but this software only supports revision " + String(RC505_VERSION) + ".\n"
-                    "Please update your RC505 Loop Station to a compatible OS revision!"
+                    "This is not a valid library folder.\n"
+                    "Please select a valid RC505 Loop Station library folder."
+                );
+            } else if (info.revision != RC505::Revision) {
+                AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error",
+                    "Failed to load library from '" + path.getFullPathName() + "'!\n"
+                    "Library uses OS revision " + String(info.revision) + ", but this software only supports revision " + String(RC505::Revision) + ".\n"
+                    "Please update your RC505 Loop Station to a compatible OS revision."
                 );
             } else {
                 AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error", "Failed to load library from '" + path.getFullPathName() + "'!");
@@ -45,7 +52,7 @@ public:
 private:
     RC505::Library &_library;
     File _path;
-    int _version;
+    RC505::Library::Info _info;
     bool _success;
 };
 

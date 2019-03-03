@@ -631,18 +631,21 @@ void Library::close()
 {
     notifyLocked([&] () { _listeners.call(&Listener::libraryClosed); });
 }
-
-int Library::libraryVersion(const File &path) {
+    
+Library::Info Library::libraryInfo(const File &path) {
+    Info info = { false, -1 };
+    
     File dataPath = File::addTrailingSeparator(path.getFullPathName()) + "DATA";
     File memoryPath = File::addTrailingSeparator(dataPath.getFullPathName()) + "MEMORY.RC0";
-    ScopedPointer<XmlElement> xml(XmlDocument::parse(memoryPath.loadFileAsString()));
-    if (!xml) {
-        return 0;
+    if (dataPath.exists() && memoryPath.exists()) {
+        ScopedPointer<XmlElement> xml(XmlDocument::parse(memoryPath.loadFileAsString()));
+        if (xml && xml->hasAttribute("revision")) {
+            info.valid = true;
+            info.revision = xml->getIntAttribute("revision");
+        }
     }
-    if (!xml->hasAttribute("revision")) {
-        return -1;
-    }
-    return xml->getIntAttribute("revision");
+    
+    return info;
 }
 
 String Library::checkVolumesForRC505()
@@ -716,7 +719,7 @@ bool Library::saveMemory(const File &path)
     DBG("Generating Memory XML ...");
     ScopedPointer<XmlElement> xml = new XmlElement("database");
     xml->setAttribute("name", "RC-505");
-    xml->setAttribute("revision", RC505_VERSION);
+    xml->setAttribute("revision", Revision);
     for (auto patch : _patches) {
         if (!patch->saveToXml(xml->createNewChildElement("mem"))) {
             return false;
@@ -750,7 +753,7 @@ bool Library::saveSystem(const File &path)
     DBG("Generating System XML ...");
     ScopedPointer<XmlElement> xml = new XmlElement("database");
     xml->setAttribute("name", "RC-505");
-    xml->setAttribute("revision", RC505_VERSION);
+    xml->setAttribute("revision", Revision);
     if (!_systemSettings.saveToXml(xml->createNewChildElement("sys"))) {
         return false;
     }
