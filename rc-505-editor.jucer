@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="gO08rc" name="RC-505 Editor" projectType="guiapp" version="0.0.3"
+<JUCERPROJECT id="gO08rc" name="RC-505 Editor" projectType="guiapp" version="0.1.0"
               bundleIdentifier="ch.westlicht.rc-505-editor" includeBinaryInAppConfig="1"
               jucerVersion="5.4.3" companyEmail="simon.kallweit@gmail.com"
               companyName="westlicht" companyWebsite="westlicht.ch" defines="">

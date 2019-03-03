@@ -24,7 +24,7 @@ public:
         LookAndFeel::setDefaultLookAndFeel(&CustomLookAndFeel::instance());
 
         _mainMenuModel = new MainMenuModel();\
-        String windowTitle = String(ProjectInfo::projectName) + " (" + ProjectInfo::versionString + " BETA)";
+        String windowTitle = String(ProjectInfo::projectName) + " (" + ProjectInfo::versionString + ")";
         _mainWindow = new MainWindow(windowTitle);
         getCommandManager().registerAllCommandsForTarget(&_mainWindow->mainComponent());
 
