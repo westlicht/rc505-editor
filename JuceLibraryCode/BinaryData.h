@@ -17,11 +17,11 @@ namespace BinaryData
     extern const char*   Matrix_ttf;
     const int            Matrix_ttfSize = 74340;
 
-    extern const char*   MEMORY_RC0_v2;
-    const int            MEMORY_RC0_v2Size = 1670605;
+    extern const char*   MEMORY_RC0;
+    const int            MEMORY_RC0Size = 1670605;
 
-    extern const char*   SYSTEM_RC0_v2;
-    const int            SYSTEM_RC0_v2Size = 17544;
+    extern const char*   SYSTEM_RC0;
+    const int            SYSTEM_RC0Size = 17544;
 
     extern const char*   COPYING;
     const int            COPYINGSize = 1475;

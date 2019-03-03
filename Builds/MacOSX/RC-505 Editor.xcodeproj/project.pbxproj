@@ -838,13 +838,6 @@
 			path = ../../Source/rubberband/base/Profiler.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		7AC819503EC93CC701C66F2F = {
-			isa = PBXFileReference;
-			lastKnownFileType = file.v2;
-			name = SYSTEM.RC0.v2;
-			path = ../../Resources/SYSTEM.RC0.v2;
-			sourceTree = "SOURCE_ROOT";
-		};
 		7B4F4F01E2E723F773C80EFC = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -878,6 +871,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = LooperEngine.h;
 			path = ../../Source/LooperEngine.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		804009E65844DA490A664583 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.RC0;
+			name = SYSTEM.RC0;
+			path = ../../Resources/SYSTEM.RC0;
 			sourceTree = "SOURCE_ROOT";
 		};
 		805BCF40DAFACBBF3D55597C = {
@@ -1104,18 +1104,18 @@
 			path = ../../Source/PropertyView.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		C4EB27438EE7C8B30F392648 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.RC0;
+			name = MEMORY.RC0;
+			path = ../../Resources/MEMORY.RC0;
+			sourceTree = "SOURCE_ROOT";
+		};
 		C4FF4ED7C7BB1669A8C18A4C = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
 			name = LibraryView.h;
 			path = ../../Source/LibraryView.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		C5D0C8BF30D0AEF067CDCF93 = {
-			isa = PBXFileReference;
-			lastKnownFileType = file.v2;
-			name = MEMORY.RC0.v2;
-			path = ../../Resources/MEMORY.RC0.v2;
 			sourceTree = "SOURCE_ROOT";
 		};
 		C659A15DF06178D25A4AD54F = {
@@ -1362,8 +1362,8 @@
 				866B7E08A92EDD741E5BC468,
 				EAE581AA37B18F507D208C48,
 				EF5F8A721F5A9E90F189C6CC,
-				C5D0C8BF30D0AEF067CDCF93,
-				7AC819503EC93CC701C66F2F,
+				C4EB27438EE7C8B30F392648,
+				804009E65844DA490A664583,
 			);
 			name = Resources;
 			sourceTree = "<group>";

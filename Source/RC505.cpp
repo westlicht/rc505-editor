@@ -542,8 +542,8 @@ void Library::init() {
 
     setName("New Library");
     clearChanged();
-    loadMemory(String(BinaryData::MEMORY_RC0_v2, BinaryData::MEMORY_RC0_v2Size));
-    loadSystem(String(BinaryData::SYSTEM_RC0_v2, BinaryData::SYSTEM_RC0_v2Size));
+    loadMemory(String(BinaryData::MEMORY_RC0, BinaryData::MEMORY_RC0Size));
+    loadSystem(String(BinaryData::SYSTEM_RC0, BinaryData::SYSTEM_RC0Size));
 
     _factoryPatchXml = new XmlElement("mem");
     _patches[0]->saveToXml(_factoryPatchXml);
