@@ -533,10 +533,8 @@ public:
     IntProperty *tempo = createChild<IntProperty>("Tempo", "Tmp", IntProperty::TempoType);
     IntProperty *comp = createChild<IntProperty>("Comp", "Cs", IntProperty::ThresholdType);
     IntProperty *reverb = createChild<IntProperty>("Reverb", "Rv");
-#if RC505_VERSION == 2
     EnumProperty *phonesOut = createChild<EnumProperty>("Phones Out", "PhOut", StringArray({"MAIN","MONITOR"}));
     BitSetProperty *phonesOutTracks = createChild<BitSetProperty>("Phones Out Tracks", "PhOutTr", 5);
-#endif
     MasterSettings(Library *library, const String &name) : Group(library, name) {}
 };
 
@@ -544,13 +542,9 @@ class RecordSettings : public Group {
 public:
     EnumProperty *overdubMode = createChild<EnumProperty>("Overdub Mode", "DubMod", StringArray({"OVERDUB","REPLACE"}));
     EnumProperty *recordAction = createChild<EnumProperty>("Record Action", "RecAct", StringArray({"REC->OVERDUB","REC->PLAY"}));
-#if RC505_VERSION == 2
     ValueProperty *recordQuantize = createChild<ValueProperty>("Record Quantize", "RecQtz");
-#endif
     RecordSettings(Library *library, const String &name) : Group(library, name) {
-#if RC505_VERSION == 2
         recordQuantize->setVisible(false);
-#endif
     }
 };
 
@@ -564,9 +558,7 @@ public:
     Property *loopMode = createChild<ValueProperty>("Loop Mode", "LpMod"); // TODO ?
     IntProperty *loopLength = createChild<IntProperty>("Loop Length", "LpLen", LoopLengthType);
     BitSetProperty *allStart = createChild<BitSetProperty>("All Start", "AllStrt", 5);
-#if RC505_VERSION == 2
     BitSetProperty *allStop = createChild<BitSetProperty>("All Stop", "AllStp", 5);
-#endif
     IntProperty *fadeTime = createChild<IntProperty>("Fade Time", "FadeTim", FadeTimeType);
     EnumProperty *targetTrack = createChild<EnumProperty>("Target Track", "TgtTr", StringArray({"TRACK1","TRACK2","TRACK3","TRACK4","TRACK5"}));
     PlaySettings(Library *library, const String &name) : Group(library, name) {}
@@ -592,9 +584,7 @@ public:
     IntProperty *depth = createChild<IntProperty>("Depth", "FilDep");
     IntProperty *resonance = createChild<IntProperty>("Resonance", "FilReso");
     IntProperty *cutoff = createChild<IntProperty>("Cutoff", "FilCut");
-#if RC505_VERSION == 2
     IntProperty *stepRate = createChild<IntProperty>("Step Rate", "FilStpRat", IntProperty::StepRateType);
-#endif
     FilterFxSettings(Library *library) : Group(library, "Filter") {}
 };
 
@@ -603,9 +593,7 @@ public:
     IntProperty *rate = createChild<IntProperty>("Rate", "PhRat", IntProperty::RateType);
     IntProperty *depth = createChild<IntProperty>("Depth", "PhDep");
     IntProperty *resonance = createChild<IntProperty>("Resonance", "PhReso");
-#if RC505_VERSION == 2
     IntProperty *stepRate = createChild<IntProperty>("Step Rate", "PhStpRat", IntProperty::StepRateType);
-#endif
     IntProperty *level = createChild<IntProperty>("Level", "PhLvl");
     PhaserFxSettings(Library *library) : Group(library, "Phaser") {}
 };
@@ -615,9 +603,7 @@ public:
     IntProperty *rate = createChild<IntProperty>("Rate", "FlRat", IntProperty::RateType);
     IntProperty *depth = createChild<IntProperty>("Depth", "FlDep");
     IntProperty *resonance = createChild<IntProperty>("Resonance", "FlReso");
-#if RC505_VERSION == 2
     IntProperty *stepRate = createChild<IntProperty>("Step Rate", "FlStpRat", IntProperty::StepRateType);
-#endif
     IntProperty *level = createChild<IntProperty>("Level", "FlLvl");
     FlangerFxSettings(Library *library) : Group(library, "Flanger") {}
 };
@@ -724,9 +710,7 @@ public:
     EnumProperty *band = createChild<EnumProperty>("Band", "IsoBnd", StringArray({"LOW","MID","HIGH"}));
     IntProperty *rate = createChild<IntProperty>("Rate", "IsoRat", IntProperty::RateType);
     IntProperty *depth = createChild<IntProperty>("Depth", "IsoDep");
-#if RC505_VERSION == 2
     IntProperty *stepRate = createChild<IntProperty>("Step Rate", "IsoStpRat", IntProperty::StepRateType);
-#endif
     IntProperty *bandLevel = createChild<IntProperty>("BandLevel", "IsoLvl");
     IsolatorFxSettings(Library *library) : Group(library, "Isolator") {}
 };
@@ -743,9 +727,7 @@ public:
     EnumProperty *type = createChild<EnumProperty>("Type", "PanTyp", StringArray({"AUTO1","AUTO2","MANUAL"}));
     IntProperty *rate = createChild<IntProperty>("Rate", "PanRat", IntProperty::RateType);
     IntProperty *depth = createChild<IntProperty>("Depth", "PanDep");
-#if RC505_VERSION == 2
     IntProperty *stepRate = createChild<IntProperty>("Step Rate", "PanStpRat", IntProperty::StepRateType);
-#endif
     IntProperty *position = createChild<IntProperty>("Position", "PanPos", IntProperty::PanType);
     PanFxSettings(Library *library) : Group(library, "Pan") {}
 };
@@ -821,9 +803,7 @@ class ReverbFxSettings : public Group {
 public:
     IntProperty *time = createChild<IntProperty>("Time", "RevTim", TimeType);
     IntProperty *level = createChild<IntProperty>("Level", "RevLvl");
-#if RC505_VERSION == 2
     IntProperty *dryLevel = createChild<IntProperty>("Dry Level", "RevDLvl");
-#endif
     ReverbFxSettings(Library *library) : Group(library, "Reverb") {}
 };
 
@@ -863,17 +843,11 @@ public:
     FlangerFxSettings *flanger = createChild<FlangerFxSettings>();
     SynthFxSettings *synth = createChild<SynthFxSettings>();
     LoFiFxSettings *lofi = createChild<LoFiFxSettings>();
-#if RC505_VERSION == 2
     RingModulatorFxSettings *ringmod = createChild<RingModulatorFxSettings>();
-#endif
     GuitarToBassFxSettings *guitarToBass = createChild<GuitarToBassFxSettings>();
-#if RC505_VERSION == 2
     SlowGearFxSettings *slowGear = createChild<SlowGearFxSettings>();
-#endif
     TransposeFxSettings *transpose = createChild<TransposeFxSettings>();
-#if RC505_VERSION == 2
     PitchBendFxSettings *pitchBend = createChild<PitchBendFxSettings>();
-#endif
     RobotFxSettings *robot = createChild<RobotFxSettings>();
     VocalDistFxSettings *vocalDist = createChild<VocalDistFxSettings>();
     VocoderFxSettings *vocoder = createChild<VocoderFxSettings>();
@@ -882,19 +856,13 @@ public:
     IsolatorFxSettings *isolator = createChild<IsolatorFxSettings>();
     OctaveFxSettings *octave = createChild<OctaveFxSettings>();
     PanFxSettings *pan = createChild<PanFxSettings>();
-#if RC505_VERSION == 2
     TremoloFxSettings *tremolo = createChild<TremoloFxSettings>();
-#endif
     SlicerFxSettings *slicer = createChild<SlicerFxSettings>();
     DelayFxSettings *delay = createChild<DelayFxSettings>();
-#if RC505_VERSION == 2
     PanningDelayFxSettings *panningDelay = createChild<PanningDelayFxSettings>();
-#endif
     TapeEchoFxSettings *tapeEcho = createChild<TapeEchoFxSettings>();
     GranularDelayFxSettings *granularDelay = createChild<GranularDelayFxSettings>();
-#if RC505_VERSION == 2
     RollFxSettings *roll = createChild<RollFxSettings>();
-#endif
     ChorusFxSettings *chorus = createChild<ChorusFxSettings>();
     ReverbFxSettings *reverb = createChild<ReverbFxSettings>();
 
@@ -922,24 +890,16 @@ public:
 };
 
 class InputFxSettings : public Group {
-#if RC505_VERSION == 1
-    static StringArray SingleFxNames;
-#elif RC505_VERSION == 2
     static StringArray SingleFxNames;
     static StringArray MultiFxNames[3];
-#endif
 public:
-#if RC505_VERSION == 2
     EnumProperty *mode = createChild<EnumProperty>("Mode", "Mod", StringArray({"MULTI","SINGLE"}));
     BoolProperty *multiMode = createChild<BoolProperty>("Multi Mode", "MltMod");
-#endif
     BoolProperty *switch_ = createChild<BoolProperty>("Switch", "Sw");
     EnumProperty *selected = createChild<EnumProperty>("Selected", "Sel", StringArray({"Fx A","Fx B","Fx C"}));
     EnumProperty *fxType[3];
-#if RC505_VERSION == 2
     BitSetProperty *multiSwitch;
     EnumProperty *multiFxType[3];
-#endif
     InputFxSlotSettings *fxSlot[3];
 
     InputFxSettings(Library *library, const String &name) :
@@ -948,25 +908,21 @@ public:
         for (int i = 0; i < 3; ++i) {
             fxType[i] = createChild<EnumProperty>(String::formatted("Fx %c Type", 'A' + i), String::formatted("Typ%d", i + 1), SingleFxNames);
         }
-#if RC505_VERSION == 2
         multiMode->setVisible(false);
         multiSwitch = createChild<BitSetProperty>("Multi Switch", "MltSw", 3);
         for (int i = 0; i < 3; ++i) {
             multiFxType[i] = createChild<EnumProperty>(String::formatted("Multi Fx %c Type", 'A' + i), String::formatted("MltTyp%d", i + 1), MultiFxNames[i]);
         }
-#endif
         for (int i = 0; i < 3; ++i) {
             fxSlot[i] = createChild<InputFxSlotSettings>(String::formatted("Fx %c", 'A' + i));
         }
     }
 
-#if RC505_VERSION ==2
     bool saveToXml(XmlElement *xml) override
     {
         multiMode->setValue(mode->value() == 0);
         return Group::saveToXml(xml);
     }
-#endif
 };
 
 class TrackFxSlotSettings : public Group {
@@ -976,17 +932,11 @@ public:
     FlangerFxSettings *flanger = createChild<FlangerFxSettings>();
     SynthFxSettings *synth = createChild<SynthFxSettings>();
     LoFiFxSettings *lofi = createChild<LoFiFxSettings>();
-#if RC505_VERSION == 2
     RingModulatorFxSettings *ringmod = createChild<RingModulatorFxSettings>();
-#endif
     GuitarToBassFxSettings *guitarToBass = createChild<GuitarToBassFxSettings>();
-#if RC505_VERSION == 2
     SlowGearFxSettings *slowGear = createChild<SlowGearFxSettings>();
-#endif
     TransposeFxSettings *transpose = createChild<TransposeFxSettings>();
-#if RC505_VERSION == 2
     PitchBendFxSettings *pitchBend = createChild<PitchBendFxSettings>();
-#endif
     RobotFxSettings *robot = createChild<RobotFxSettings>();
     VocalDistFxSettings *vocalDist = createChild<VocalDistFxSettings>();
     VocoderFxSettings *vocoder = createChild<VocoderFxSettings>();
@@ -995,19 +945,13 @@ public:
     IsolatorFxSettings *isolator = createChild<IsolatorFxSettings>();
     OctaveFxSettings *octave = createChild<OctaveFxSettings>();
     PanFxSettings *pan = createChild<PanFxSettings>();
-#if RC505_VERSION == 2
     TremoloFxSettings *tremolo = createChild<TremoloFxSettings>();
-#endif
     SlicerFxSettings *slicer = createChild<SlicerFxSettings>();
     DelayFxSettings *delay = createChild<DelayFxSettings>();
-#if RC505_VERSION == 2
     PanningDelayFxSettings *panningDelay = createChild<PanningDelayFxSettings>();
-#endif
     TapeEchoFxSettings *tapeEcho = createChild<TapeEchoFxSettings>();
     GranularDelayFxSettings *granularDelay = createChild<GranularDelayFxSettings>();
-#if RC505_VERSION == 2
     RollFxSettings *roll = createChild<RollFxSettings>();
-#endif
     ChorusFxSettings *chorus = createChild<ChorusFxSettings>();
     ReverbFxSettings *reverb = createChild<ReverbFxSettings>();
 
@@ -1020,11 +964,7 @@ public:
 
     bool loadTrackFxFromXml(XmlElement *xml)
     {
-#if RC505_VERSION == 1
-        Group *trackFx[] = { filter, phaser, flanger, synth, lofi, guitarToBass, transpose, robot, vocalDist, vocoder, dynamics, eq, isolator, octave, pan, slicer, delay, tapeEcho, granularDelay, chorus, reverb };
-#elif RC505_VERSION == 2
         Group *trackFx[] = { filter, phaser, flanger, synth, lofi, ringmod, guitarToBass, slowGear, transpose, pitchBend, robot, vocalDist, vocoder, dynamics, eq, isolator, octave, pan, tremolo, slicer, delay, panningDelay, tapeEcho, granularDelay, roll, chorus, reverb };
-#endif
         for (auto child : trackFx) {
             if (!child->loadFromXml(xml)) {
                 return false;
@@ -1035,11 +975,7 @@ public:
 
     bool saveTrackFxToXml(XmlElement *xml)
     {
-#if RC505_VERSION == 1
-        Group *trackFx[] = { filter, phaser, flanger, synth, lofi, guitarToBass, transpose, robot, vocalDist, vocoder, dynamics, eq, isolator, octave, pan, slicer, delay, tapeEcho, granularDelay, chorus, reverb };
-#elif RC505_VERSION == 2
         Group *trackFx[] = { filter, phaser, flanger, synth, lofi, ringmod, guitarToBass, slowGear, transpose, pitchBend, robot, vocalDist, vocoder, dynamics, eq, isolator, octave, pan, tremolo, slicer, delay, panningDelay, tapeEcho, granularDelay, roll, chorus, reverb };
-#endif
         for (auto child : trackFx) {
             if (!child->saveToXml(xml)) {
                 return false;
@@ -1072,24 +1008,16 @@ public:
 };
 
 class TrackFxSettings : public Group {
-#if RC505_VERSION == 1
-    static StringArray SingleFxNames;
-#elif RC505_VERSION == 2
     static StringArray SingleFxNames;
     static StringArray MultiFxNames[3];
-#endif
 public:
-#if RC505_VERSION == 2
     EnumProperty *mode = createChild<EnumProperty>("Mode", "Mod", StringArray({"MULTI","SINGLE"}));
     BoolProperty *multiMode = createChild<BoolProperty>("Multi Mode", "MltMod");
-#endif
     BoolProperty *switch_ = createChild<BoolProperty>("Switch", "Sw");
     EnumProperty *selected = createChild<EnumProperty>("Selected", "Sel", StringArray({"Fx A","Fx B","Fx C"}));
     EnumProperty *fxType[3];
-#if RC505_VERSION == 2
     BitSetProperty *multiSwitch;
     EnumProperty *multiFxType[3];
-#endif
     TrackFxSlotSettings *fxSlot[3];
     
     TrackFxSettings(Library *library, const String &name) :
@@ -1098,34 +1026,26 @@ public:
         for (int i = 0; i < 3; ++i) {
             fxType[i] = createChild<EnumProperty>(String::formatted("Fx %c Type", 'A' + i), String::formatted("Typ%d", i + 1), SingleFxNames);
         }
-#if RC505_VERSION == 2
         multiMode->setVisible(false);
         multiSwitch = createChild<BitSetProperty>("Multi Switch", "MltSw", 3);
         for (int i = 0; i < 3; ++i) {
             multiFxType[i] = createChild<EnumProperty>(String::formatted("Multi Fx %c Type", 'A' + i), String::formatted("MltTyp%d", i + 1), MultiFxNames[i]);
         }
-#endif
         for (int i = 0; i < 3; ++i) {
             fxSlot[i] = createChild<TrackFxSlotSettings>(String::formatted("Fx %c", 'A' + i));
         }
     }
 
-#if RC505_VERSION ==2
     bool saveToXml(XmlElement *xml) override
     {
         multiMode->setValue(mode->value() == 0);
         return Group::saveToXml(xml);
     }
-#endif
 };
 
 class PatchSettings : public Group {
 public:
-#if RC505_VERSION == 1
-    static const int NumAssignments = 8;
-#elif RC505_VERSION == 2
     static const int NumAssignments = 16;
-#endif
     
     RhythmSettings *rhythm = createChild<RhythmSettings>("Rhythm");
     MasterSettings *master = createChild<MasterSettings>("Master");
@@ -1197,31 +1117,20 @@ public:
     IntProperty *memNum = createChild<IntProperty>("Memory", "MemNum", MemNumType);
     IntProperty *lcdContrast = createChild<IntProperty>("LCD Contrast", "LcdContrast", LcdContrastType);
     BoolProperty *phantomPower = createChild<BoolProperty>("Phantom Power", "PhantomPwr");
-#if RC505_VERSION == 1
-    EnumProperty *dispMode = createChild<EnumProperty>("Display", "DispMod", StringArray({"MEMORY NUMBER","LEVEL","REVERSE","1SHOT","MULTI","REMAIN"}));
-    EnumProperty *indMod = createChild<EnumProperty>("Indicator", "IndMod", StringArray({"STATUS","LOOP POSITION","LEVEL"}));
-#elif RC505_VERSION == 2
     EnumProperty *dispModeV2 = createChild<EnumProperty>("Display", "DispMod", StringArray({"MEMORY NUMBER","LEVEL","REVERSE","1SHOT","MULTI","REMAIN","FX"}));
     EnumProperty *indModV2 = createChild<EnumProperty>("Indicator", "IndMod", StringArray({"STATUS","LOOP POSITION","POSITION+STATUS","LEVEL"}));
-#endif
     BoolProperty *autoOff = createChild<BoolProperty>("Auto Off", "AutoOff");
-#if RC505_VERSION == 2
     BoolProperty *allClear = createChild<BoolProperty>("All Clear", "AllClr");
     BoolProperty *quickClear = createChild<BoolProperty>("Quick Clear", "QuickClr");
     EnumProperty *knobMode = createChild<EnumProperty>("Knob Mode", "KnobMod", StringArray({"IMMEDIATE","HOOK"}));
-#endif
     SetupSettings(Library *library, const String &name) : Group(library, name) {}
 };
 
 class InputOutputSettings : public Group {
 public:
-#if RC505_VERSION == 2
     IntProperty *nsThreshold = createChild<IntProperty>("NS Threshold", "InNsThrs", IntProperty::LevelType);
-#endif
     IntProperty *lineOutLevel = createChild<IntProperty>("Line Out Level", "LineOutLvl", IntProperty::LevelType);
-#if RC505_VERSION == 2
     EnumProperty *inputSource = createChild<EnumProperty>("Input Source", "InSrc", StringArray({"MONO","STEREO"}));
-#endif
     BoolProperty *inputLineOut = createChild<BoolProperty>("Input Line Out", "InLineOut");
     EnumProperty *outLevelSelect = createChild<EnumProperty>("Out Level Select", "OutLvlSel", StringArray({"LINE+PHONES","PHONES"}));
     InputOutputSettings(Library *library, const String &name) : Group(library, name) {}
@@ -1250,11 +1159,7 @@ public:
 class SystemSettings : public Group {
 public:
     static const int NumTracks = 5;
-#if RC505_VERSION == 1
-    static const int NumAssignments = 8;
-#elif RC505_VERSION == 2
     static const int NumAssignments = 16;
-#endif
 
     SetupSettings *setup = createChild<SetupSettings>("Setup");
     InputOutputSettings *inputOutput = createChild<InputOutputSettings>("Input / Output");

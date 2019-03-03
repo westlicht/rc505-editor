@@ -78,12 +78,6 @@ IntProperty::Type IntProperty::RateType(
         case 101: return String("4 Measures");
         case 102: return String("2 Measures");
         case 103: return String("1 Measures");
-#if RC505_VERSION == 1
-        case 104: return String("Half Note");
-        case 105: return String("Quarter Note");
-        case 106: return String("Eighth Note");
-        case 107: return String("Sixteenth Note");
-#elif RC505_VERSION == 2
         case 104: return String("Half Note");
         case 105: return String("Dotted Quarter Note");
         case 106: return String("Half Note Triplet");
@@ -95,19 +89,13 @@ IntProperty::Type IntProperty::RateType(
         case 112: return String("Eighth Note Triplet");
         case 113: return String("Sixteenth Note");
         case 114: return String("Thirty-second Note");
-#endif
         default: return String(i);
         }
     },
     0.f,
-#if RC505_VERSION == 1
-    107.f
-#elif RC505_VERSION == 2
     114.f
-#endif
 );
 
-#if RC505_VERSION == 2
 IntProperty::Type IntProperty::StepRateType(
     [] (int i) { return float(i); },
     [] (float f) { return int(std::floor(f)); },
@@ -135,7 +123,6 @@ IntProperty::Type IntProperty::StepRateType(
     0.f,
     115.f
 );
-#endif
 
 IntProperty::Type IntProperty::DelayTimeType(
     [] (int i) { return float(i); },
@@ -143,12 +130,6 @@ IntProperty::Type IntProperty::DelayTimeType(
     [] (float f) { 
         int i = int(std::floor(f));
         switch (i) {
-#if RC505_VERSION == 1
-        case 1001: return String("Sixteenth Note");
-        case 1002: return String("Eighth Note");
-        case 1003: return String("Quarter Note");
-        case 1004: return String("Half Note");
-#elif RC505_VERSION == 2
         case 1001: return String("Thirty-second Note");
         case 1002: return String("Sixteenth Note");
         case 1003: return String("Eighth Note Triplet");
@@ -160,16 +141,11 @@ IntProperty::Type IntProperty::DelayTimeType(
         case 1009: return String("Half Note Tripplet");
         case 1010: return String("Dottet Quarter Note");
         case 1011: return String("Half Note");
-#endif
         default: return String(i);
         }
     },
     1.f,
-#if RC505_VERSION == 1
-    1004.f
-#elif RC505_VERSION == 2
     1011.f
-#endif
 );
 
 IntProperty::Type IntProperty::BalanceType(
@@ -287,15 +263,9 @@ IntProperty::Type SetupSettings::LcdContrastType(
 StringArray RhythmSettings::PatternNames({"Simple Beat 1","Simple Beat 2","Simple Beat 3","Simple Beat 4","Simple Beat 5","Downbeat Snare","Rock 1","Rock 2","Rock 3","Rock 4","Rock 5","Latin Rock 1","Latin Rock 2","Groove Beat 1","Groove Beat 2","Groove Beat 3","Groove Beat 4","Groove Beat 5","Shuffle 1","Shuffle 2","Shuffle 3","Shuffle 4","Shuffle 5","Shuffle 6","1/2 Shuffle 1","1/2 Shuffle 2","16th Shuffle 1","16th Shuffle 2","Shuffle Reggae","Pop 1","Pop 2","Pop 3","Funk 1","Funk 2","Funk 3","Fusion 1","Fusion 2","Fusion 3","Swing","Bossa 1","Bossa 2","Bossa 3","Samba 1","Samba 2","Samba 3","Clave 1","Clave 2","909 Beat","909 Clap","R&B 1","R&B 2","Hi-Hat","Kick & Hi-Hat 1","Kick & Hi-Hat 2","Conga & Hi-Hat","Conga & Maracas","Metronome 1","Metronome 2"});
 StringArray AssignmentSettings::SourceNames({"EXP PEDAL","CTL1 PEDAL","CTL2 PEDAL","INPUT FX KNOB","TRACK FX KNOB","TR1 REC/DUB","TR2 REC/DUB","TR3 REC/DUB","TR4 REC/DUB","TR5 REC/DUB","TR1 PLAY/STOP","TR2 PLAY/STOP","TR3 PLAY/STOP","TR4 PLAY/STOP","TR5 PLAY/STOP","SYNC START/STOP","#CC 1","#CC 2","#CC 3","#CC 4","#CC 5","#CC 6","#CC 7","#CC 8","#CC 9","#CC 10","#CC 11","#CC 12","#CC 13","#CC 14","#CC 15","#CC 16","#CC 17","#CC 18","#CC 19","#CC 20","#CC 21","#CC 22","#CC 23","#CC 24","#CC 25","#CC 26","#CC 27","#CC 28","#CC 29","#CC 30","#CC 31","#CC 64","#CC 65","#CC 66","#CC 67","#CC 68","#CC 69","#CC 70","#CC 71","#CC 72","#CC 73","#CC 74","#CC 75","#CC 76","#CC 77","#CC 78","#CC 79","#CC 80","#CC 81","#CC 82","#CC 83","#CC 84","#CC 85","#CC 86","#CC 87","#CC 88","#CC 89","#CC 90","#CC 91","#CC 92","#CC 93","#CC 94","#CC 95"});
 
-#if RC505_VERSION == 1
-StringArray AssignmentSettings::TargetNames({"TR1 PLAY LEVEL","TR2 PLAY LEVEL","TR3 PLAY LEVEL","TR4 PLAY LEVEL","TR5 PLAY LEVEL","TR1 PAN","TR2 PAN","TR3 PAN","TR4 PAN","TR5 PAN","TGT TR REC/PLAY","TGT TR STOP","TGT TR CLEAR","TGT TR UNDO/REDO","TGT TR PLAY LEV","ALL START/STOP","UNDO/REDO","RHYTHM LEVEL","RHYYHM PATTERN","MEMORY LEVEL","TEMPO (TAP)","MASTER COMP","MASTER REVERB","OVERDUB MODE","INPUT FX ON/OFF","TRACK FX ON/OFF","INPUT FX CONTROL","TRACK FX CONTROL","INPUT FX TYP INC","INPUT FX TYP DEC","TRACK FX TYP INC","TRACK FX TYP DEC","INPUT FX INC","INPUT FX DEC","TRACK FX INC","TRACK FX DEC","MEMORY INC","MEMORY DEC","INPUT LEVEL","#CC 1","#CC 2","#CC 3","#CC 4","#CC 5","#CC 6","#CC 7","#CC 8","#CC 9","#CC 10","#CC 11","#CC 12","#CC 13","#CC 14","#CC 15","#CC 16","#CC 17","#CC 18","#CC 19","#CC 20","#CC 21","#CC 22","#CC 23","#CC 24","#CC 25","#CC 26","#CC 27","#CC 28","#CC 29","#CC 30","#CC 31","#CC 64","#CC 65","#CC 66","#CC 67","#CC 68","#CC 69","#CC 70","#CC 71","#CC 72","#CC 73","#CC 74","#CC 75","#CC 76","#CC 77","#CC 78","#CC 79","#CC 80","#CC 81","#CC 82","#CC 83","#CC 84","#CC 85","#CC 86","#CC 87","#CC 88","#CC 89","#CC 90","#CC 91","#CC 92","#CC 93","#CC 94","#CC 95"});
-StringArray InputFxSettings::SingleFxNames({"FILTER","PHASER","FLANGER","SYNTH","LO-FI","GUITAR TO BASS","TRANSPOSE","ROBOT","VOCAL DIST","VOCODER","DYNAMICS","EQ","ISOLATOR","OCTAVE","PAN","SLICER","DELAY","TAPE ECHO","GRANUAR DELAY","CHORUS","REVERB"});
-StringArray TrackFxSettings::SingleFxNames({"FILTER","PHASER","FLANGER","SYNTH","LO-FI","GUITAR TO BASS","TRANSPOSE","ROBOT","VOCAL DIST","VOCODER","DYNAMICS","EQ","ISOLATOR","OCTAVE","PAN","SLICER","DELAY","TAPE ECHO","GRANUAR DELAY","CHORUS","REVERB","BEAT REPEAT","BEAT SHIFT","BEAT SCATTER","VINYL FLICK"});
-#elif RC505_VERSION == 2
 StringArray AssignmentSettings::TargetNames({"TR1 REC/PLAY","TR2 REC/PLAY","TR3 REC/PLAY","TR4 REC/PLAY","TR5 REC/PLAY","TR1 PLAY/STOP","TR2 PLAY/STOP","TR3 PLAY/STOP","TR4 PLAY/STOP","TR5 PLAY/STOP","TR1 CLEAR","TR2 CLEAR","TR3 CLEAR","TR4 CLEAR","TR5 CLEAR","TR1 UNDO/REDO","TR2 UNDO/REDO","TR3 UNDO/REDO","TR4 UNDO/REDO","TR5 UNDO/REDO","TR1 PLAY LEVEL","TR2 PLAY LEVEL","TR3 PLAY LEVEL","TR4 PLAY LEVEL","TR5 PLAY LEVEL","TR1 PAN","TR2 PAN","TR3 PAN","TR4 PAN","TR5 PAN","TGT TR REC/PLAY","TGT TR STOP","TGT TR CLEAR","TGT TR UNDO/REDO","TGT TR PLAY LEV","ALL START/STOP","ALL CLEAR","UNDO/REDO","RHYTHM LEVEL","RHYYHM PATTERN","MEMORY LEVEL","TEMPO (TAP)","MASTER COMP","MASTER REVERB","OVERDUB MODE","INPUT FX ON/OFF","TRACK FX ON/OFF","INPUT FX A CONTROL","INPUT FX B CONTROL","INPUT FX C CONTROL","TRACK FX A CONTROL","TRACK FX B CONTROL","TRACK FX C CONTROL","INPUT FX A TYP INC","INPUT FX A TYP DEC","INPUT FX B TYP INC","INPUT FX B TYP DEC","INPUT FX C TYP INC","INPUT FX C TYP DEC","TRACK FX A TYP INC","TRACK FX A TYP DEC","TRACK FX B TYP INC","TRACK FX B TYP DEC","TRACK FX C TYP INC","TRACK FX C TYP DEC","INPUT FX CONTROL","TRACK FX CONTROL","INPUT FX TYP INC","INPUT FX TYP DEC","TRACK FX TYP INC","TRACK FX TYP DEC","INPUT FX INC","INPUT FX DEC","TRACK FX INC","TRACK FX DEC","TARGET TRACK INC","TARGET TRACK DEC","MEMORY INC","MEMORY DEC","INPUT LEVEL","#CC 1","#CC 2","#CC 3","#CC 4","#CC 5","#CC 6","#CC 7","#CC 8","#CC 9","#CC 10","#CC 11","#CC 12","#CC 13","#CC 14","#CC 15","#CC 16","#CC 17","#CC 18","#CC 19","#CC 20","#CC 21","#CC 22","#CC 23","#CC 24","#CC 25","#CC 26","#CC 27","#CC 28","#CC 29","#CC 30","#CC 31","#CC 64","#CC 65","#CC 66","#CC 67","#CC 68","#CC 69","#CC 70","#CC 71","#CC 72","#CC 73","#CC 74","#CC 75","#CC 76","#CC 77","#CC 78","#CC 79","#CC 80","#CC 81","#CC 82","#CC 83","#CC 84","#CC 85","#CC 86","#CC 87","#CC 88","#CC 89","#CC 90","#CC 91","#CC 92","#CC 93","#CC 94","#CC 95"});
 StringArray InputFxSettings::SingleFxNames({"FILTER","PHASER","FLANGER","SYNTH","LO-FI","RING MODULATOR","GUITAR TO BASS","SLOW GEAR","TRANSPOSE","PITCH BEND","ROBOT","VOCAL DIST","VOCODER","DYNAMICS","EQ","ISOLATOR","OCTAVE","PAN","TREMOLO","SLICER","DELAY","PANNING DELAY","TAPE ECHO","GRANUAR DELAY","ROLL","CHORUS","REVERB"});
 StringArray TrackFxSettings::SingleFxNames({"FILTER","PHASER","FLANGER","SYNTH","LO-FI","RING MODULATOR","GUITAR TO BASS","SLOW GEAR","TRANSPOSE","PITCH BEND","ROBOT","VOCAL DIST","VOCODER","DYNAMICS","EQ","ISOLATOR","OCTAVE","PAN","TREMOLO","SLICER","DELAY","PANNING DELAY","TAPE ECHO","GRANUAR DELAY","ROLL","CHORUS","REVERB","BEAT REPEAT","BEAT SHIFT","BEAT SCATTER","VINYL FLICK"});
-#endif
 
 StringArray InputFxSettings::MultiFxNames[3] = {
     StringArray({"FILTER","PHASER","SYNTH","LO-FI","RING MODULATOR","GUITAR TO BASS","SLOW GEAR","TRANSPOSE","PITCH BEND","ROBOT","VOCAL DIST","VOCODER","DYNAMICS","EQ","ISOLATOR","OCTAVE","PAN","TREMOLO","SLICER"}),
@@ -572,13 +542,8 @@ void Library::init() {
 
     setName("New Library");
     clearChanged();
-#if RC505_VERSION == 1
-    loadMemory(String(BinaryData::MEMORY_RC0_v1, BinaryData::MEMORY_RC0_v1Size));
-    loadSystem(String(BinaryData::SYSTEM_RC0_v1, BinaryData::SYSTEM_RC0_v1Size));
-#elif RC505_VERSION == 2
     loadMemory(String(BinaryData::MEMORY_RC0_v2, BinaryData::MEMORY_RC0_v2Size));
     loadSystem(String(BinaryData::SYSTEM_RC0_v2, BinaryData::SYSTEM_RC0_v2Size));
-#endif
 
     _factoryPatchXml = new XmlElement("mem");
     _patches[0]->saveToXml(_factoryPatchXml);
