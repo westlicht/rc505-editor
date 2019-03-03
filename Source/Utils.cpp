@@ -6,8 +6,8 @@
 bool Utils::resample(const AudioSampleBuffer &src, int srcSampleRate, AudioSampleBuffer &dst, int dstSampleRate)
 {
     int channels = src.getNumChannels();
-    int64 srcSamples = src.getNumSamples();
-    int64 dstSamples = (srcSamples * dstSampleRate) / srcSampleRate;
+    int srcSamples = src.getNumSamples();
+    int dstSamples = (srcSamples * dstSampleRate) / srcSampleRate;
     double ratio = double(dstSampleRate) / srcSampleRate;
     dst.setSize(channels, dstSamples);
     for (int channel = 0; channel < channels; ++channel) {
@@ -49,8 +49,8 @@ bool Utils::readAudioFile(const File &file, AudioSampleBuffer &buffer, int chann
         return false;
     }
 
-    buffer.setSize(channels, reader->lengthInSamples);
-    reader->read(&buffer, 0, reader->lengthInSamples, 0, true, true);
+    buffer.setSize(channels, int(reader->lengthInSamples));
+    reader->read(&buffer, 0, int(reader->lengthInSamples), 0, true, true);
 
     // Convert sample rate if necessary
     if (int(reader->sampleRate) != sampleRate) {
