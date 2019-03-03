@@ -129,9 +129,12 @@ PropertyTreeView::~PropertyTreeView()
 void PropertyTreeView::setGroup(RC505::Group *group)
 {
     ScopedPointer<XmlElement> state = getOpennessState(true);
-    _root = new PropertyTreeViewItem(group);
-    setRootItem(_root);
-    _root->setOpen(true);
+    auto newRoot = group ? new PropertyTreeViewItem(group) : nullptr;
+    setRootItem(newRoot);
+    _root = newRoot;
+    if (_root) {
+        _root->setOpen(true);
+    }
     if (state) {
         restoreOpennessState(*state, true);
     }
