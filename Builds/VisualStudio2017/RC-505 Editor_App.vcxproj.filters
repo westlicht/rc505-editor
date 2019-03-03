@@ -2359,9 +2359,6 @@
     <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JuceLibraryCode\BinaryData2.cpp">
-      <Filter>JUCE Library Code</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
@@ -4595,16 +4592,10 @@
     <None Include="..\..\Resources\Matrix.ttf">
       <Filter>RC-505 Editor\Resources</Filter>
     </None>
-    <None Include="..\..\Resources\MEMORY.RC0.v1">
+    <None Include="..\..\Resources\MEMORY.RC0">
       <Filter>RC-505 Editor\Resources</Filter>
     </None>
-    <None Include="..\..\Resources\MEMORY.RC0.v2">
-      <Filter>RC-505 Editor\Resources</Filter>
-    </None>
-    <None Include="..\..\Resources\SYSTEM.RC0.v1">
-      <Filter>RC-505 Editor\Resources</Filter>
-    </None>
-    <None Include="..\..\Resources\SYSTEM.RC0.v2">
+    <None Include="..\..\Resources\SYSTEM.RC0">
       <Filter>RC-505 Editor\Resources</Filter>
     </None>
     <None Include="..\..\Source\rubberband\kissfft\COPYING">

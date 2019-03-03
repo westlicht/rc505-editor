@@ -64,7 +64,7 @@
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\JuceLibraryCode\modules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;__MSVC__;NOMINMAX;JUCER_VS2017_78A5024=1;JUCE_APP_VERSION=0.0.3;JUCE_APP_VERSION_HEX=0x3;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;__MSVC__;NOMINMAX;JUCER_VS2017_78A5024=1;JUCE_APP_VERSION=0.1.0;JUCE_APP_VERSION_HEX=0x100;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -107,7 +107,7 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\JuceLibraryCode\modules;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;__MSVC__;NOMINMAX;JUCER_VS2017_78A5024=1;JUCE_APP_VERSION=0.0.3;JUCE_APP_VERSION_HEX=0x3;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;__MSVC__;NOMINMAX;JUCER_VS2017_78A5024=1;JUCE_APP_VERSION=0.1.0;JUCE_APP_VERSION_HEX=0x100;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_Unity=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
@@ -1877,7 +1877,6 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp"/>
-    <ClCompile Include="..\..\JuceLibraryCode\BinaryData2.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_devices.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_formats.cpp"/>
@@ -2625,10 +2624,8 @@
     <None Include="..\..\Resources\icon-large.png"/>
     <None Include="..\..\Resources\icon-small.png"/>
     <None Include="..\..\Resources\Matrix.ttf"/>
-    <None Include="..\..\Resources\MEMORY.RC0.v1"/>
-    <None Include="..\..\Resources\MEMORY.RC0.v2"/>
-    <None Include="..\..\Resources\SYSTEM.RC0.v1"/>
-    <None Include="..\..\Resources\SYSTEM.RC0.v2"/>
+    <None Include="..\..\Resources\MEMORY.RC0"/>
+    <None Include="..\..\Resources\SYSTEM.RC0"/>
     <None Include="..\..\Source\rubberband\kissfft\COPYING"/>
     <None Include="..\..\Source\rubberband\speex\COPYING"/>
     <None Include="..\..\JuceLibraryCode\modules\juce_audio_formats\codecs\flac\Flac Licence.txt"/>
