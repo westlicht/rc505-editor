@@ -11,6 +11,7 @@ add_library(samplerate STATIC
     extern/libsamplerate/src_zoh.c
 )
 target_include_directories(samplerate PUBLIC extern)
+target_compile_definitions(samplerate PRIVATE HAVE_LRINT HAVE_LRINTF)
 
 add_library(rubberband STATIC
     extern/rubberband/single/RubberBandSingle.cpp
@@ -75,7 +76,7 @@ target_link_libraries(editor
         editor_data
         samplerate
         rubberband
-        juce::juce_gui_extra
+        juce::juce_gui_basics
         juce::juce_audio_utils
     PUBLIC
         juce::juce_recommended_config_flags
