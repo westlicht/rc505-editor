@@ -69,21 +69,21 @@ public:
         }
     }
 
-    virtual Component *createItemComponent() override
+    virtual std::unique_ptr<Component> createItemComponent() override
     {
         PropertyTreeView *treeView = static_cast<PropertyTreeView *>(getOwnerView());
         if (RC505::BoolProperty *boolProperty = dynamic_cast<RC505::BoolProperty *>(_property)) {
-            return new PropertyTreeViewComponent<RC505::BoolProperty, BoolPropertyView>(treeView, boolProperty);
+            return std::make_unique<PropertyTreeViewComponent<RC505::BoolProperty, BoolPropertyView>>(treeView, boolProperty);
         } else if (RC505::BitSetProperty *bitSetProperty = dynamic_cast<RC505::BitSetProperty *>(_property)) {
-            return new PropertyTreeViewComponent<RC505::BitSetProperty, BitSetPropertyView>(treeView, bitSetProperty);
+            return std::make_unique<PropertyTreeViewComponent<RC505::BitSetProperty, BitSetPropertyView>>(treeView, bitSetProperty);
         } else if (RC505::IntProperty *intProperty = dynamic_cast<RC505::IntProperty *>(_property)) {
-            return new PropertyTreeViewComponent<RC505::IntProperty, IntPropertyView>(treeView, intProperty);
+            return std::make_unique<PropertyTreeViewComponent<RC505::IntProperty, IntPropertyView>>(treeView, intProperty);
         } else  if (RC505::EnumProperty *enumProperty = dynamic_cast<RC505::EnumProperty *>(_property)) {
-            return new PropertyTreeViewComponent<RC505::EnumProperty, EnumPropertyView>(treeView, enumProperty);
+            return std::make_unique<PropertyTreeViewComponent<RC505::EnumProperty, EnumPropertyView>>(treeView, enumProperty);
         } else  if (RC505::NameProperty *nameProperty = dynamic_cast<RC505::NameProperty *>(_property)) {
-            return new PropertyTreeViewComponent<RC505::NameProperty, NamePropertyView>(treeView, nameProperty);
+            return std::make_unique<PropertyTreeViewComponent<RC505::NameProperty, NamePropertyView>>(treeView, nameProperty);
         } else  if (RC505::ValueProperty *valueProperty = dynamic_cast<RC505::ValueProperty *>(_property)) {
-            return new PropertyTreeViewComponent<RC505::ValueProperty, ValuePropertyView>(treeView, valueProperty);
+            return std::make_unique<PropertyTreeViewComponent<RC505::ValueProperty, ValuePropertyView>>(treeView, valueProperty);
         }
         return nullptr;
     }
@@ -128,10 +128,10 @@ PropertyTreeView::~PropertyTreeView()
 
 void PropertyTreeView::setGroup(RC505::Group *group)
 {
-    ScopedPointer<XmlElement> state = getOpennessState(true);
-    auto newRoot = group ? new PropertyTreeViewItem(group) : nullptr;
-    setRootItem(newRoot);
-    _root = newRoot;
+    std::unique_ptr<XmlElement> state = getOpennessState(true);
+    auto newRoot = group ? std::make_unique<PropertyTreeViewItem>(group) : nullptr;
+    setRootItem(newRoot.get());
+    _root = std::move(newRoot);
     if (_root) {
         _root->setOpen(true);
     }
@@ -235,7 +235,7 @@ PropertySetTreeView::~PropertySetTreeView()
 
 void PropertySetTreeView::setGroup(RC505::Group *group)
 {
-    _root = new PropertySetTreeViewItem(group);
-    setRootItem(_root);
+    _root = std::make_unique<PropertySetTreeViewItem>(group);
+    setRootItem(_root.get());
     _root->setOpen(true);
 }

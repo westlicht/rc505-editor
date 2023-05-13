@@ -36,7 +36,7 @@ bool Utils::isValidAudioFile(const File &file)
 {
     AudioFormatManager audioFormatManager;
     audioFormatManager.registerBasicFormats();
-    ScopedPointer<AudioFormatReader> reader = audioFormatManager.createReaderFor(file);
+    std::unique_ptr<AudioFormatReader> reader(audioFormatManager.createReaderFor(file));
     return reader != nullptr;
 }
 
@@ -44,7 +44,7 @@ bool Utils::readAudioFile(const File &file, AudioSampleBuffer &buffer, int chann
 {
     AudioFormatManager audioFormatManager;
     audioFormatManager.registerBasicFormats();
-    ScopedPointer<AudioFormatReader> reader = audioFormatManager.createReaderFor(file);
+    std::unique_ptr<AudioFormatReader> reader(audioFormatManager.createReaderFor(file));
     if (!reader) {
         return false;
     }
@@ -70,7 +70,7 @@ bool Utils::writeAudioFile(const File &file, const AudioSampleBuffer &buffer, in
         return false;
     }
 
-    ScopedPointer<AudioFormatWriter> writer = format->createWriterFor(new FileOutputStream(file), sampleRate, channels, bits, StringPairArray(), 0);
+    std::unique_ptr<AudioFormatWriter> writer(format->createWriterFor(new FileOutputStream(file), sampleRate, channels, bits, StringPairArray(), 0));
     if (!writer) {
         return false;
     }

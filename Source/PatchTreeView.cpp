@@ -173,8 +173,8 @@ void PatchTreeView::beforeLibraryLoaded()
 
 void PatchTreeView::afterLibraryLoaded()
 {
-    _root = new RootPatchTreeViewItem(_library);
-    setRootItem(_root);
+    _root = std::make_unique<RootPatchTreeViewItem>(_library);
+    setRootItem(_root.get());
     selectPatch(_library.patches()[0]);
 }
 

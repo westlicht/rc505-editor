@@ -3,7 +3,7 @@
 #include "WaveformView.h"
 #include "PlayButton.h"
 
-ScopedPointer<CustomLookAndFeel> CustomLookAndFeel::_instance;
+std::unique_ptr<CustomLookAndFeel> CustomLookAndFeel::_instance;
 
 CustomLookAndFeel::CustomLookAndFeel()
 {
@@ -236,7 +236,7 @@ int CustomLookAndFeel::getAlertWindowButtonHeight()
 CustomLookAndFeel &CustomLookAndFeel::instance()
 {
     if (!_instance) {
-        _instance = new CustomLookAndFeel();
+        _instance = std::make_unique<CustomLookAndFeel>();
     }
     return *_instance;
 }

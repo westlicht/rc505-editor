@@ -34,7 +34,7 @@ private:
     void itemSelectionChanged();
 
     RC505::Library &_library;
-    ScopedPointer<RootPatchTreeViewItem> _root;
+    std::unique_ptr<RootPatchTreeViewItem> _root;
     ListenerList<Listener> _listeners;
 
     friend class PatchTreeViewItem;

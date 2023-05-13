@@ -15,6 +15,10 @@ public:
         return true;
     }
 
+    virtual void tryToCloseDocumentAsync(Component* component, std::function<void (bool)> callback) override {
+        callback(true);
+    }
+
     virtual void paint(Graphics &g) override
     {
         if (getNumDocuments() > 0) {
@@ -35,11 +39,11 @@ MainComponent::MainComponent() :
     setSize(1400, 800);
     setAudioChannels(2, 2);
 
-    _multiDocumentPanel = new MainMultiDocumentPanel();
+    _multiDocumentPanel = std::make_unique<MainMultiDocumentPanel>();
     _multiDocumentPanel->setSize(getWidth(), getHeight());
     _multiDocumentPanel->setBackgroundColour(Colours::white);
     _multiDocumentPanel->setLayoutMode(MultiDocumentPanel::MaximisedWindowsWithTabs);
-    addAndMakeVisible(_multiDocumentPanel);
+    addAndMakeVisible(_multiDocumentPanel.get());
     addAndMakeVisible(_tooltipPanel);
 
     resized();

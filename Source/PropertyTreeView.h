@@ -17,7 +17,7 @@ public:
     void setValueWidth(int valueWidth);
 
 private:
-    ScopedPointer<PropertyTreeViewItem> _root;
+    std::unique_ptr<PropertyTreeViewItem> _root;
     int _labelWidth;
     int _valueWidth;
 
@@ -38,7 +38,7 @@ public:
     void setGroup(RC505::Group *group);
 
 private:
-    ScopedPointer<PropertySetTreeViewItem> _root;
+    std::unique_ptr<PropertySetTreeViewItem> _root;
 
     friend class PropertySetTreeViewItem;
 

@@ -1425,7 +1425,7 @@ private:
     SystemSettings _systemSettings;
     ListenerList<Listener> _listeners;
 
-    ScopedPointer<XmlElement> _factoryPatchXml;
+    std::unique_ptr<XmlElement> _factoryPatchXml;
 
     friend class ValueProperty;
     friend class Patch;

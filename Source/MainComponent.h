@@ -56,7 +56,7 @@ private:
     void documentsChanged();
 
     AudioEngine &_audioEngine;
-    ScopedPointer<MainMultiDocumentPanel> _multiDocumentPanel;
+    std::unique_ptr<MainMultiDocumentPanel> _multiDocumentPanel;
     TooltipPanel _tooltipPanel;
     int _newLibraryIndex = 1;
 

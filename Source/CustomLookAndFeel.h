@@ -35,7 +35,7 @@ public:
     static void free();
 
 private:
-    static ScopedPointer<CustomLookAndFeel> _instance;
+    static std::unique_ptr<CustomLookAndFeel> _instance;
 
     Typeface::Ptr _matrixTypeface;
     Font _matrixFont;

@@ -23,15 +23,15 @@ public:
 
         LookAndFeel::setDefaultLookAndFeel(&CustomLookAndFeel::instance());
 
-        _mainMenuModel = new MainMenuModel();\
+        _mainMenuModel = std::make_unique<MainMenuModel>();
         String windowTitle = String(ProjectInfo::projectName) + " (" + ProjectInfo::versionString + ")";
-        _mainWindow = new MainWindow(windowTitle);
+        _mainWindow = std::make_unique<MainWindow>(windowTitle);
         getCommandManager().registerAllCommandsForTarget(&_mainWindow->mainComponent());
 
 #if JUCE_MAC
-        MenuBarModel::setMacMainMenu(_mainMenuModel, nullptr);
+        MenuBarModel::setMacMainMenu(_mainMenuModel.get(), nullptr);
 #else
-        _mainWindow->setMenuBar(_mainMenuModel);
+        _mainWindow->setMenuBar(_mainMenuModel.get());
 #endif
     }
 
@@ -73,7 +73,7 @@ public:
 
     static ApplicationCommandManager &getCommandManager()
     {
-        ApplicationCommandManager *cm = RC505Application::getApp()._commandManager;
+        ApplicationCommandManager *cm = RC505Application::getApp()._commandManager.get();
         jassert(cm != nullptr);
         return *cm;
     }
@@ -126,10 +126,10 @@ public:
 
     virtual void createFileMenu(PopupMenu &menu)
     {
-        menu.addCommandItem(_commandManager, CommandIDs::newLibrary);
+        menu.addCommandItem(_commandManager.get(), CommandIDs::newLibrary);
         menu.addSeparator();
 
-        menu.addCommandItem(_commandManager, CommandIDs::openLibrary);
+        menu.addCommandItem(_commandManager.get(), CommandIDs::openLibrary);
 #if 0
         PopupMenu recentFiles;
         recentFiles.addItem(1, "recent 1");
@@ -138,15 +138,15 @@ public:
 #endif
         menu.addSeparator();
 
-        menu.addCommandItem(_commandManager, CommandIDs::saveLibrary);
-        menu.addCommandItem(_commandManager, CommandIDs::saveLibraryAs);
+        menu.addCommandItem(_commandManager.get(), CommandIDs::saveLibrary);
+        menu.addCommandItem(_commandManager.get(), CommandIDs::saveLibraryAs);
         menu.addSeparator();
 
-        menu.addCommandItem(_commandManager, CommandIDs::closeLibrary);
+        menu.addCommandItem(_commandManager.get(), CommandIDs::closeLibrary);
 
 #if !JUCE_MAC
         menu.addSeparator();
-        menu.addCommandItem(_commandManager, StandardApplicationCommandIDs::quit);
+        menu.addCommandItem(_commandManager.get(), StandardApplicationCommandIDs::quit);
 #endif
     }
 
@@ -199,13 +199,13 @@ public:
 private:
     void initCommandManager()
     {
-        _commandManager = new ApplicationCommandManager();
+        _commandManager = std::make_unique<ApplicationCommandManager>();
         _commandManager->registerAllCommandsForTarget(this);
     }
 
-    ScopedPointer<MainMenuModel> _mainMenuModel;
-    ScopedPointer<MainWindow> _mainWindow;
-    ScopedPointer<ApplicationCommandManager> _commandManager;
+    std::unique_ptr<MainMenuModel> _mainMenuModel;
+    std::unique_ptr<MainWindow> _mainWindow;
+    std::unique_ptr<ApplicationCommandManager> _commandManager;
 };
 
 START_JUCE_APPLICATION(RC505Application)

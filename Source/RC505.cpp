@@ -414,7 +414,7 @@ void Patch::setName(const String &name)
 void Patch::clear()
 {
     int oldIndex = _index;
-    loadFromXml(_library->_factoryPatchXml);
+    loadFromXml(_library->_factoryPatchXml.get());
     _index = oldIndex;
     for (const auto &track : _tracks) {
         track->clearAudioBuffer();
@@ -545,8 +545,8 @@ void Library::init() {
     loadMemory(String(BinaryData::MEMORY_RC0, BinaryData::MEMORY_RC0Size));
     loadSystem(String(BinaryData::SYSTEM_RC0, BinaryData::SYSTEM_RC0Size));
 
-    _factoryPatchXml = new XmlElement("mem");
-    _patches[0]->saveToXml(_factoryPatchXml);
+    _factoryPatchXml = std::make_unique<XmlElement>("mem");
+    _patches[0]->saveToXml(_factoryPatchXml.get());
 
     notifyLocked([&] () { _listeners.call(&Listener::afterLibraryLoaded); });
 }
@@ -638,7 +638,7 @@ Library::Info Library::libraryInfo(const File &path) {
     File dataPath = File::addTrailingSeparator(path.getFullPathName()) + "DATA";
     File memoryPath = File::addTrailingSeparator(dataPath.getFullPathName()) + "MEMORY.RC0";
     if (dataPath.exists() && memoryPath.exists()) {
-        ScopedPointer<XmlElement> xml(XmlDocument::parse(memoryPath.loadFileAsString()));
+        std::unique_ptr<XmlElement> xml(XmlDocument::parse(memoryPath.loadFileAsString()));
         if (xml && xml->hasAttribute("revision")) {
             info.valid = true;
             info.revision = xml->getIntAttribute("revision");
@@ -692,7 +692,7 @@ bool Library::loadMemory(const File &path)
 bool Library::loadMemory(const String &data)
 {
     DBG("Parsing Memory XML ...");
-    ScopedPointer<XmlElement> xml(XmlDocument::parse(data));
+    std::unique_ptr<XmlElement> xml(XmlDocument::parse(data));
     if (!xml) {
         return false;
     }
@@ -717,7 +717,7 @@ bool Library::loadMemory(const String &data)
 bool Library::saveMemory(const File &path)
 {
     DBG("Generating Memory XML ...");
-    ScopedPointer<XmlElement> xml = new XmlElement("database");
+    std::unique_ptr<XmlElement> xml = std::make_unique<XmlElement>("database");
     xml->setAttribute("name", "RC-505");
     xml->setAttribute("revision", Revision);
     for (auto patch : _patches) {
@@ -738,7 +738,7 @@ bool Library::loadSystem(const File &file)
 bool Library::loadSystem(const String &data)
 {
     DBG("Parsing System XML ...");
-    ScopedPointer<XmlElement> xml(XmlDocument::parse(data));
+    std::unique_ptr<XmlElement> xml(XmlDocument::parse(data));
     if (!xml) {
         return false;
     }
@@ -751,7 +751,7 @@ bool Library::loadSystem(const String &data)
 bool Library::saveSystem(const File &path)
 {
     DBG("Generating System XML ...");
-    ScopedPointer<XmlElement> xml = new XmlElement("database");
+    std::unique_ptr<XmlElement> xml = std::make_unique<XmlElement>("database");
     xml->setAttribute("name", "RC-505");
     xml->setAttribute("revision", Revision);
     if (!_systemSettings.saveToXml(xml->createNewChildElement("sys"))) {
