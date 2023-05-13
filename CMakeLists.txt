@@ -11,11 +11,13 @@ add_library(samplerate STATIC
     extern/libsamplerate/src_zoh.c
 )
 target_include_directories(samplerate PUBLIC extern)
+target_compile_definitions(samplerate PRIVATE HAVE_LRINT HAVE_LRINTF)
 
 add_library(rubberband STATIC
     extern/rubberband/single/RubberBandSingle.cpp
 )
 target_compile_features(rubberband PUBLIC cxx_std_11)
+target_compile_definitions(rubberband PRIVATE NOMINMAX)
 target_include_directories(rubberband PRIVATE extern/rubberband/src PUBLIC extern/rubberband)
 
 juce_add_gui_app(
@@ -67,6 +69,8 @@ target_sources(editor PRIVATE
 target_compile_definitions(editor
     PRIVATE
         JUCE_MODAL_LOOPS_PERMITTED
+        JUCE_WEB_BROWSER=0
+        JUCE_USE_CURL=0
 )
 
 target_link_libraries(editor
@@ -74,7 +78,7 @@ target_link_libraries(editor
         editor_data
         samplerate
         rubberband
-        juce::juce_gui_extra
+        juce::juce_gui_basics
         juce::juce_audio_utils
     PUBLIC
         juce::juce_recommended_config_flags
