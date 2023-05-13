@@ -1,4 +1,4 @@
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "MemoryView.h"
 #include "PropertySetDialog.h"
 #include "CustomLookAndFeel.h"

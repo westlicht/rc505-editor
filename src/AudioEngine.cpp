@@ -1,4 +1,4 @@
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "AudioEngine.h"
 
 SharedResourcePointer<AudioEngine> AudioEngine::_instance;

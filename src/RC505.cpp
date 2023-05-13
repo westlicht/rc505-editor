@@ -726,7 +726,7 @@ bool Library::saveMemory(const File &path)
         }
     }
     DBG("Saving Memory XML ...");
-    return xml->writeToFile(path, "");
+    return xml->writeTo(path);
 }
 
 bool Library::loadSystem(const File &file)
@@ -758,7 +758,7 @@ bool Library::saveSystem(const File &path)
         return false;
     }
     DBG("Saving System XML ...");
-    return xml->writeToFile(path, "");
+    return xml->writeTo(path);
 }
 
 bool Library::saveWaveFiles(bool inplace, StatusCallback statusCallback)

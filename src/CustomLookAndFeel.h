@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 
 enum ColourIds {
     mainBackgroundColourId          = 0x2340000,

@@ -1,4 +1,4 @@
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "PatchView.h"
 #include "Utils.h"
 #include "AudioEngine.h"

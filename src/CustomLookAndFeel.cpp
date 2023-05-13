@@ -1,4 +1,4 @@
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "CustomLookAndFeel.h"
 #include "WaveformView.h"
 #include "PlayButton.h"

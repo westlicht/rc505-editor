@@ -1,4 +1,4 @@
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "TrackLabel.h"
 #include "CustomLookAndFeel.h"
 

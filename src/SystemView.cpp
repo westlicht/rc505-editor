@@ -1,4 +1,4 @@
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "SystemView.h"
 
 SystemView::SystemView(RC505::Library &library) :

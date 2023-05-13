@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "PropertyTreeView.h"
 
 class PropertySetDialog : public Component,
