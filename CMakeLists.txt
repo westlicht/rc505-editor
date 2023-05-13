@@ -69,6 +69,7 @@ target_sources(editor PRIVATE
 target_compile_definitions(editor
     PRIVATE
         JUCE_MODAL_LOOPS_PERMITTED
+        JUCE_WEB_BROWSER=0
 )
 
 target_link_libraries(editor
