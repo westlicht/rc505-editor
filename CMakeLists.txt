@@ -26,8 +26,8 @@ juce_add_gui_app(
     COMPANY_NAME "westlicht"
     COMPANY_WEBSITE "westlicht.ch"
     COMPANY_EMAIL "simon.kallweit@gmail.com"
-    ICON_BIG "Resources/icon-large.png"
-    ICON_SMALL "Resources/icon-small.png"
+    ICON_BIG "resources/icon-large.png"
+    ICON_SMALL "resources/icon-small.png"
 )
 
 juce_generate_juce_header(editor)
@@ -36,10 +36,10 @@ juce_add_binary_data(
     editor_data
     HEADER_NAME BinaryData.h
     SOURCES
-    Resources/icon-large.png
-    Resources/Matrix.ttf
-    Resources/MEMORY.RC0
-    Resources/SYSTEM.RC0
+    resources/icon-large.png
+    resources/Matrix.ttf
+    resources/MEMORY.RC0
+    resources/SYSTEM.RC0
 )
 
 target_sources(editor PRIVATE
