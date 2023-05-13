@@ -16,6 +16,7 @@ add_library(rubberband STATIC
     extern/rubberband/single/RubberBandSingle.cpp
 )
 target_compile_features(rubberband PUBLIC cxx_std_11)
+target_compile_definitions(rubberband PRIVATE NOMINMAX)
 target_include_directories(rubberband PRIVATE extern/rubberband/src PUBLIC extern/rubberband)
 
 juce_add_gui_app(
