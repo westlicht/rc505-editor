@@ -28,18 +28,18 @@ jobs:
         with:
           submodules: recursive
 
-      - if: ${{ runner.os == 'Linux' }}
-        name: Install JUCE dependencies (Linux only)
-        id: juce_dependencies
-        run: | 
-          sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev libfreetype6-dev libx11-dev libxinerama-dev libxrandr-dev libxcursor-dev mesa-common-dev libasound2-dev freeglut3-dev libxcomposite-dev
-
       # Fetch latest cmake + ninja.
       - uses: lukka/get-cmake@latest
 
       # Fetch visual studio.
       - uses: ilammy/msvc-dev-cmd@v1
+
+      - if: ${{ runner.os == 'Linux' }}
+        name: Install JUCE dependencies (Linux only)
+        id: juce_dependencies
+        run: | 
+          sudo apt-get update
+          sudo apt-get install -y libasound2-dev libcurl4-openssl-dev libfreetype6-dev libx11-dev libxcomposite-dev libxcursor-dev libxext-dev libxinerama-dev libxrandr-dev libxrender-dev
 
       - name: Configure
         run: |
