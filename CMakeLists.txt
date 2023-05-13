@@ -59,25 +59,25 @@ juce_add_binary_data(
 )
 
 target_sources(editor PRIVATE
-    Source/AudioEngine.cpp
-    Source/CustomLookAndFeel.cpp
-    Source/LibraryView.cpp
-    Source/LooperEngine.cpp
-    Source/Main.cpp
-    Source/MainComponent.cpp
-    Source/MemoryView.cpp
-    Source/PatchTreeView.cpp
-    Source/PatchView.cpp
-    Source/PropertySetDialog.cpp
-    Source/PropertyTreeView.cpp
-    Source/PropertyView.cpp
-    Source/RC505.cpp
-    Source/SystemView.cpp
-    Source/TooltipPanel.cpp
-    Source/TrackLabel.cpp
-    Source/TrackView.cpp
-    Source/Utils.cpp
-    Source/WaveformView.cpp
+    src/AudioEngine.cpp
+    src/CustomLookAndFeel.cpp
+    src/LibraryView.cpp
+    src/LooperEngine.cpp
+    src/Main.cpp
+    src/MainComponent.cpp
+    src/MemoryView.cpp
+    src/PatchTreeView.cpp
+    src/PatchView.cpp
+    src/PropertySetDialog.cpp
+    src/PropertyTreeView.cpp
+    src/PropertyView.cpp
+    src/RC505.cpp
+    src/SystemView.cpp
+    src/TooltipPanel.cpp
+    src/TrackLabel.cpp
+    src/TrackView.cpp
+    src/Utils.cpp
+    src/WaveformView.cpp
 )
 
 target_compile_definitions(editor
