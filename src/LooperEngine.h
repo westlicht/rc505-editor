@@ -36,7 +36,7 @@ public:
     };
 
     LooperEngine();
-    ~LooperEngine();
+    ~LooperEngine() override;
 
     void setPatch(RC505::Patch *patch);
     

@@ -8,7 +8,7 @@ MemoryView::MemoryView(RC505::Library &library) :
     _patchTreeView(library),
     _patchSettingsBuffer(nullptr)
 {
-    addKeyListener(this);
+    // addKeyListener(this);
 
     addAndMakeVisible(_patchTreeView);
     addAndMakeVisible(_patchView);
@@ -49,6 +49,15 @@ void MemoryView::resized()
     _patchView.setBounds(PatchTreeViewWidth + 1, 0, getWidth() - PatchTreeViewWidth - 1, getHeight());
 }
 
+bool MemoryView::keyPressed(const KeyPress &key)
+{
+    if (key.isKeyCode(KeyPress::spaceKey)) {
+        _patchView.togglePlaying();
+        return true;
+    }
+    return false;
+}
+
 void MemoryView::patchSelected(RC505::Patch *patch)
 {
     _patchView.setPatch(patch);
@@ -65,15 +74,6 @@ void MemoryView::beforeLibraryLoaded()
 void MemoryView::afterLibraryLoaded()
 {
     patchSelected(_library.patches()[0]);
-}
-
-bool MemoryView::keyPressed(const KeyPress &key, Component *originatingComponent)
-{
-    if (key.isKeyCode(KeyPress::spaceKey)) {
-        _patchView.togglePlaying();
-        return true;
-    }
-    return false;
 }
 
 void MemoryView::buttonClicked(Button *button)

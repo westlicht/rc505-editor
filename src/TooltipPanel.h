@@ -6,7 +6,7 @@ class TooltipPanel : public Component,
                      public Timer {
 public:
     TooltipPanel();
-    virtual ~TooltipPanel();
+    virtual ~TooltipPanel() override;
 
     void setDefaultTooltip(const String &tooltip);
 

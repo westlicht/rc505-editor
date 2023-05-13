@@ -43,6 +43,7 @@ void ValuePropertyView::updateValue()
 
 void ValuePropertyView::valueChanged(RC505::ValueProperty *property)
 {
+    ignoreUnused(property);
     updateValue();
 }
 
@@ -89,11 +90,13 @@ void BoolPropertyView::updateValue()
 
 void BoolPropertyView::valueChanged(RC505::ValueProperty *property)
 {
+    ignoreUnused(property);
     updateValue();
 }
 
 void BoolPropertyView::buttonClicked(Button *button)
 {
+    ignoreUnused(button);
     if (_property) {
         _property->setValue(_toggleButton.getToggleState());
     }
@@ -151,6 +154,7 @@ void BitSetPropertyView::updateValue()
 
 void BitSetPropertyView::valueChanged(RC505::ValueProperty *property)
 {
+    ignoreUnused(property);
     updateValue();
 }
 
@@ -212,13 +216,15 @@ void IntPropertyView::updateValue()
 
 void IntPropertyView::valueChanged(RC505::ValueProperty *property)
 {
+    ignoreUnused(property);
     updateValue();
 }
 
 void IntPropertyView::sliderValueChanged(Slider *slider)
 {
+    ignoreUnused(slider);
     if (_property) {
-        _property->setValue(_property->type().fromFloat(_slider.getValue()));
+        _property->setValue(_property->type().fromFloat(float(_slider.getValue())));
     }
 }
 
@@ -267,11 +273,13 @@ void EnumPropertyView::updateValue()
 
 void EnumPropertyView::valueChanged(RC505::ValueProperty *property)
 {
+    ignoreUnused(property);
     updateValue();
 }
 
 void EnumPropertyView::comboBoxChanged(ComboBox *comboBox)
 {
+    ignoreUnused(comboBox);
     if (_property) {
         _property->setValue(_comboBox.getSelectedItemIndex());
     }
@@ -321,11 +329,13 @@ void NamePropertyView::updateValue()
 
 void NamePropertyView::valueChanged(RC505::ValueProperty *property)
 {
+    ignoreUnused(property);
     updateValue();
 }
 
 void NamePropertyView::textEditorTextChanged(TextEditor &textEditor)
 {
+    ignoreUnused(textEditor);
     if (_property) {
         _property->setValue(_textEditor.getText());
     }

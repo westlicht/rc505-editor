@@ -54,7 +54,7 @@ void WaveformView::paint(Graphics &g)
     _audioThumbnail.drawChannels(g, area, 0.0, _audioThumbnail.getTotalLength(), 0.8f);
 
     if (_playing) {
-        float x = area.getX() + _playPosition * area.getWidth();
+        float x = area.getX() + float(_playPosition) * area.getWidth();
         g.setColour(findColour(cursorColourId));
         g.drawLine(x, area.getY(), x, area.getY() + area.getHeight());
     }
@@ -77,10 +77,12 @@ void WaveformView::resized()
 
 bool WaveformView::isInterestedInFileDrag(const StringArray &files)
 {
+    ignoreUnused(files);
     return true;
 }
 
 void WaveformView::filesDropped(const StringArray &files, int x, int y)
 {
+    ignoreUnused(x, y);
     _listeners.call(&Listener::waveformViewFilesDropped, this, files);
 }

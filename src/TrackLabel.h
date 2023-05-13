@@ -14,7 +14,7 @@ public:
     };
 
     TrackLabel(int index);
-    ~TrackLabel();
+    ~TrackLabel() override;
 
     void addListener(Listener *listener) { _listeners.add(listener); }
     void removeListener(Listener *listener) { _listeners.remove(listener); }

@@ -34,6 +34,7 @@ public:
 
     virtual void itemSelectionChanged(bool isNowSelected) override
     {
+        ignoreUnused(isNowSelected);
         PatchTreeView *tree = dynamic_cast<PatchTreeView *>(getOwnerView());
         tree->itemSelectionChanged();
     }

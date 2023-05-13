@@ -16,7 +16,7 @@ public:
 class TrackView : public Component {
 public:
     TrackView(int index);
-    ~TrackView();
+    ~TrackView() override;
 
     int index() const { return _index; }
 

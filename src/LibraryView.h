@@ -10,7 +10,7 @@ class LibraryView : public Component,
                     public RC505::Library::Listener {
 public:
     LibraryView();
-    virtual ~LibraryView();
+    virtual ~LibraryView() override;
 
     RC505::Library &library() { return _library; }
 

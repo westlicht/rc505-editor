@@ -329,13 +329,13 @@ void Track::clearAudioBuffer()
 
 void Track::saveWaveTo(const File &file) const {
     switch (_waveState) {
+    case WaveEmpty:
+        break;
     case WaveOriginal:
         _originalWaveFile.copyFileTo(file);
         break;
     case WaveChanged:
         Utils::writeAudioFile(file, _audioBuffer);
-        break;
-    default:
         break;
     }
 }

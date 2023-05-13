@@ -22,7 +22,7 @@ public:
     };
 
     WaveformView();
-    ~WaveformView();
+    ~WaveformView() override;
 
     void setAudioBuffer(const AudioSampleBuffer *audioBuffer);
 

@@ -8,7 +8,7 @@
 class SystemView : public Component {
 public:
     SystemView(RC505::Library &Library);
-    ~SystemView();
+    ~SystemView() override;
 
     // Component
     virtual void paint(Graphics &g) override;

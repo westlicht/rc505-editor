@@ -238,8 +238,8 @@ public:
         float min;
         float max;
         float skew;
-        Type(ToFloat toFloat, FromFloat fromFloat, Formatter formatter, float min, float max, float skew = 1.f) :
-            toFloat(toFloat), fromFloat(fromFloat), formatter(formatter), min(min), max(max), skew(skew)
+        Type(ToFloat toFloat_, FromFloat fromFloat_, Formatter formatter_, float min_, float max_, float skew_ = 1.f) :
+            toFloat(toFloat_), fromFloat(fromFloat_), formatter(formatter_), min(min_), max(max_), skew(skew_)
         {}
     };
 
@@ -1359,7 +1359,7 @@ public:
         virtual void beforeLibrarySaved() {}
         virtual void afterLibrarySaved() {}
         virtual void libraryClosed() {}
-        virtual void propertyValueChanged(ValueProperty *property) {}
+        virtual void propertyValueChanged(ValueProperty *property) { ignoreUnused(property); }
     };
 
     Library();

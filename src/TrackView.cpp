@@ -46,6 +46,7 @@ void TrackView::setTrack(RC505::Track *track)
 
 void TrackView::paint(Graphics &g)
 {
+    ignoreUnused(g);
 }
 
 void TrackView::resized()

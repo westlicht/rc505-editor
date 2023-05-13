@@ -16,7 +16,7 @@ public:
     };
 
     PatchTreeView(RC505::Library &library);
-    ~PatchTreeView();
+    ~PatchTreeView() override;
 
     void selectPatch(RC505::Patch *patch);
     RC505::Patch *selectedPatch() const;

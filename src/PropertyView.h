@@ -23,7 +23,7 @@ class ValuePropertyView : public PropertyView,
                           public RC505::ValueProperty::Listener {
 public:
     ValuePropertyView(RC505::ValueProperty *property = nullptr);
-    ~ValuePropertyView();
+    ~ValuePropertyView() override;
 
     const Label &label() const { return _label; }
           Label &label()       { return _label; }
@@ -57,7 +57,7 @@ class BoolPropertyView : public PropertyView,
                          public Button::Listener {
 public:
     BoolPropertyView(RC505::BoolProperty *property = nullptr);
-    ~BoolPropertyView();
+    ~BoolPropertyView() override;
 
     const ToggleButton &toggleButton() const { return _toggleButton; }
           ToggleButton &toggleButton()       { return _toggleButton; }
@@ -94,7 +94,7 @@ class BitSetPropertyView : public PropertyView,
                            public Button::Listener {
 public:
     BitSetPropertyView(RC505::BitSetProperty *property = nullptr);
-    ~BitSetPropertyView();
+    ~BitSetPropertyView() override;
 
     const ToggleButton &toggleButton(int index) const { return *_toggleButtons[index]; }
           ToggleButton &toggleButton(int index)       { return *_toggleButtons[index]; }
@@ -150,7 +150,7 @@ private:
 
 public:
     IntPropertyView(RC505::IntProperty *property = nullptr);
-    ~IntPropertyView();
+    ~IntPropertyView() override;
 
     const Slider &slider() const { return _slider; }
           Slider &slider()       { return _slider; }
@@ -187,7 +187,7 @@ class EnumPropertyView : public PropertyView,
                          public ComboBox::Listener {
 public:
     EnumPropertyView(RC505::EnumProperty *property = nullptr);
-    ~EnumPropertyView();
+    ~EnumPropertyView() override;
 
     const ComboBox &comboBox() const { return _comboBox; }
           ComboBox &comboBox()       { return _comboBox; }
@@ -224,7 +224,7 @@ class NamePropertyView : public PropertyView,
                          public TextEditor::Listener {
 public:
     NamePropertyView(RC505::NameProperty *property = nullptr);
-    ~NamePropertyView();
+    ~NamePropertyView() override;
 
     const TextEditor &textEditor() const { return _textEditor; }
           TextEditor &textEditor()       { return _textEditor; }

@@ -13,6 +13,8 @@ public:
 
     void initialise(const String& commandLine) override
     {
+        ignoreUnused(commandLine);
+
         if (sendCommandLineToPreexistingInstance()) {
             DBG("Another instance is running - quitting...");
             quit();
@@ -62,6 +64,7 @@ public:
 
     void anotherInstanceStarted(const String &commandLine) override
     {
+        ignoreUnused(commandLine);
     }
 
     static RC505Application &getApp()
@@ -177,7 +180,7 @@ public:
             addKeyListener(RC505Application::getCommandManager().getKeyMappings());
         }
 
-        ~MainWindow()
+        virtual ~MainWindow() override
         {
             clearContentComponent();
         }

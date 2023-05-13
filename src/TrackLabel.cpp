@@ -20,6 +20,7 @@ void TrackLabel::paint (Graphics &g)
 
 void TrackLabel::mouseDrag(const MouseEvent &event)
 {
+    ignoreUnused(event);
     var description(Array<var>({var("Track"), var(_index)}));
     dynamic_cast<DragAndDropContainer *>(getTopLevelComponent())->startDragging(description, this);
 }

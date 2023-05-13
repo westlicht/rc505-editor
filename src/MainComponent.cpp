@@ -12,10 +12,12 @@ public:
     }
 
     virtual bool tryToCloseDocument(Component *component) override {
+        ignoreUnused(component);
         return true;
     }
 
     virtual void tryToCloseDocumentAsync(Component* component, std::function<void (bool)> callback) override {
+        ignoreUnused(component);
         callback(true);
     }
 

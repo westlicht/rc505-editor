@@ -16,7 +16,7 @@ class MainComponent : public AudioAppComponent,
                       public Timer {
 public:
     MainComponent();
-    ~MainComponent();
+    ~MainComponent() override;
 
     void newLibrary();
     void openLibrary();

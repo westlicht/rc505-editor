@@ -55,7 +55,7 @@ bool Utils::readAudioFile(const File &file, AudioSampleBuffer &buffer, int chann
     // Convert sample rate if necessary
     if (int(reader->sampleRate) != sampleRate) {
         AudioSampleBuffer temp;
-        resample(buffer, reader->sampleRate, temp, sampleRate);
+        resample(buffer, int(reader->sampleRate), temp, sampleRate);
         buffer = temp;
     }
     return true;
@@ -70,7 +70,7 @@ bool Utils::writeAudioFile(const File &file, const AudioSampleBuffer &buffer, in
         return false;
     }
 
-    std::unique_ptr<AudioFormatWriter> writer(format->createWriterFor(new FileOutputStream(file), sampleRate, channels, bits, StringPairArray(), 0));
+    std::unique_ptr<AudioFormatWriter> writer(format->createWriterFor(new FileOutputStream(file), sampleRate, (unsigned int)channels, bits, StringPairArray(), 0));
     if (!writer) {
         return false;
     }

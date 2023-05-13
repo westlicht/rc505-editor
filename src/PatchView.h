@@ -16,7 +16,7 @@ class PatchView : public Component,
                   public WaveformView::Listener {
 public:
     PatchView();
-    ~PatchView();
+    ~PatchView() override;
 
     RC505::Patch *patch() const { return _patch; }
     void setPatch(RC505::Patch *patch);

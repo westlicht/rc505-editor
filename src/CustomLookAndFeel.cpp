@@ -132,6 +132,8 @@ void CustomLookAndFeel::drawButtonBackground(Graphics &g, Button &button, const 
 
 void CustomLookAndFeel::drawTreeviewPlusMinusBox(Graphics &g, const Rectangle<float> &area, Colour backgroundColour, bool isOpen, bool isMouseOver)
 {
+    ignoreUnused(backgroundColour);
+
     Path p;
     p.addTriangle(0.f, 0.f, 1.f, isOpen ? 0.f : 0.5f, isOpen ? 0.5f : 0.f, 1.f);
     g.setColour(findColour(mainBorderColourId).brighter(isMouseOver ? 0.4f : 0.f));
@@ -145,6 +147,8 @@ void CustomLookAndFeel::drawTickBox(Graphics &g, Component &component,
                                     bool isMouseOverButton,
                                     bool isButtonDown)
 {
+    ignoreUnused(ticked, isEnabled, isMouseOverButton, isButtonDown);
+
     const float boxSize = w * 0.7f;
 
     g.setColour(component.findColour(mainTextColourId).withMultipliedAlpha(isEnabled ? 1.f : 0.5f));
@@ -213,6 +217,7 @@ void CustomLookAndFeel::drawProgressBar(Graphics &g, ProgressBar &progressBar,
                                         int width, int height,
                                         double progress, const String& textToShow)
 {
+    ignoreUnused(progressBar);
     g.fillAll(findColour(ProgressBar::backgroundColourId));
     g.setColour(findColour(mainBorderColourId));
     g.drawRect(0, 0, width, height);

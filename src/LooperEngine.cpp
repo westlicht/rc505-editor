@@ -49,7 +49,7 @@ double LooperEngine::Track::playPosition() const
 
 void LooperEngine::Track::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
-
+    ignoreUnused(samplesPerBlockExpected, sampleRate);
 }
 
 void LooperEngine::Track::releaseResources()
@@ -79,7 +79,7 @@ void LooperEngine::Track::getNextAudioBlock(const AudioSourceChannelInfo &buffer
                 outputBuffer.getWritePointer(0, outputSampleIndex),
                 outputBuffer.getWritePointer(1, outputSampleIndex)
             };
-            _stretcher.retrieve(output, samples);
+            _stretcher.retrieve(output, size_t(samples));
             outputSampleIndex += samples;
             outputSamplesLeft -= samples;
         } else {
@@ -96,7 +96,7 @@ void LooperEngine::Track::getNextAudioBlock(const AudioSourceChannelInfo &buffer
                 _tmpBuffer.getReadPointer(0, 0),
                 _tmpBuffer.getReadPointer(1, 0)
             };
-            _stretcher.process(input, samples, false);
+            _stretcher.process(input, size_t(samples), false);
             _inputSampleIndex += samples;
             if (_inputSampleIndex >= inputBuffer.getNumSamples()) {
                 _inputSampleIndex = 0;

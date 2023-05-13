@@ -196,6 +196,7 @@ public:
 
     virtual void itemClicked(const MouseEvent &e) override
     {
+        ignoreUnused(e);
         switch (_property->selectedState()) {
         case RC505::Property::Unselected: _property->setSelected(true); break;
         case RC505::Property::Selected: _property->setSelected(false); break;
@@ -206,6 +207,7 @@ public:
 
     virtual void itemDoubleClicked(const MouseEvent &e) override
     {
+        ignoreUnused(e);
     }
 
     virtual bool mightContainSubItems() override
