@@ -20,10 +20,14 @@ target_include_directories(rubberband PRIVATE extern/rubberband/src PUBLIC exter
 
 juce_add_gui_app(
     editor
-    PRODUCT_NAME "RC505 Editor"
-    VERSION "0.0.1"
-    ICON_BIG Resources/icon-large.png
-    ICON_SMALL Resources/icon-small.png
+    PRODUCT_NAME "RC-505 Editor"
+    VERSION "0.3.0"
+    BUNDLE_ID "ch.westlicht.rc-505-editor"
+    COMPANY_NAME "westlicht"
+    COMPANY_WEBSITE "westlicht.ch"
+    COMPANY_EMAIL "simon.kallweit@gmail.com"
+    ICON_BIG "Resources/icon-large.png"
+    ICON_SMALL "Resources/icon-small.png"
 )
 
 juce_generate_juce_header(editor)
