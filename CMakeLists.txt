@@ -13,30 +13,10 @@ add_library(samplerate STATIC
 target_include_directories(samplerate PUBLIC extern)
 
 add_library(rubberband STATIC
-    extern/rubberband/audiocurves/CompoundAudioCurve.cpp
-    extern/rubberband/audiocurves/ConstantAudioCurve.cpp
-    extern/rubberband/audiocurves/HighFrequencyAudioCurve.cpp
-    extern/rubberband/audiocurves/PercussiveAudioCurve.cpp
-    extern/rubberband/audiocurves/SilentAudioCurve.cpp
-    extern/rubberband/audiocurves/SpectralDifferenceAudioCurve.cpp
-    extern/rubberband/base/Profiler.cpp
-    extern/rubberband/dsp/AudioCurveCalculator.cpp
-    extern/rubberband/dsp/FFT.cpp
-    extern/rubberband/dsp/Resampler.cpp
-    extern/rubberband/kissfft/kiss_fft.c
-    extern/rubberband/kissfft/kiss_fftr.c
-    extern/rubberband/RubberBandStretcher.cpp
-    extern/rubberband/speex/resample.c    
-    extern/rubberband/StretchCalculator.cpp
-    extern/rubberband/StretcherChannelData.cpp
-    extern/rubberband/StretcherImpl.cpp
-    extern/rubberband/StretcherProcess.cpp
-    extern/rubberband/system/Allocators.cpp
-    extern/rubberband/system/sysutils.cpp
-    extern/rubberband/system/Thread.cpp
-    extern/rubberband/system/VectorOpsComplex.cpp
+    extern/rubberband/single/RubberBandSingle.cpp
 )
-target_include_directories(rubberband PRIVATE extern/rubberband PUBLIC extern)
+target_compile_features(rubberband PUBLIC cxx_std_11)
+target_include_directories(rubberband PRIVATE extern/rubberband/src PUBLIC extern/rubberband)
 
 juce_add_gui_app(
     editor
@@ -95,5 +75,5 @@ target_link_libraries(editor
     PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
-        # juce::juce_recommended_warning_flags
+        juce::juce_recommended_warning_flags
 )
