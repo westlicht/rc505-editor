@@ -1,7 +1,7 @@
-#include "JuceHeader.h"
 #include "CustomLookAndFeel.h"
-#include "WaveformView.h"
+#include "JuceHeader.h"
 #include "PlayButton.h"
+#include "WaveformView.h"
 
 std::unique_ptr<CustomLookAndFeel> CustomLookAndFeel::_instance;
 
@@ -9,7 +9,6 @@ CustomLookAndFeel::CustomLookAndFeel()
 {
     _matrixTypeface = Typeface::createSystemTypefaceFor(BinaryData::Matrix_ttf, BinaryData::Matrix_ttfSize);
     _matrixFont = Font(_matrixTypeface);
-
 
     Colour backgroundColour = Colour::greyLevel(0.1f);
     Colour textColour = Colour::greyLevel(0.9f);
@@ -96,7 +95,7 @@ CustomLookAndFeel::CustomLookAndFeel()
     setColour(Slider::textBoxBackgroundColourId, widgetBackgroundColour);
     setColour(Slider::textBoxHighlightColourId, widgetHighlightColour);
     setColour(Slider::textBoxOutlineColourId, borderColour);
-    
+
     // TabbedComponent
     setColour(TabbedComponent::backgroundColourId, Colours::black);
 
@@ -107,7 +106,7 @@ CustomLookAndFeel::CustomLookAndFeel()
     setColour(WaveformView::cursorColourId, Colours::lime);
 }
 
-void CustomLookAndFeel::drawButtonBackground(Graphics &g, Button &button, const Colour &backgroundColour, bool isMouseOverButton, bool isButtonDown)
+void CustomLookAndFeel::drawButtonBackground(Graphics& g, Button& button, const Colour& backgroundColour, bool isMouseOverButton, bool isButtonDown)
 {
     float margin = 1.5f;
     float width = button.getWidth() - 2.f * margin;
@@ -120,9 +119,11 @@ void CustomLookAndFeel::drawButtonBackground(Graphics &g, Button &button, const 
 
     // draw border
     Colour borderColour = findColour(mainBorderColourId);
-    if (isMouseOverButton) {
+    if (isMouseOverButton)
+    {
         borderColour = borderColour.brighter(0.4f);
-        if (isButtonDown) {
+        if (isButtonDown)
+        {
             borderColour = borderColour.brighter(0.4f);
         }
     }
@@ -130,7 +131,7 @@ void CustomLookAndFeel::drawButtonBackground(Graphics &g, Button &button, const 
     g.drawRoundedRectangle(margin, margin, width, height, radius, 3.f);
 }
 
-void CustomLookAndFeel::drawTreeviewPlusMinusBox(Graphics &g, const Rectangle<float> &area, Colour backgroundColour, bool isOpen, bool isMouseOver)
+void CustomLookAndFeel::drawTreeviewPlusMinusBox(Graphics& g, const Rectangle<float>& area, Colour backgroundColour, bool isOpen, bool isMouseOver)
 {
     ignoreUnused(backgroundColour);
 
@@ -140,12 +141,7 @@ void CustomLookAndFeel::drawTreeviewPlusMinusBox(Graphics &g, const Rectangle<fl
     g.fillPath(p, p.getTransformToScaleToFit(area.reduced(2, area.getHeight() / 4), true));
 }
 
-void CustomLookAndFeel::drawTickBox(Graphics &g, Component &component,
-                                    float x, float y, float w, float h,
-                                    bool ticked,
-                                    bool isEnabled,
-                                    bool isMouseOverButton,
-                                    bool isButtonDown)
+void CustomLookAndFeel::drawTickBox(Graphics& g, Component& component, float x, float y, float w, float h, bool ticked, bool isEnabled, bool isMouseOverButton, bool isButtonDown)
 {
     ignoreUnused(ticked, isEnabled, isMouseOverButton, isButtonDown);
 
@@ -154,7 +150,8 @@ void CustomLookAndFeel::drawTickBox(Graphics &g, Component &component,
     g.setColour(component.findColour(mainTextColourId).withMultipliedAlpha(isEnabled ? 1.f : 0.5f));
     g.drawEllipse(x, y + (h - boxSize) * 0.5f, boxSize, boxSize, 2.f);
 
-    if (ticked) {
+    if (ticked)
+    {
         Path tick;
         tick.startNewSubPath(1.5f, 3.f);
         tick.lineTo(3.f, 6.f);
@@ -166,7 +163,7 @@ void CustomLookAndFeel::drawTickBox(Graphics &g, Component &component,
     }
 }
 
-int CustomLookAndFeel::getTabButtonBestWidth(TabBarButton &, int)
+int CustomLookAndFeel::getTabButtonBestWidth(TabBarButton&, int)
 {
     return 300;
 }
@@ -175,22 +172,22 @@ static Colour getTabBackgroundColour(TabBarButton& button)
 {
     const Colour bkg(button.findColour(mainBackgroundColourId).contrasting(0.15f));
 
-    if (button.isFrontTab()) {
+    if (button.isFrontTab())
+    {
         return bkg.overlaidWith(Colours::yellow.withAlpha(0.5f));
     }
 
     return bkg;
 }
 
-void CustomLookAndFeel::drawTabButton(TabBarButton &button, Graphics &g, bool isMouseOver, bool isMouseDown)
+void CustomLookAndFeel::drawTabButton(TabBarButton& button, Graphics& g, bool isMouseOver, bool isMouseDown)
 {
     Rectangle<int> activeArea(button.getActiveArea());
     activeArea = activeArea.withTrimmedBottom(1);
 
     const Colour bkg(getTabBackgroundColour(button));
 
-    g.setGradientFill(ColourGradient(bkg.brighter(0.1f), 0, float(activeArea.getY()),
-                                     bkg.darker(0.1f), 0, float(activeArea.getBottom()), false));
+    g.setGradientFill(ColourGradient(bkg.brighter(0.1f), 0, float(activeArea.getY()), bkg.darker(0.1f), 0, float(activeArea.getBottom()), false));
     g.fillRect(activeArea);
 
     g.setColour(button.findColour(mainBackgroundColourId).darker(0.3f));
@@ -205,7 +202,7 @@ void CustomLookAndFeel::drawTabButton(TabBarButton &button, Graphics &g, bool is
     textLayout.draw(g, button.getTextArea().toFloat());
 }
 
-void CustomLookAndFeel::drawTabbedButtonBarBackground(TabbedButtonBar &bar, Graphics &g)
+void CustomLookAndFeel::drawTabbedButtonBarBackground(TabbedButtonBar& bar, Graphics& g)
 {
     g.fillAll(findColour(TabbedComponent::backgroundColourId));
     g.setColour(findColour(mainBorderColourId));
@@ -213,20 +210,17 @@ void CustomLookAndFeel::drawTabbedButtonBarBackground(TabbedButtonBar &bar, Grap
     g.drawLine(0.f, bar.getThickness() - 0.5f, bar.getWidth(), bar.getThickness() - 0.5f);
 }
 
-void CustomLookAndFeel::drawProgressBar(Graphics &g, ProgressBar &progressBar,
-                                        int width, int height,
-                                        double progress, const String& textToShow)
+void CustomLookAndFeel::drawProgressBar(Graphics& g, ProgressBar& progressBar, int width, int height, double progress, const String& textToShow)
 {
     ignoreUnused(progressBar);
     g.fillAll(findColour(ProgressBar::backgroundColourId));
     g.setColour(findColour(mainBorderColourId));
     g.drawRect(0, 0, width, height);
     g.setColour(findColour(ProgressBar::foregroundColourId));
-    g.fillRect(1.f, 1.f,
-               float(jlimit(0.0, width - 2.0, progress * (width - 2.0))),
-               float(height - 2));
+    g.fillRect(1.f, 1.f, float(jlimit(0.0, width - 2.0, progress * (width - 2.0))), float(height - 2));
 
-    if (textToShow.isNotEmpty()) {
+    if (textToShow.isNotEmpty())
+    {
         g.setColour(findColour(mainTextColourId));
         g.setFont(height * 0.6f);
         g.drawText(textToShow, 0, 0, width, height, Justification::centred, false);
@@ -238,9 +232,10 @@ int CustomLookAndFeel::getAlertWindowButtonHeight()
     return 30;
 }
 
-CustomLookAndFeel &CustomLookAndFeel::instance()
+CustomLookAndFeel& CustomLookAndFeel::instance()
 {
-    if (!_instance) {
+    if (! _instance)
+    {
         _instance = std::make_unique<CustomLookAndFeel>();
     }
     return *_instance;

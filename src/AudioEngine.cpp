@@ -1,5 +1,5 @@
-#include "JuceHeader.h"
 #include "AudioEngine.h"
+#include "JuceHeader.h"
 
 SharedResourcePointer<AudioEngine> AudioEngine::_instance;
 
@@ -11,22 +11,22 @@ AudioEngine::~AudioEngine()
 {
 }
 
-AudioSource &AudioEngine::source()
+AudioSource& AudioEngine::source()
 {
     return _mixer;
 }
 
-void AudioEngine::addSource(AudioSource *source)
+void AudioEngine::addSource(AudioSource* source)
 {
     _mixer.addInputSource(source, false);
 }
 
-void AudioEngine::removeSource(AudioSource *source)
+void AudioEngine::removeSource(AudioSource* source)
 {
     _mixer.removeInputSource(source);
 }
 
-AudioEngine &AudioEngine::instance()
+AudioEngine& AudioEngine::instance()
 {
     return _instance.get();
 }

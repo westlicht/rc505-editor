@@ -4,16 +4,17 @@
 #include "PropertyTreeView.h"
 
 class PropertySetDialog : public Component,
-                          public Button::Listener {
+                          public Button::Listener
+{
 public:
-    PropertySetDialog(RC505::Group *group);
+    PropertySetDialog(RC505::Group* group);
 
     // Component
-    virtual void paint(Graphics &g) override;
+    virtual void paint(Graphics& g) override;
     virtual void resized() override;
 
     // Button::Listener
-    virtual void buttonClicked(Button *button) override;
+    virtual void buttonClicked(Button* button) override;
 
 private:
     PropertySetTreeView _propertySetTreeView;

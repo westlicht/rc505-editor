@@ -1,22 +1,23 @@
-#include "JuceHeader.h"
 #include "TrackView.h"
 #include "CustomLookAndFeel.h"
+#include "JuceHeader.h"
 
-void TrackViewGroup::paint(Graphics &g)
+void TrackViewGroup::paint(Graphics& g)
 {
     g.fillAll(findColour(mainBackgroundColourId));
     g.setColour(findColour(mainBorderColourId));
     int trackWidth = getWidth() / RC505::Patch::NumTracks;
-    for (int i = 1; i < RC505::Patch::NumTracks; ++i) {
+    for (int i = 1; i < RC505::Patch::NumTracks; ++i)
+    {
         int x = i * trackWidth;
         g.drawLine(x + 0.5f, 0, x + 0.5f, getHeight());
     }
 }
 
-TrackView::TrackView(int index) :
-    _index(index),
-    _track(nullptr),
-    _trackLabel(index)
+TrackView::TrackView(int index)
+    : _index(index)
+    , _track(nullptr)
+    , _trackLabel(index)
 {
     _propertyTreeView.setOpenCloseButtonsVisible(false);
 
@@ -37,14 +38,14 @@ TrackView::~TrackView()
     removeAllChildren();
 }
 
-void TrackView::setTrack(RC505::Track *track)
+void TrackView::setTrack(RC505::Track* track)
 {
     _track = track;
     _propertyTreeView.setGroup(_track ? _track->trackSettings() : nullptr);
     _waveformView.setAudioBuffer(_track ? &_track->audioBuffer() : nullptr);
 }
 
-void TrackView::paint(Graphics &g)
+void TrackView::paint(Graphics& g)
 {
     ignoreUnused(g);
 }

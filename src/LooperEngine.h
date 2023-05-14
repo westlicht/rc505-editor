@@ -5,13 +5,15 @@
 
 #include "RC505.h"
 
-class LooperEngine : public AudioSource {
+class LooperEngine : public AudioSource
+{
 public:
-    class Track : public AudioSource {
+    class Track : public AudioSource
+    {
     public:
-        Track(LooperEngine &looperEngine);
+        Track(LooperEngine& looperEngine);
 
-        void setTrack(RC505::Track *track);
+        void setTrack(RC505::Track* track);
 
         void setPlaying(bool playing);
         bool isPlaying() const { return _play; }
@@ -20,13 +22,13 @@ public:
         // AudioSource
         virtual void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
         virtual void releaseResources() override;
-        virtual void getNextAudioBlock(const AudioSourceChannelInfo &bufferToFill) override;
+        virtual void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override;
 
     private:
         static const int BufferLength = 128;
 
-        LooperEngine &_looperEngine;
-        RC505::Track *_track;
+        LooperEngine& _looperEngine;
+        RC505::Track* _track;
         bool _play;
 
         RubberBand::RubberBandStretcher _stretcher;
@@ -38,17 +40,17 @@ public:
     LooperEngine();
     ~LooperEngine() override;
 
-    void setPatch(RC505::Patch *patch);
-    
+    void setPatch(RC505::Patch* patch);
+
     void setPlayingAll(bool playing);
     bool isPlayingAny() const;
 
-    const OwnedArray<Track> &tracks() const { return _tracks; }
+    const OwnedArray<Track>& tracks() const { return _tracks; }
 
     // AudioSource
     virtual void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
     virtual void releaseResources() override;
-    virtual void getNextAudioBlock(const AudioSourceChannelInfo &bufferToFill) override;
+    virtual void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override;
 
 private:
     double globalTempo() const;
@@ -56,7 +58,7 @@ private:
 
     double _sampleRate;
     int _sampleIndex;
-    RC505::Patch *_patch;
+    RC505::Patch* _patch;
 
     OwnedArray<Track> _tracks;
     MixerAudioSource _mixer;

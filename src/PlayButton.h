@@ -2,15 +2,17 @@
 
 #include "JuceHeader.h"
 
-class PlayButton : public Button {
+class PlayButton : public Button
+{
 public:
-    enum ColourIds {
-        playColourId    = 0x2360000,
-        stopColourId    = 0x2360001,
+    enum ColourIds
+    {
+        playColourId = 0x2360000,
+        stopColourId = 0x2360001,
     };
 
-    PlayButton() :
-        Button("Play")
+    PlayButton()
+        : Button("Play")
     {
     }
 
@@ -22,17 +24,20 @@ public:
     }
 
 protected:
-    virtual void paintButton(Graphics &g, bool isMouseOverButton, bool isButtonDown) override
+    virtual void paintButton(Graphics& g, bool isMouseOverButton, bool isButtonDown) override
     {
         getLookAndFeel().drawButtonBackground(g, *this, getLookAndFeel().findColour(TextButton::buttonColourId), isMouseOverButton, isButtonDown);
 
         int cx = getWidth() / 2;
         int cy = getHeight() / 2;
-        if (_playing) {
+        if (_playing)
+        {
             // draw stop icon
             g.setColour(findColour(stopColourId));
             g.fillRect(cx - 5, cy - 5, 10, 10);
-        } else {
+        }
+        else
+        {
             // draw play icon
             Path path;
             path.startNewSubPath(cx - 5, cy - 5);

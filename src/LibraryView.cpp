@@ -1,16 +1,16 @@
-#include "JuceHeader.h"
 #include "LibraryView.h"
+#include "JuceHeader.h"
 
-LibraryView::LibraryView() :
-    _tabs(TabbedButtonBar::TabsAtTop),
-    _memoryView(_library),
-    _systemView(_library)
+LibraryView::LibraryView()
+    : _tabs(TabbedButtonBar::TabsAtTop)
+    , _memoryView(_library)
+    , _systemView(_library)
 {
     _library.addListener(this);
 
     setName(_library.name());
     addAndMakeVisible(_tabs);
-    
+
     _tabs.addTab("Memory", Colours::white, &_memoryView, false);
     _tabs.addTab("System", Colours::white, &_systemView, false);
     _tabs.getTabbedButtonBar().getTabButton(0)->setTooltip("Show patches stored in the library.");
@@ -22,7 +22,7 @@ LibraryView::~LibraryView()
 {
 }
 
-void LibraryView::paint(Graphics &g)
+void LibraryView::paint(Graphics& g)
 {
     g.setColour(Colours::black);
     g.fillAll();
@@ -35,7 +35,8 @@ void LibraryView::resized()
 
 void LibraryView::visibilityChanged()
 {
-    if (!isVisible()) {
+    if (! isVisible())
+    {
         _memoryView.patchView().stopPlaying();
     }
 }

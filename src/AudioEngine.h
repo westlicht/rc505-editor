@@ -2,17 +2,18 @@
 
 #include "JuceHeader.h"
 
-class AudioEngine {
+class AudioEngine
+{
 public:
     AudioEngine();
     ~AudioEngine();
 
-    AudioSource &source();
+    AudioSource& source();
 
-    void addSource(AudioSource *source);
-    void removeSource(AudioSource *source);
+    void addSource(AudioSource* source);
+    void removeSource(AudioSource* source);
 
-    static AudioEngine &instance();
+    static AudioEngine& instance();
 
 private:
     static SharedResourcePointer<AudioEngine> _instance;

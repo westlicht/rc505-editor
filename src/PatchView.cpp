@@ -1,12 +1,12 @@
-#include "JuceHeader.h"
 #include "PatchView.h"
-#include "Utils.h"
 #include "AudioEngine.h"
 #include "CustomLookAndFeel.h"
+#include "JuceHeader.h"
+#include "Utils.h"
 
-PatchView::PatchView() :
-    _patch(nullptr),
-    _tabs(TabbedButtonBar::TabsAtTop)
+PatchView::PatchView()
+    : _patch(nullptr)
+    , _tabs(TabbedButtonBar::TabsAtTop)
 {
     addAndMakeVisible(_namePropertyView);
     addAndMakeVisible(_tempoPropertyView);
@@ -15,7 +15,7 @@ PatchView::PatchView() :
     addAndMakeVisible(_importButton);
     addAndMakeVisible(_exportButton);
     addAndMakeVisible(_tabs);
-    
+
     _playButton.setButtonText("Play");
     _playButton.setTooltip("Start/stop playing all tracks at once.");
     _playButton.addListener(this);
@@ -29,15 +29,16 @@ PatchView::PatchView() :
     _exportButton.setTooltip("Export tracks to audio files.");
     _exportButton.addListener(this);
 
-    for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
-        TrackView *trackView = new TrackView(i);
+    for (int i = 0; i < RC505::Patch::NumTracks; ++i)
+    {
+        TrackView* trackView = new TrackView(i);
         trackView->trackLabel().addListener(this);
         trackView->waveformView().addListener(this);
         trackView->playButton().addListener(this);
         _trackViews.add(trackView);
         _trackViewGroup.addAndMakeVisible(trackView);
     }
-    
+
     Font font = CustomLookAndFeel::instance().matrixFont();
     font.setHeight(24.f);
     _namePropertyView.textEditor().setFont(font);
@@ -63,22 +64,23 @@ PatchView::~PatchView()
     removeAllChildren();
 }
 
-void PatchView::setPatch(RC505::Patch *patch)
+void PatchView::setPatch(RC505::Patch* patch)
 {
     _patch = patch;
-    
-    _exportButton.setEnabled(_patch ? !_patch->allTracksEmpty() : true);
+
+    _exportButton.setEnabled(_patch ? ! _patch->allTracksEmpty() : true);
     stopPlaying();
     _looperEngine.setPatch(_patch);
     //_looperEngine.setPlayingAll(false);
     //updatePlayState();
     _namePropertyView.setProperty(_patch ? _patch->patchName() : nullptr);
     _tempoPropertyView.setProperty(_patch ? _patch->patchSettings()->master->tempo : nullptr);
-    for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
+    for (int i = 0; i < RC505::Patch::NumTracks; ++i)
+    {
         _trackViews[i]->setTrack(_patch ? _patch->tracks()[i] : nullptr);
         _trackViews[i]->waveformView().setPlaying(_looperEngine.tracks()[i]->isPlaying());
     }
-    _propertyTreeView.setGroup(_patch ? _patch->patchSettings() : nullptr);    
+    _propertyTreeView.setGroup(_patch ? _patch->patchSettings() : nullptr);
 }
 
 void PatchView::stopPlaying()
@@ -89,11 +91,11 @@ void PatchView::stopPlaying()
 
 void PatchView::togglePlaying()
 {
-    _looperEngine.setPlayingAll(!_looperEngine.isPlayingAny());
+    _looperEngine.setPlayingAll(! _looperEngine.isPlayingAny());
     updatePlayState();
 }
 
-void PatchView::paint(Graphics &g)
+void PatchView::paint(Graphics& g)
 {
     g.fillAll(findColour(mainBackgroundColourId));
     g.setColour(findColour(mainBorderColourId));
@@ -112,43 +114,52 @@ void PatchView::resized()
 
     int trackWidth = _trackViewGroup.getWidth() / RC505::Patch::NumTracks;
     int trackHeight = _trackViewGroup.getHeight();
-    for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
+    for (int i = 0; i < RC505::Patch::NumTracks; ++i)
+    {
         _trackViews[i]->setBounds(i * trackWidth, 0, trackWidth, trackHeight);
     }
 }
 
 void PatchView::visibilityChanged()
 {
-    if (!isVisible()) {
+    if (! isVisible())
+    {
         stopPlaying();
     }
 }
 
 void PatchView::timerCallback()
 {
-    for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
+    for (int i = 0; i < RC505::Patch::NumTracks; ++i)
+    {
         _trackViews[i]->waveformView().setPlaying(_looperEngine.tracks()[i]->isPlaying());
         _trackViews[i]->waveformView().setPlayPosition(_looperEngine.tracks()[i]->playPosition());
     }
 }
 
-void PatchView::buttonClicked(Button *button)
+void PatchView::buttonClicked(Button* button)
 {
-    if (button == &_playButton) {
+    if (button == &_playButton)
+    {
         togglePlaying();
     }
-    if (button == &_clearButton) {
+    if (button == &_clearButton)
+    {
         clearPatch();
     }
-    if (button == &_importButton) {
+    if (button == &_importButton)
+    {
         importLoops();
     }
-    if (button == &_exportButton) {
+    if (button == &_exportButton)
+    {
         exportLoops();
     }
-    for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
-        if (button == &_trackViews[i]->playButton()) {
-            _looperEngine.tracks()[i]->setPlaying(!_looperEngine.tracks()[i]->isPlaying());
+    for (int i = 0; i < RC505::Patch::NumTracks; ++i)
+    {
+        if (button == &_trackViews[i]->playButton())
+        {
+            _looperEngine.tracks()[i]->setPlaying(! _looperEngine.tracks()[i]->isPlaying());
             updatePlayState();
             break;
         }
@@ -159,24 +170,27 @@ void PatchView::trackMoved(int from, int to)
 {
     stopPlaying();
     _patch->moveTrack(from, to);
-    for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
+    for (int i = 0; i < RC505::Patch::NumTracks; ++i)
+    {
         _trackViews[i]->setTrack(_patch->tracks()[i]);
     }
 }
 
-void PatchView::waveformViewFilesDropped(WaveformView *waveformView, const StringArray &filenames)
+void PatchView::waveformViewFilesDropped(WaveformView* waveformView, const StringArray& filenames)
 {
     Array<File> files;
-    for (const auto &filename : filenames) {
+    for (const auto& filename : filenames)
+    {
         files.add(File(filename));
     }
     importLoopsToTracks(files, trackIndex(waveformView));
 }
 
-void PatchView::waveformViewFileDragged(WaveformView *waveformView, File &file)
+void PatchView::waveformViewFileDragged(WaveformView* waveformView, File& file)
 {
     auto track = _trackViews[trackIndex(waveformView)]->track();
-    if (track->waveState() != RC505::Track::WaveEmpty) {
+    if (track->waveState() != RC505::Track::WaveEmpty)
+    {
         file = File::addTrailingSeparator(RC505::Library::tempDirectory()) + String::formatted("track-%d.wav", track->index() + 1);
         track->saveWaveTo(file);
     }
@@ -191,7 +205,8 @@ void PatchView::clearPatch()
 void PatchView::importLoops()
 {
     FileChooser fileChooser("Import Loops", File(), "*.wav");
-    if (fileChooser.browseForMultipleFilesToOpen()) {
+    if (fileChooser.browseForMultipleFilesToOpen())
+    {
         importLoopsToTracks(fileChooser.getResults());
     }
 }
@@ -199,8 +214,10 @@ void PatchView::importLoops()
 void PatchView::exportLoops()
 {
     FileChooser fileChooser("Export Loops");
-    if (fileChooser.browseForDirectory()) {
-        for (const auto &track : _patch->tracks()) {
+    if (fileChooser.browseForDirectory())
+    {
+        for (const auto& track : _patch->tracks())
+        {
             File file(File::addTrailingSeparator(fileChooser.getResult().getFullPathName()) + String::formatted("track-%d.wav", track->index() + 1));
             track->saveWaveTo(file);
         }
@@ -210,16 +227,19 @@ void PatchView::exportLoops()
 void PatchView::updatePlayState()
 {
     _playButton.setPlaying(_looperEngine.isPlayingAny());
-    for (int i = 0; i < RC505::Patch::NumTracks; ++i) {
+    for (int i = 0; i < RC505::Patch::NumTracks; ++i)
+    {
         _trackViews[i]->waveformView().setPlaying(_looperEngine.tracks()[i]->isPlaying());
         _trackViews[i]->playButton().setPlaying(_looperEngine.tracks()[i]->isPlaying());
     }
 }
 
-int PatchView::trackIndex(Component *component) const
+int PatchView::trackIndex(Component* component) const
 {
-    while (component != nullptr) {
-        if (TrackView *trackView = dynamic_cast<TrackView *>(component)) {
+    while (component != nullptr)
+    {
+        if (TrackView* trackView = dynamic_cast<TrackView*>(component))
+        {
             return trackView->index();
         }
         component = component->getParentComponent();
@@ -228,24 +248,29 @@ int PatchView::trackIndex(Component *component) const
     return -1;
 }
 
-void PatchView::importLoopsToTracks(const Array<File> &files, int trackIndex)
+void PatchView::importLoopsToTracks(const Array<File>& files, int trackIndex)
 {
     bool empty = true;
-    for (const auto &track : _patch->tracks()) {
-        if (track->waveState() != RC505::Track::WaveEmpty) {
+    for (const auto& track : _patch->tracks())
+    {
+        if (track->waveState() != RC505::Track::WaveEmpty)
+        {
             empty = false;
         }
     }
 
     AudioSampleBuffer buffer;
-    for (const auto &file : files) {
-        if (trackIndex < RC505::Patch::NumTracks && Utils::readAudioFile(file, buffer)) {
+    for (const auto& file : files)
+    {
+        if (trackIndex < RC505::Patch::NumTracks && Utils::readAudioFile(file, buffer))
+        {
             auto track = _patch->tracks()[trackIndex];
             track->setAudioBuffer(buffer);
             auto tempoMeasures = Utils::findTempoAndMeasures(buffer);
             track->trackSettings()->recTmp->setValue(int(std::floor(tempoMeasures.first * 10)));
             track->trackSettings()->measLen->setValue(tempoMeasures.second);
-            if (empty) {
+            if (empty)
+            {
                 _patch->patchSettings()->master->tempo->setValue(int(std::floor(tempoMeasures.first * 10)));
                 empty = false;
             }
@@ -254,5 +279,5 @@ void PatchView::importLoopsToTracks(const Array<File> &files, int trackIndex)
         }
     }
 
-    _exportButton.setEnabled(!_patch->allTracksEmpty());
+    _exportButton.setEnabled(! _patch->allTracksEmpty());
 }
