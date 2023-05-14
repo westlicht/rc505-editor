@@ -46,7 +46,7 @@ public:
 
     virtual String getUniqueName() const override
     {
-        if (! _property)
+        if (!_property)
         {
             return "unknown";
         }

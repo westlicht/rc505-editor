@@ -91,7 +91,7 @@ public:
 
     virtual void assign(const Property& other, bool selectedOnly) override
     {
-        if (! selectedOnly || other.selected())
+        if (!selectedOnly || other.selected())
         {
             setValue(static_cast<const ValueProperty*>(&other)->value());
         }
@@ -99,7 +99,7 @@ public:
 
     virtual bool loadFromXml(XmlElement* xml) override
     {
-        if (! xml->getFirstChildElement() || ! xml->getFirstChildElement()->isTextElement())
+        if (!xml->getFirstChildElement() || !xml->getFirstChildElement()->isTextElement())
         {
             return false;
         }
@@ -154,7 +154,7 @@ public:
 
     virtual void assign(const Property& other, bool selectedOnly) override
     {
-        if (! selectedOnly || other.selected())
+        if (!selectedOnly || other.selected())
         {
             setValue(static_cast<const BoolProperty*>(&other)->value());
         }
@@ -162,7 +162,7 @@ public:
 
     virtual bool loadFromXml(XmlElement* xml) override
     {
-        if (! xml->getFirstChildElement() || ! xml->getFirstChildElement()->isTextElement())
+        if (!xml->getFirstChildElement() || !xml->getFirstChildElement()->isTextElement())
         {
             return false;
         }
@@ -223,7 +223,7 @@ public:
 
     virtual void assign(const Property& other, bool selectedOnly) override
     {
-        if (! selectedOnly || other.selected())
+        if (!selectedOnly || other.selected())
         {
             setValue(static_cast<const BitSetProperty*>(&other)->value());
         }
@@ -231,7 +231,7 @@ public:
 
     virtual bool loadFromXml(XmlElement* xml) override
     {
-        if (! xml->getFirstChildElement() || ! xml->getFirstChildElement()->isTextElement())
+        if (!xml->getFirstChildElement() || !xml->getFirstChildElement()->isTextElement())
         {
             return false;
         }
@@ -308,7 +308,7 @@ public:
 
     virtual void assign(const Property& other, bool selectedOnly) override
     {
-        if (! selectedOnly || other.selected())
+        if (!selectedOnly || other.selected())
         {
             setValue(static_cast<const IntProperty*>(&other)->value());
         }
@@ -316,7 +316,7 @@ public:
 
     virtual bool loadFromXml(XmlElement* xml) override
     {
-        if (! xml->getFirstChildElement() || ! xml->getFirstChildElement()->isTextElement())
+        if (!xml->getFirstChildElement() || !xml->getFirstChildElement()->isTextElement())
         {
             return false;
         }
@@ -359,7 +359,7 @@ public:
 
     virtual void assign(const Property& other, bool selectedOnly) override
     {
-        if (! selectedOnly || other.selected())
+        if (!selectedOnly || other.selected())
         {
             setValue(static_cast<const EnumProperty*>(&other)->value());
         }
@@ -367,7 +367,7 @@ public:
 
     virtual bool loadFromXml(XmlElement* xml) override
     {
-        if (! xml->getFirstChildElement() || ! xml->getFirstChildElement()->isTextElement())
+        if (!xml->getFirstChildElement() || !xml->getFirstChildElement()->isTextElement())
         {
             return false;
         }
@@ -407,7 +407,7 @@ public:
 
     virtual void assign(const Property& other, bool selectedOnly) override
     {
-        if (! selectedOnly || other.selected())
+        if (!selectedOnly || other.selected())
         {
             setValue(static_cast<const NameProperty*>(&other)->value());
         }
@@ -419,7 +419,7 @@ public:
         for (int i = 0; i < 12; ++i)
         {
             XmlElement* xmlChar = xml->getChildByName(String::formatted("C%02d", i + 1));
-            if (! xmlChar)
+            if (!xmlChar)
             {
                 return false;
             }
@@ -516,7 +516,7 @@ public:
         {
             if (ValueProperty* property = dynamic_cast<ValueProperty*>(child))
             {
-                if (! property->loadFromXml(xml->getChildByName(property->id())))
+                if (!property->loadFromXml(xml->getChildByName(property->id())))
                 {
                     return false;
                 }
@@ -531,7 +531,7 @@ public:
         {
             if (ValueProperty* property = dynamic_cast<ValueProperty*>(child))
             {
-                if (! property->saveToXml(xml->createNewChildElement(property->id())))
+                if (!property->saveToXml(xml->createNewChildElement(property->id())))
                 {
                     return false;
                 }
@@ -1106,7 +1106,7 @@ public:
     {
         for (auto child : _children)
         {
-            if (! child->loadFromXml(xml))
+            if (!child->loadFromXml(xml))
             {
                 return false;
             }
@@ -1118,7 +1118,7 @@ public:
     {
         for (auto child : _children)
         {
-            if (! child->saveToXml(xml))
+            if (!child->saveToXml(xml))
             {
                 return false;
             }
@@ -1214,7 +1214,7 @@ public:
         Group* trackFx[] = { filter, phaser, flanger, synth, lofi, ringmod, guitarToBass, slowGear, transpose, pitchBend, robot, vocalDist, vocoder, dynamics, eq, isolator, octave, pan, tremolo, slicer, delay, panningDelay, tapeEcho, granularDelay, roll, chorus, reverb };
         for (auto child : trackFx)
         {
-            if (! child->loadFromXml(xml))
+            if (!child->loadFromXml(xml))
             {
                 return false;
             }
@@ -1227,7 +1227,7 @@ public:
         Group* trackFx[] = { filter, phaser, flanger, synth, lofi, ringmod, guitarToBass, slowGear, transpose, pitchBend, robot, vocalDist, vocoder, dynamics, eq, isolator, octave, pan, tremolo, slicer, delay, panningDelay, tapeEcho, granularDelay, roll, chorus, reverb };
         for (auto child : trackFx)
         {
-            if (! child->saveToXml(xml))
+            if (!child->saveToXml(xml))
             {
                 return false;
             }
@@ -1240,7 +1240,7 @@ public:
         Group* beatFx[] = { beatRepeat, beatShift, beatScatter, vinylFlick };
         for (auto child : beatFx)
         {
-            if (! child->loadFromXml(xml))
+            if (!child->loadFromXml(xml))
             {
                 return false;
             }
@@ -1253,7 +1253,7 @@ public:
         Group* beatFx[] = { beatRepeat, beatShift, beatScatter, vinylFlick };
         for (auto child : beatFx)
         {
-            if (! child->saveToXml(xml))
+            if (!child->saveToXml(xml))
             {
                 return false;
             }

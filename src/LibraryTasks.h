@@ -19,7 +19,7 @@ public:
     {
         setStatusMessage("Preparing ...");
         _info = RC505::Library::libraryInfo(_path);
-        if (! _info.valid || _info.revision != RC505::Revision)
+        if (!_info.valid || _info.revision != RC505::Revision)
         {
             return;
         }
@@ -31,10 +31,10 @@ public:
     {
         LoadLibraryTask task(library, path);
         task.runThread();
-        if (! task.success())
+        if (!task.success())
         {
             auto info = task._info;
-            if (! info.valid)
+            if (!info.valid)
             {
                 AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error", "Failed to load library from '" + path.getFullPathName() + "'!\n"
                                                                                                                                           "This is not a valid library folder.\n"
@@ -86,7 +86,7 @@ public:
     {
         SaveLibraryTask task(library, path);
         task.runThread();
-        if (! task.success())
+        if (!task.success())
         {
             AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error", "Failed to save library to '" + path.getFullPathName() + "'!");
         }

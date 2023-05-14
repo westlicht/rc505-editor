@@ -49,7 +49,7 @@ bool Utils::readAudioFile(const File& file, AudioSampleBuffer& buffer, int chann
     AudioFormatManager audioFormatManager;
     audioFormatManager.registerBasicFormats();
     std::unique_ptr<AudioFormatReader> reader(audioFormatManager.createReaderFor(file));
-    if (! reader)
+    if (!reader)
     {
         return false;
     }
@@ -72,13 +72,13 @@ bool Utils::writeAudioFile(const File& file, const AudioSampleBuffer& buffer, in
     AudioFormatManager audioFormatManager;
     audioFormatManager.registerBasicFormats();
     AudioFormat* format = audioFormatManager.findFormatForFileExtension(file.getFileExtension());
-    if (! format)
+    if (!format)
     {
         return false;
     }
 
     std::unique_ptr<AudioFormatWriter> writer(format->createWriterFor(new FileOutputStream(file), sampleRate, (unsigned int)channels, bits, StringPairArray(), 0));
-    if (! writer)
+    if (!writer)
     {
         return false;
     }

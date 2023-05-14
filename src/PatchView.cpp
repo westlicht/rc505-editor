@@ -68,7 +68,7 @@ void PatchView::setPatch(RC505::Patch* patch)
 {
     _patch = patch;
 
-    _exportButton.setEnabled(_patch ? ! _patch->allTracksEmpty() : true);
+    _exportButton.setEnabled(_patch ? !_patch->allTracksEmpty() : true);
     stopPlaying();
     _looperEngine.setPatch(_patch);
     //_looperEngine.setPlayingAll(false);
@@ -91,7 +91,7 @@ void PatchView::stopPlaying()
 
 void PatchView::togglePlaying()
 {
-    _looperEngine.setPlayingAll(! _looperEngine.isPlayingAny());
+    _looperEngine.setPlayingAll(!_looperEngine.isPlayingAny());
     updatePlayState();
 }
 
@@ -122,7 +122,7 @@ void PatchView::resized()
 
 void PatchView::visibilityChanged()
 {
-    if (! isVisible())
+    if (!isVisible())
     {
         stopPlaying();
     }
@@ -159,7 +159,7 @@ void PatchView::buttonClicked(Button* button)
     {
         if (button == &_trackViews[i]->playButton())
         {
-            _looperEngine.tracks()[i]->setPlaying(! _looperEngine.tracks()[i]->isPlaying());
+            _looperEngine.tracks()[i]->setPlaying(!_looperEngine.tracks()[i]->isPlaying());
             updatePlayState();
             break;
         }
@@ -279,5 +279,5 @@ void PatchView::importLoopsToTracks(const Array<File>& files, int trackIndex)
         }
     }
 
-    _exportButton.setEnabled(! _patch->allTracksEmpty());
+    _exportButton.setEnabled(!_patch->allTracksEmpty());
 }

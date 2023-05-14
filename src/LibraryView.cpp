@@ -35,7 +35,7 @@ void LibraryView::resized()
 
 void LibraryView::visibilityChanged()
 {
-    if (! isVisible())
+    if (!isVisible())
     {
         _memoryView.patchView().stopPlaying();
     }

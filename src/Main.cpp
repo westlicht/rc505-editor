@@ -156,7 +156,7 @@ public:
 
         menu.addCommandItem(_commandManager.get(), CommandIDs::closeLibrary);
 
-#if ! JUCE_MAC
+#if !JUCE_MAC
         menu.addSeparator();
         menu.addCommandItem(_commandManager.get(), StandardApplicationCommandIDs::quit);
 #endif

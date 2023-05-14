@@ -623,7 +623,7 @@ void Library::clearChanged()
 
 void Library::setChanged()
 {
-    if (! _hasChanged)
+    if (!_hasChanged)
     {
         _hasChanged = true;
         notifyLocked([&]()
@@ -653,7 +653,7 @@ void Library::movePatches(const Array<Patch*>& patches, int insertIndex)
         if (patch->index() != i)
         {
             patch->setIndex(i);
-            if (! patch->allTracksEmpty())
+            if (!patch->allTracksEmpty())
             {
                 patch->setWaveChanged();
             }
@@ -684,18 +684,18 @@ bool Library::load(const File& path, StatusCallback statusCallback)
                  { _listeners.call(&Listener::beforeLibraryLoaded); });
 
     setPath(path);
-    if (! _dataPath.exists() || ! _dataPath.isDirectory())
+    if (!_dataPath.exists() || !_dataPath.isDirectory())
     {
         return false;
     }
-    if (! _wavePath.exists() || ! _wavePath.isDirectory())
+    if (!_wavePath.exists() || !_wavePath.isDirectory())
     {
         return false;
     }
 
     statusCallback("Loading memory database ...");
     File memoryPath = File::addTrailingSeparator(_dataPath.getFullPathName()) + "MEMORY.RC0";
-    if (! loadMemory(memoryPath))
+    if (!loadMemory(memoryPath))
     {
         Logger::outputDebugString("Failed to load memory settings from '" + memoryPath.getFullPathName() + "'");
         return false;
@@ -703,7 +703,7 @@ bool Library::load(const File& path, StatusCallback statusCallback)
 
     statusCallback("Loading system database ...");
     File systemPath = File::addTrailingSeparator(_dataPath.getFullPathName()) + "SYSTEM.RC0";
-    if (! loadSystem(systemPath))
+    if (!loadSystem(systemPath))
     {
         Logger::outputDebugString("Failed to load system settings from '" + systemPath.getFullPathName() + "'");
         return false;
@@ -725,22 +725,22 @@ bool Library::save(const File& path, StatusCallback statusCallback)
 
     bool inplace = path == _path;
     setPath(path);
-    if (! _dataPath.exists())
+    if (!_dataPath.exists())
     {
         _dataPath.createDirectory();
     }
-    if (! _wavePath.exists())
+    if (!_wavePath.exists())
     {
         _wavePath.createDirectory();
     }
-    if (! _dataPath.isDirectory() || ! _wavePath.isDirectory())
+    if (!_dataPath.isDirectory() || !_wavePath.isDirectory())
     {
         return false;
     }
 
     statusCallback("Saving memory database ...");
     File memoryPath = File::addTrailingSeparator(_dataPath.getFullPathName()) + "MEMORY.RC0";
-    if (! saveMemory(memoryPath))
+    if (!saveMemory(memoryPath))
     {
         Logger::outputDebugString("Failed to save memory settings to '" + memoryPath.getFullPathName() + "'");
         return false;
@@ -748,13 +748,13 @@ bool Library::save(const File& path, StatusCallback statusCallback)
 
     statusCallback("Saving system database ...");
     File systemPath = File::addTrailingSeparator(_dataPath.getFullPathName()) + "SYSTEM.RC0";
-    if (! saveSystem(systemPath))
+    if (!saveSystem(systemPath))
     {
         Logger::outputDebugString("Failed to save system settings to '" + systemPath.getFullPathName() + "'");
         return false;
     }
 
-    if (! saveWaveFiles(inplace, statusCallback))
+    if (!saveWaveFiles(inplace, statusCallback))
     {
         return false;
     }
@@ -817,7 +817,7 @@ String Library::checkVolumesForRC505()
 String Library::tempDirectory()
 {
     File path(File::addTrailingSeparator(File::getSpecialLocation(File::tempDirectory).getFullPathName()) + "RC505");
-    if (! path.exists() || ! path.isDirectory())
+    if (!path.exists() || !path.isDirectory())
     {
         path.deleteFile();
         path.createDirectory();
@@ -842,11 +842,11 @@ bool Library::loadMemory(const String& data)
 {
     DBG("Parsing Memory XML ...");
     std::unique_ptr<XmlElement> xml(XmlDocument::parse(data));
-    if (! xml)
+    if (!xml)
     {
         return false;
     }
-    if (! xml->hasTagName("database"))
+    if (!xml->hasTagName("database"))
     {
         return false;
     }
@@ -854,12 +854,12 @@ bool Library::loadMemory(const String& data)
     for (int i = 0; i < xml->getNumChildElements(); ++i)
     {
         XmlElement* xmlChild = xml->getChildElement(i);
-        if (! xmlChild->hasTagName("mem") || ! xmlChild->hasAttribute("id"))
+        if (!xmlChild->hasTagName("mem") || !xmlChild->hasAttribute("id"))
         {
             return false;
         }
         Patch* patch = new Patch(this);
-        if (! patch->loadFromXml(xmlChild))
+        if (!patch->loadFromXml(xmlChild))
         {
             return false;
         }
@@ -876,7 +876,7 @@ bool Library::saveMemory(const File& path)
     xml->setAttribute("revision", Revision);
     for (auto patch : _patches)
     {
-        if (! patch->saveToXml(xml->createNewChildElement("mem")))
+        if (!patch->saveToXml(xml->createNewChildElement("mem")))
         {
             return false;
         }
@@ -895,11 +895,11 @@ bool Library::loadSystem(const String& data)
 {
     DBG("Parsing System XML ...");
     std::unique_ptr<XmlElement> xml(XmlDocument::parse(data));
-    if (! xml)
+    if (!xml)
     {
         return false;
     }
-    if (! xml->hasTagName("database"))
+    if (!xml->hasTagName("database"))
     {
         return false;
     }
@@ -912,7 +912,7 @@ bool Library::saveSystem(const File& path)
     std::unique_ptr<XmlElement> xml = std::make_unique<XmlElement>("database");
     xml->setAttribute("name", "RC-505");
     xml->setAttribute("revision", Revision);
-    if (! _systemSettings.saveToXml(xml->createNewChildElement("sys")))
+    if (!_systemSettings.saveToXml(xml->createNewChildElement("sys")))
     {
         return false;
     }
@@ -950,7 +950,7 @@ bool Library::saveWaveFiles(bool inplace, StatusCallback statusCallback)
     // create folders x_xxx and temp_x_xxx
     for (int patchIndex = 0; patchIndex < NumPatches; ++patchIndex)
     {
-        if (! patchWrite[patchIndex])
+        if (!patchWrite[patchIndex])
         {
             continue;
         }
@@ -966,7 +966,7 @@ bool Library::saveWaveFiles(bool inplace, StatusCallback statusCallback)
     // store wave files to temporary directories
     for (int patchIndex = 0; patchIndex < NumPatches; ++patchIndex)
     {
-        if (! patchWrite[patchIndex])
+        if (!patchWrite[patchIndex])
         {
             continue;
         }
@@ -982,7 +982,7 @@ bool Library::saveWaveFiles(bool inplace, StatusCallback statusCallback)
                     break;
                 case Track::WaveOriginal:
                     // move/copy files
-                    if (! inplace || ! track->originalWaveFile().moveFileTo(temporaryWaveFile(patchIndex, trackIndex)))
+                    if (!inplace || !track->originalWaveFile().moveFileTo(temporaryWaveFile(patchIndex, trackIndex)))
                     {
                         track->originalWaveFile().copyFileTo(temporaryWaveFile(patchIndex, trackIndex));
                     }
@@ -998,7 +998,7 @@ bool Library::saveWaveFiles(bool inplace, StatusCallback statusCallback)
     // replace original folders with temporary folders
     for (int patchIndex = 0; patchIndex < NumPatches; ++patchIndex)
     {
-        if (! patchWrite[patchIndex])
+        if (!patchWrite[patchIndex])
         {
             continue;
         }

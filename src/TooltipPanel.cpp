@@ -28,7 +28,7 @@ void TooltipPanel::timerCallback()
     const MouseInputSource mouseSource(desktop.getMainMouseSource());
     Component* component = mouseSource.isMouse() ? mouseSource.getComponentUnderMouse() : nullptr;
     TooltipClient* client = nullptr;
-    while (component && (! client || client->getTooltip().isEmpty()))
+    while (component && (!client || client->getTooltip().isEmpty()))
     {
         client = dynamic_cast<TooltipClient*>(component);
         component = component->getParentComponent();

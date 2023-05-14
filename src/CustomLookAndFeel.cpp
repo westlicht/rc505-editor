@@ -234,7 +234,7 @@ int CustomLookAndFeel::getAlertWindowButtonHeight()
 
 CustomLookAndFeel& CustomLookAndFeel::instance()
 {
-    if (! _instance)
+    if (!_instance)
     {
         _instance = std::make_unique<CustomLookAndFeel>();
     }

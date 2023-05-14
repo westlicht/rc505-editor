@@ -43,7 +43,7 @@ void LooperEngine::Track::setPlaying(bool playing)
 
 double LooperEngine::Track::playPosition() const
 {
-    if (! _play)
+    if (!_play)
     {
         return 0.0;
     }
@@ -63,7 +63,7 @@ void LooperEngine::Track::releaseResources()
 
 void LooperEngine::Track::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill)
 {
-    if (! _play || ! _track || _track->audioBuffer().getNumSamples() == 0)
+    if (!_play || !_track || _track->audioBuffer().getNumSamples() == 0)
     {
         bufferToFill.clearActiveBufferRegion();
         return;
@@ -192,7 +192,7 @@ void LooperEngine::releaseResources()
 
 void LooperEngine::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill)
 {
-    if (! _patch)
+    if (!_patch)
     {
         bufferToFill.clearActiveBufferRegion();
         return;

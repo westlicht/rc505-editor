@@ -121,7 +121,7 @@ void MainComponent::closeLibrary()
     auto view = activeLibraryView();
     if (view)
     {
-        if (! view->library().hasChanged() || allowDiscardChanges(view->library()))
+        if (!view->library().hasChanged() || allowDiscardChanges(view->library()))
         {
             _multiDocumentPanel->closeDocument(view, false);
             documentsChanged();
