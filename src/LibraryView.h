@@ -3,19 +3,20 @@
 #include "JuceHeader.h"
 
 #include "MemoryView.h"
-#include "SystemView.h"
 #include "RC505.h"
+#include "SystemView.h"
 
 class LibraryView : public Component,
-                    public RC505::Library::Listener {
+                    public RC505::Library::Listener
+{
 public:
     LibraryView();
     virtual ~LibraryView() override;
 
-    RC505::Library &library() { return _library; }
+    RC505::Library& library() { return _library; }
 
     // Component
-    virtual void paint(Graphics &g) override;
+    virtual void paint(Graphics& g) override;
     virtual void resized() override;
     virtual void visibilityChanged() override;
 

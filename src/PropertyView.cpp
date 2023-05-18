@@ -1,12 +1,12 @@
-#include "JuceHeader.h"
 #include "PropertyView.h"
+#include "JuceHeader.h"
 
 // ----------------------------------------------------------------------------
 // ValuePropertyView
 // ----------------------------------------------------------------------------
 
-ValuePropertyView::ValuePropertyView(RC505::ValueProperty *property) :
-    _property(nullptr)
+ValuePropertyView::ValuePropertyView(RC505::ValueProperty* property)
+    : _property(nullptr)
 {
     addAndMakeVisible(_label);
     setProperty(property);
@@ -17,13 +17,15 @@ ValuePropertyView::~ValuePropertyView()
     setProperty(nullptr);
 }
 
-void ValuePropertyView::setProperty(RC505::ValueProperty *property)
+void ValuePropertyView::setProperty(RC505::ValueProperty* property)
 {
-    if (_property) {
+    if (_property)
+    {
         _property->removeListener(this);
     }
     _property = property;
-    if (_property) {
+    if (_property)
+    {
         _property->addListener(this);
     }
     updateValue();
@@ -36,12 +38,13 @@ void ValuePropertyView::resized()
 
 void ValuePropertyView::updateValue()
 {
-    if (_property) {
+    if (_property)
+    {
         _label.setText(_property->value(), dontSendNotification);
     }
 }
 
-void ValuePropertyView::valueChanged(RC505::ValueProperty *property)
+void ValuePropertyView::valueChanged(RC505::ValueProperty* property)
 {
     ignoreUnused(property);
     updateValue();
@@ -51,8 +54,8 @@ void ValuePropertyView::valueChanged(RC505::ValueProperty *property)
 // BoolPropertyView
 // ----------------------------------------------------------------------------
 
-BoolPropertyView::BoolPropertyView(RC505::BoolProperty *property) :
-    _property(nullptr)
+BoolPropertyView::BoolPropertyView(RC505::BoolProperty* property)
+    : _property(nullptr)
 {
     _toggleButton.addListener(this);
     addAndMakeVisible(_toggleButton);
@@ -64,13 +67,15 @@ BoolPropertyView::~BoolPropertyView()
     setProperty(nullptr);
 }
 
-void BoolPropertyView::setProperty(RC505::BoolProperty *property)
+void BoolPropertyView::setProperty(RC505::BoolProperty* property)
 {
-    if (_property) {
+    if (_property)
+    {
         _property->removeListener(this);
     }
     _property = property;
-    if (_property) {
+    if (_property)
+    {
         _property->addListener(this);
     }
     updateValue();
@@ -83,21 +88,23 @@ void BoolPropertyView::resized()
 
 void BoolPropertyView::updateValue()
 {
-    if (_property) {
+    if (_property)
+    {
         _toggleButton.setToggleState(_property->value(), dontSendNotification);
     }
 }
 
-void BoolPropertyView::valueChanged(RC505::ValueProperty *property)
+void BoolPropertyView::valueChanged(RC505::ValueProperty* property)
 {
     ignoreUnused(property);
     updateValue();
 }
 
-void BoolPropertyView::buttonClicked(Button *button)
+void BoolPropertyView::buttonClicked(Button* button)
 {
     ignoreUnused(button);
-    if (_property) {
+    if (_property)
+    {
         _property->setValue(_toggleButton.getToggleState());
     }
 }
@@ -106,10 +113,11 @@ void BoolPropertyView::buttonClicked(Button *button)
 // BitSetPropertyView
 // ----------------------------------------------------------------------------
 
-BitSetPropertyView::BitSetPropertyView(RC505::BitSetProperty *property) :
-    _property(nullptr)
+BitSetPropertyView::BitSetPropertyView(RC505::BitSetProperty* property)
+    : _property(nullptr)
 {
-    for (int i = 0; i < property->bits(); ++i) {
+    for (int i = 0; i < property->bits(); ++i)
+    {
         auto toggleButton = new ToggleButton("");
         toggleButton->addListener(this);
         addAndMakeVisible(toggleButton);
@@ -123,13 +131,15 @@ BitSetPropertyView::~BitSetPropertyView()
     setProperty(nullptr);
 }
 
-void BitSetPropertyView::setProperty(RC505::BitSetProperty *property)
+void BitSetPropertyView::setProperty(RC505::BitSetProperty* property)
 {
-    if (_property) {
+    if (_property)
+    {
         _property->removeListener(this);
     }
     _property = property;
-    if (_property) {
+    if (_property)
+    {
         _property->addListener(this);
     }
     updateValue();
@@ -138,31 +148,37 @@ void BitSetPropertyView::setProperty(RC505::BitSetProperty *property)
 void BitSetPropertyView::resized()
 {
     int spacing = getHeight() + 5;
-    for (int i = 0; i < _toggleButtons.size(); ++i) {
+    for (int i = 0; i < _toggleButtons.size(); ++i)
+    {
         _toggleButtons[i]->setBounds(i * spacing, 0, spacing, getHeight());
     }
 }
 
 void BitSetPropertyView::updateValue()
 {
-    if (_property) {
-        for (int i = 0; i < _toggleButtons.size(); ++i) {
+    if (_property)
+    {
+        for (int i = 0; i < _toggleButtons.size(); ++i)
+        {
             _toggleButtons[i]->setToggleState(_property->bitValue(i), dontSendNotification);
         }
     }
 }
 
-void BitSetPropertyView::valueChanged(RC505::ValueProperty *property)
+void BitSetPropertyView::valueChanged(RC505::ValueProperty* property)
 {
     ignoreUnused(property);
     updateValue();
 }
 
-void BitSetPropertyView::buttonClicked(Button *button)
+void BitSetPropertyView::buttonClicked(Button* button)
 {
-    if (_property) {
-        for (int i = 0; i < _toggleButtons.size(); ++i) {
-            if (button == _toggleButtons[i]) {
+    if (_property)
+    {
+        for (int i = 0; i < _toggleButtons.size(); ++i)
+        {
+            if (button == _toggleButtons[i])
+            {
                 _property->setBitValue(i, _toggleButtons[i]->getToggleState());
             }
         }
@@ -173,8 +189,8 @@ void BitSetPropertyView::buttonClicked(Button *button)
 // IntPropertyView
 // ----------------------------------------------------------------------------
 
-IntPropertyView::IntPropertyView(RC505::IntProperty *property) :
-    _property(nullptr)
+IntPropertyView::IntPropertyView(RC505::IntProperty* property)
+    : _property(nullptr)
 {
     _slider.addListener(this);
     addAndMakeVisible(_slider);
@@ -186,14 +202,16 @@ IntPropertyView::~IntPropertyView()
     setProperty(nullptr);
 }
 
-void IntPropertyView::setProperty(RC505::IntProperty *property)
+void IntPropertyView::setProperty(RC505::IntProperty* property)
 {
-    if (_property) {
+    if (_property)
+    {
         _property->removeListener(this);
     }
     _property = property;
     _slider.setProperty(property);
-    if (_property) {
+    if (_property)
+    {
         _property->addListener(this);
     }
     updateValue();
@@ -206,7 +224,8 @@ void IntPropertyView::resized()
 
 void IntPropertyView::updateValue()
 {
-    if (_property) {
+    if (_property)
+    {
         _slider.setSliderStyle(Slider::LinearBar);
         _slider.setRange(_property->type().min, _property->type().max);
         _slider.setSkewFactor(_property->type().skew);
@@ -214,16 +233,17 @@ void IntPropertyView::updateValue()
     }
 }
 
-void IntPropertyView::valueChanged(RC505::ValueProperty *property)
+void IntPropertyView::valueChanged(RC505::ValueProperty* property)
 {
     ignoreUnused(property);
     updateValue();
 }
 
-void IntPropertyView::sliderValueChanged(Slider *slider)
+void IntPropertyView::sliderValueChanged(Slider* slider)
 {
     ignoreUnused(slider);
-    if (_property) {
+    if (_property)
+    {
         _property->setValue(_property->type().fromFloat(float(_slider.getValue())));
     }
 }
@@ -232,8 +252,8 @@ void IntPropertyView::sliderValueChanged(Slider *slider)
 // EnumPropertyView
 // ----------------------------------------------------------------------------
 
-EnumPropertyView::EnumPropertyView(RC505::EnumProperty *property) :
-    _property(nullptr)
+EnumPropertyView::EnumPropertyView(RC505::EnumProperty* property)
+    : _property(nullptr)
 {
     _comboBox.addListener(this);
     addAndMakeVisible(_comboBox);
@@ -245,13 +265,15 @@ EnumPropertyView::~EnumPropertyView()
     setProperty(nullptr);
 }
 
-void EnumPropertyView::setProperty(RC505::EnumProperty *property)
+void EnumPropertyView::setProperty(RC505::EnumProperty* property)
 {
-    if (_property) {
+    if (_property)
+    {
         _property->removeListener(this);
     }
     _property = property;
-    if (_property) {
+    if (_property)
+    {
         _property->addListener(this);
     }
     updateValue();
@@ -264,23 +286,25 @@ void EnumPropertyView::resized()
 
 void EnumPropertyView::updateValue()
 {
-    if (_property) {
+    if (_property)
+    {
         _comboBox.clear();
         _comboBox.addItemList(_property->options(), 1);
         _comboBox.setSelectedItemIndex(_property->value(), dontSendNotification);
     }
 }
 
-void EnumPropertyView::valueChanged(RC505::ValueProperty *property)
+void EnumPropertyView::valueChanged(RC505::ValueProperty* property)
 {
     ignoreUnused(property);
     updateValue();
 }
 
-void EnumPropertyView::comboBoxChanged(ComboBox *comboBox)
+void EnumPropertyView::comboBoxChanged(ComboBox* comboBox)
 {
     ignoreUnused(comboBox);
-    if (_property) {
+    if (_property)
+    {
         _property->setValue(_comboBox.getSelectedItemIndex());
     }
 }
@@ -289,8 +313,8 @@ void EnumPropertyView::comboBoxChanged(ComboBox *comboBox)
 // NamePropertyView
 // ----------------------------------------------------------------------------
 
-NamePropertyView::NamePropertyView(RC505::NameProperty *property) :
-    _property(nullptr)
+NamePropertyView::NamePropertyView(RC505::NameProperty* property)
+    : _property(nullptr)
 {
     _textEditor.setInputRestrictions(12);
     _textEditor.addListener(this);
@@ -303,13 +327,15 @@ NamePropertyView::~NamePropertyView()
     setProperty(nullptr);
 }
 
-void NamePropertyView::setProperty(RC505::NameProperty *property)
+void NamePropertyView::setProperty(RC505::NameProperty* property)
 {
-    if (_property) {
+    if (_property)
+    {
         _property->removeListener(this);
     }
     _property = property;
-    if (_property) {
+    if (_property)
+    {
         _property->addListener(this);
     }
     updateValue();
@@ -322,21 +348,23 @@ void NamePropertyView::resized()
 
 void NamePropertyView::updateValue()
 {
-    if (_property) {
+    if (_property)
+    {
         _textEditor.setText(_property->value(), dontSendNotification);
     }
 }
 
-void NamePropertyView::valueChanged(RC505::ValueProperty *property)
+void NamePropertyView::valueChanged(RC505::ValueProperty* property)
 {
     ignoreUnused(property);
     updateValue();
 }
 
-void NamePropertyView::textEditorTextChanged(TextEditor &textEditor)
+void NamePropertyView::textEditorTextChanged(TextEditor& textEditor)
 {
     ignoreUnused(textEditor);
-    if (_property) {
+    if (_property)
+    {
         _property->setValue(_textEditor.getText());
     }
 }

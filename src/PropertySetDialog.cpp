@@ -1,8 +1,8 @@
-#include "JuceHeader.h"
 #include "PropertySetDialog.h"
 #include "CustomLookAndFeel.h"
+#include "JuceHeader.h"
 
-PropertySetDialog::PropertySetDialog(RC505::Group *group)
+PropertySetDialog::PropertySetDialog(RC505::Group* group)
 {
     addAndMakeVisible(_propertySetTreeView);
     addAndMakeVisible(_buttonCancel);
@@ -14,7 +14,7 @@ PropertySetDialog::PropertySetDialog(RC505::Group *group)
     _buttonOk.addListener(this);
 }
 
-void PropertySetDialog::paint(Graphics &g)
+void PropertySetDialog::paint(Graphics& g)
 {
     g.fillAll(findColour(mainBackgroundColourId));
 }
@@ -26,15 +26,19 @@ void PropertySetDialog::resized()
     _buttonOk.setBounds(getWidth() / 2 + 5, getHeight() - 40, getWidth() / 2 - 15, 30);
 }
 
-void PropertySetDialog::buttonClicked(Button *button)
+void PropertySetDialog::buttonClicked(Button* button)
 {
-    if (button == &_buttonCancel) {
-        if (DialogWindow *dialogWindow = findParentComponentOfClass<DialogWindow>()) {
+    if (button == &_buttonCancel)
+    {
+        if (DialogWindow* dialogWindow = findParentComponentOfClass<DialogWindow>())
+        {
             dialogWindow->exitModalState(0);
         }
     }
-    if (button == &_buttonOk) {
-        if (DialogWindow *dialogWindow = findParentComponentOfClass<DialogWindow>()) {
+    if (button == &_buttonOk)
+    {
+        if (DialogWindow* dialogWindow = findParentComponentOfClass<DialogWindow>())
+        {
             dialogWindow->exitModalState(1);
         }
     }

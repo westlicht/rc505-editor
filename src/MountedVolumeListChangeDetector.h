@@ -5,11 +5,12 @@
 #if JUCE_LINUX
 
 // Dummy class because JUCE does not provide linux implementation
-class MountedVolumeListChangeDetector {
+class MountedVolumeListChangeDetector
+{
 public:
-	MountedVolumeListChangeDetector() {}
+    MountedVolumeListChangeDetector() {}
 
-	virtual void mountedVolumeListChanged() = 0;
+    virtual void mountedVolumeListChanged() = 0;
 };
 
 #endif

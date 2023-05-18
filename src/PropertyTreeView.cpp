@@ -1,18 +1,19 @@
 #include "PropertyTreeView.h"
-#include "PropertyView.h"
 #include "CustomLookAndFeel.h"
+#include "PropertyView.h"
 
 // ----------------------------------------------------------------------------
 // PropertyTreeViewComponent
 // ----------------------------------------------------------------------------
 
-template<typename TProperty, typename TPropertyView>
-class PropertyTreeViewComponent : public Component {
+template <typename TProperty, typename TPropertyView>
+class PropertyTreeViewComponent : public Component
+{
 public:
-    PropertyTreeViewComponent(PropertyTreeView *treeView, TProperty *property) :
-        _treeView(treeView),
-        _property(property),
-        _propertyView(property)
+    PropertyTreeViewComponent(PropertyTreeView* treeView, TProperty* property)
+        : _treeView(treeView)
+        , _property(property)
+        , _propertyView(property)
     {
         addAndMakeVisible(_propertyView);
     }
@@ -23,8 +24,8 @@ public:
     }
 
 private:
-    PropertyTreeView *_treeView;
-    TProperty *_property;
+    PropertyTreeView* _treeView;
+    TProperty* _property;
     TPropertyView _propertyView;
 };
 
@@ -32,10 +33,11 @@ private:
 // PropertyTreeViewItem
 // ----------------------------------------------------------------------------
 
-class PropertyTreeViewItem : public TreeViewItem {
+class PropertyTreeViewItem : public TreeViewItem
+{
 public:
-    PropertyTreeViewItem(RC505::Property *property) :
-        _property(property)
+    PropertyTreeViewItem(RC505::Property* property)
+        : _property(property)
     {
     }
 
@@ -44,11 +46,13 @@ public:
 
     virtual String getUniqueName() const override
     {
-        if (!_property) {
+        if (!_property)
+        {
             return "unknown";
         }
         String name = _property->name();
-        if (getParentItem()) {
+        if (getParentItem())
+        {
             name = getParentItem()->getUniqueName() + name;
         }
         return name;
@@ -56,41 +60,58 @@ public:
 
     virtual void itemOpennessChanged(bool isNowOpen) override
     {
-        if (isNowOpen) {
-            if (const RC505::Group *group = dynamic_cast<const RC505::Group *>(_property)) {
-                for (auto child : group->children()) {
-                    if (child->visible()) {
+        if (isNowOpen)
+        {
+            if (const RC505::Group* group = dynamic_cast<const RC505::Group*>(_property))
+            {
+                for (auto child : group->children())
+                {
+                    if (child->visible())
+                    {
                         addSubItem(new PropertyTreeViewItem(child));
                     }
                 }
             }
-        } else {
+        }
+        else
+        {
             clearSubItems();
         }
     }
 
     virtual std::unique_ptr<Component> createItemComponent() override
     {
-        PropertyTreeView *treeView = static_cast<PropertyTreeView *>(getOwnerView());
-        if (RC505::BoolProperty *boolProperty = dynamic_cast<RC505::BoolProperty *>(_property)) {
+        PropertyTreeView* treeView = static_cast<PropertyTreeView*>(getOwnerView());
+        if (RC505::BoolProperty* boolProperty = dynamic_cast<RC505::BoolProperty*>(_property))
+        {
             return std::make_unique<PropertyTreeViewComponent<RC505::BoolProperty, BoolPropertyView>>(treeView, boolProperty);
-        } else if (RC505::BitSetProperty *bitSetProperty = dynamic_cast<RC505::BitSetProperty *>(_property)) {
+        }
+        else if (RC505::BitSetProperty* bitSetProperty = dynamic_cast<RC505::BitSetProperty*>(_property))
+        {
             return std::make_unique<PropertyTreeViewComponent<RC505::BitSetProperty, BitSetPropertyView>>(treeView, bitSetProperty);
-        } else if (RC505::IntProperty *intProperty = dynamic_cast<RC505::IntProperty *>(_property)) {
+        }
+        else if (RC505::IntProperty* intProperty = dynamic_cast<RC505::IntProperty*>(_property))
+        {
             return std::make_unique<PropertyTreeViewComponent<RC505::IntProperty, IntPropertyView>>(treeView, intProperty);
-        } else  if (RC505::EnumProperty *enumProperty = dynamic_cast<RC505::EnumProperty *>(_property)) {
+        }
+        else if (RC505::EnumProperty* enumProperty = dynamic_cast<RC505::EnumProperty*>(_property))
+        {
             return std::make_unique<PropertyTreeViewComponent<RC505::EnumProperty, EnumPropertyView>>(treeView, enumProperty);
-        } else  if (RC505::NameProperty *nameProperty = dynamic_cast<RC505::NameProperty *>(_property)) {
+        }
+        else if (RC505::NameProperty* nameProperty = dynamic_cast<RC505::NameProperty*>(_property))
+        {
             return std::make_unique<PropertyTreeViewComponent<RC505::NameProperty, NamePropertyView>>(treeView, nameProperty);
-        } else  if (RC505::ValueProperty *valueProperty = dynamic_cast<RC505::ValueProperty *>(_property)) {
+        }
+        else if (RC505::ValueProperty* valueProperty = dynamic_cast<RC505::ValueProperty*>(_property))
+        {
             return std::make_unique<PropertyTreeViewComponent<RC505::ValueProperty, ValuePropertyView>>(treeView, valueProperty);
         }
         return nullptr;
     }
 
-    virtual void paintItem(Graphics &g, int width, int height) override
+    virtual void paintItem(Graphics& g, int width, int height) override
     {
-        auto &lookAndFeel = LookAndFeel::getDefaultLookAndFeel();
+        auto& lookAndFeel = LookAndFeel::getDefaultLookAndFeel();
         const int fontHeight = 14;
         g.setFont(fontHeight);
         g.setColour(lookAndFeel.findColour(mainTextColourId));
@@ -101,19 +122,19 @@ public:
 
     virtual bool mightContainSubItems() override
     {
-        return dynamic_cast<RC505::Group *>(_property) != nullptr;
+        return dynamic_cast<RC505::Group*>(_property) != nullptr;
     }
 
-    RC505::Property *_property;
+    RC505::Property* _property;
 };
 
 // ----------------------------------------------------------------------------
 // PropertyTreeView
 // ----------------------------------------------------------------------------
 
-PropertyTreeView::PropertyTreeView() :
-    _labelWidth(150),
-    _valueWidth(150)
+PropertyTreeView::PropertyTreeView()
+    : _labelWidth(150)
+    , _valueWidth(150)
 {
     setRootItemVisible(false);
     setDefaultOpenness(false);
@@ -126,16 +147,18 @@ PropertyTreeView::~PropertyTreeView()
     setRootItem(nullptr);
 }
 
-void PropertyTreeView::setGroup(RC505::Group *group)
+void PropertyTreeView::setGroup(RC505::Group* group)
 {
     std::unique_ptr<XmlElement> state = getOpennessState(true);
     auto newRoot = group ? std::make_unique<PropertyTreeViewItem>(group) : nullptr;
     setRootItem(newRoot.get());
     _root = std::move(newRoot);
-    if (_root) {
+    if (_root)
+    {
         _root->setOpen(true);
     }
-    if (state) {
+    if (state)
+    {
         restoreOpennessState(*state, true);
     }
 }
@@ -156,10 +179,11 @@ void PropertyTreeView::setValueWidth(int valueWidth)
 // PropertySetTreeViewItem
 // ----------------------------------------------------------------------------
 
-class PropertySetTreeViewItem : public TreeViewItem {
+class PropertySetTreeViewItem : public TreeViewItem
+{
 public:
-    PropertySetTreeViewItem(RC505::Property *property) :
-        _property(property)
+    PropertySetTreeViewItem(RC505::Property* property)
+        : _property(property)
     {
     }
 
@@ -168,22 +192,28 @@ public:
 
     virtual void itemOpennessChanged(bool isNowOpen) override
     {
-        if (isNowOpen) {
-            if (const RC505::Group *group = dynamic_cast<const RC505::Group *>(_property)) {
-                for (auto child : group->children()) {
-                    if (child->visible()) {
+        if (isNowOpen)
+        {
+            if (const RC505::Group* group = dynamic_cast<const RC505::Group*>(_property))
+            {
+                for (auto child : group->children())
+                {
+                    if (child->visible())
+                    {
                         addSubItem(new PropertySetTreeViewItem(child));
                     }
                 }
             }
-        } else {
+        }
+        else
+        {
             clearSubItems();
         }
     }
 
-    virtual void paintItem(Graphics &g, int width, int height) override
+    virtual void paintItem(Graphics& g, int width, int height) override
     {
-        auto &lookAndFeel = LookAndFeel::getDefaultLookAndFeel();
+        auto& lookAndFeel = LookAndFeel::getDefaultLookAndFeel();
         const int fontHeight = 14;
         g.setFont(fontHeight);
         g.setColour(lookAndFeel.findColour(mainTextColourId));
@@ -191,31 +221,38 @@ public:
         String text = _property->name();
         g.drawFittedText(text, area.reduced(4, 2), Justification::left, area.getHeight() / fontHeight);
         auto state = _property->selectedState();
-        lookAndFeel.drawTickBox(g, *getOwnerView(), 2, 2, height - 4, height - 4, state != RC505::Property::Unselected, state !=  RC505::Property::PartiallySelected, false, false);
+        lookAndFeel.drawTickBox(g, *getOwnerView(), 2, 2, height - 4, height - 4, state != RC505::Property::Unselected, state != RC505::Property::PartiallySelected, false, false);
     }
 
-    virtual void itemClicked(const MouseEvent &e) override
+    virtual void itemClicked(const MouseEvent& e) override
     {
         ignoreUnused(e);
-        switch (_property->selectedState()) {
-        case RC505::Property::Unselected: _property->setSelected(true); break;
-        case RC505::Property::Selected: _property->setSelected(false); break;
-        case RC505::Property::PartiallySelected: _property->setSelected(false); break;
+        switch (_property->selectedState())
+        {
+            case RC505::Property::Unselected:
+                _property->setSelected(true);
+                break;
+            case RC505::Property::Selected:
+                _property->setSelected(false);
+                break;
+            case RC505::Property::PartiallySelected:
+                _property->setSelected(false);
+                break;
         }
         treeHasChanged();
     }
 
-    virtual void itemDoubleClicked(const MouseEvent &e) override
+    virtual void itemDoubleClicked(const MouseEvent& e) override
     {
         ignoreUnused(e);
     }
 
     virtual bool mightContainSubItems() override
     {
-        return dynamic_cast<RC505::Group *>(_property) != nullptr;
+        return dynamic_cast<RC505::Group*>(_property) != nullptr;
     }
 
-    RC505::Property *_property;
+    RC505::Property* _property;
 };
 
 // ----------------------------------------------------------------------------
@@ -235,7 +272,7 @@ PropertySetTreeView::~PropertySetTreeView()
     setRootItem(nullptr);
 }
 
-void PropertySetTreeView::setGroup(RC505::Group *group)
+void PropertySetTreeView::setGroup(RC505::Group* group)
 {
     _root = std::make_unique<PropertySetTreeViewItem>(group);
     setRootItem(_root.get());

@@ -10,36 +10,37 @@ class MemoryView : public Component,
                    public RC505::Library::Listener,
                    public DragAndDropContainer,
                    public PatchTreeView::Listener,
-                   public Button::Listener {
+                   public Button::Listener
+{
 public:
-    MemoryView(RC505::Library &library);
+    MemoryView(RC505::Library& library);
     virtual ~MemoryView() override;
 
-    PatchTreeView &patchTreeView() { return _patchTreeView; }
-    PatchView &patchView() { return _patchView; }
+    PatchTreeView& patchTreeView() { return _patchTreeView; }
+    PatchView& patchView() { return _patchView; }
 
     // Component
-    virtual void paint(Graphics &g) override;
+    virtual void paint(Graphics& g) override;
     virtual void resized() override;
-    virtual bool keyPressed(const KeyPress &key) override;
+    virtual bool keyPressed(const KeyPress& key) override;
 
     // PatchTreeView::Listener
-    virtual void patchSelected(RC505::Patch *patch) override;
+    virtual void patchSelected(RC505::Patch* patch) override;
 
     // RC505::Library::Listener
     virtual void beforeLibraryLoaded() override;
     virtual void afterLibraryLoaded() override;
 
     // Button::Listener
-    virtual void buttonClicked(Button *button) override;
+    virtual void buttonClicked(Button* button) override;
 
 private:
     void copyPatchSettings();
     void pastePatchSettings();
 
     static const int PatchTreeViewWidth = 200;
-    
-    RC505::Library &_library;
+
+    RC505::Library& _library;
     PatchTreeView _patchTreeView;
     PatchView _patchView;
 
